@@ -73,12 +73,25 @@ The coefficients satisfy the following conditions:
 \begin{equation*}
 \sup_x \|\partial \sigma(x)\|_{\mathrm{op}}\le L_\sigma.
 \end{equation*}
-\item[(iii)] Under (i)--(ii), \eqref{eq:main_eqn} admits a unique global strong solution for each initial condition,
-and it generates a $C^1$ stochastic flow of maps: there exists a modification such that for a.s.\ $\omega$ and every $t\ge 0$ the map
-$u\mapsto X_t(u,\omega)$ is of class $C^1(\mathbb{R}^d)$ (in particular, it is locally Lipschitz; moreover, it is Lipschitz on every compact set $K\subset\mathbb{R}^d$ with Lipschitz constant $\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}$).
-We emphasize that such assumptions do not, in general, imply a finite global Lipschitz constant $\sup_{u\in\mathbb{R}^d}\|J_t(u,\omega)\|_{\mathrm{op}}$ for fixed $(t,\omega)$; see, e.g., Mohammed--Scheutzow~\cite{mohammed_scheutzow1998}.
 \end{enumerate}
 \end{assumption}
+
+The solution to \eqref{eq:main_eqn} generates a $C^1$ stochastic flow of maps: there exists a modification such that for a.s. $\omega$ and every $t\ge 0$ the map
+$u\mapsto X_t(u,\omega)$ is of class $C^1(\mathbb{R}^d)$, and hence locally Lipschitz.
+\medskip
+
+\iffalse
+% DUPLICATE FLOW REGULARITY BLOCK REMOVED
+The solution to \eqref{eq:main_eqn} generates a $C^1$ stochastic flow of maps: there exists a modification such that for a.s.\ $\omega$ and every $t\ge 0$ the map
+$u\mapsto X_t(u,\omega)$ is of class $C^1(\mathbb{R}^d)$, and hence locally Lipschitz.
+Moreover, for every compact $K\subset\mathbb{R}^d$ it is Lipschitz on $K$ with Lipschitz constant $\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}$.
+
+The solution to \eqref{eq:main_eqn} generates a $C^1$ stochastic flow of maps: there exists a modification such that for a.s.\ $\omega$ and every $t\ge 0$ the map
+$u\mapsto X_t(u,\omega)$ is of class $C^1(\mathbb{R}^d)$, and hence locally Lipschitz.
+Moreover, for every compact $K\subset\mathbb{R}^d$ it is Lipschitz on $K$ with Lipschitz constant $\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}$.
+\medskip
+
+\fi
 
 \begin{definition}[Logarithmic Sobolev inequality]
 Denoting by $\mathcal{C}^1_c(\mathbb{R}^d)$ the set of compactly supported smooth functions from $\mathbb{R}^d$ to $\mathbb{R}$, for $g\ge 0$ with $\int g\,d\mu=1$ we define the entropy
@@ -129,77 +142,6 @@ $\big(\partial f(x)\big)_{ij}:=\partial_{x_j} f_i(x)$.
 
 
 % =========================================================
-
-
-
-
-
-\section{Control of $\mathrm{Lip}(T_t)$ and LSI pushforwards}\label{sec:jacobian}
-% =========================================================
-
-\subsection{Preliminaries: LSI and Lipschitz pushforwards}
-
-\begin{lemma}[LSI stability under Lipschitz pushforwards]\label{lem:lsi-pushforward}
-Let $\mu$ satisfy $\mathrm{LSI}(C)$ and let $T:\mathbb{R}^d\to\mathbb{R}^d$ be $K$-Lipschitz. Then $T_\#\mu:=\mu\circ T^{-1}$ satisfies $\mathrm{LSI}(CK^2)$.
-\end{lemma}
-
-\begin{proof}
-Let $g\in C_c^1(\mathbb{R}^d)$ and set $h=g\circ T$. Then by the change of variables identity,
-$\mathrm{Ent}_{T_\#\mu}(g^2)=\mathrm{Ent}_\mu(h^2)$.
-Applying \eqref{eq:lsi_def} to $h$ gives
-\begin{equation*}
-\mathrm{Ent}_{T_\#\mu}(g^2) \le C\int |\nabla(g\circ T)|^2\,d\mu.
-\end{equation*}
-By the chain rule, $|\nabla(g\circ T)(x)|\le K|\nabla g(T(x))|$ a.e., hence
-\begin{equation*}
-\int |\nabla(g\circ T)|^2\,d\mu \le K^2\int |\nabla g|^2\,d(T_\#\mu),
-\end{equation*}
-which yields $\mathrm{LSI}(CK^2)$ for $T_\#\mu$.
-\end{proof}
-
-\begin{corollary}[Pathwise LSI bound for \eqref{eq:main_eqn}]\label{cor:pathwise-lsi}
-Assume $\mu_0$ satisfies $\mathrm{LSI}(C_0)$. For each $t\ge 0$ and a.s. $\omega$,
-\begin{equation*}
-\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\ \ \Longrightarrow\ \ 
-\mu_t(\omega)\text{ satisfies }\mathrm{LSI}\Big(C_0\,\mathrm{Lip}(T_t(\omega))^2\Big).
-\end{equation*}
-\end{corollary}
-
-Thus, it remains to control the flow Lipschitz constant $\mathrm{Lip}(T_t(\omega))$.
-In general, global (in space) almost sure bounds on spatial derivatives of stochastic flows may fail even under globally Lipschitz assumptions; see \cite{mohammed_scheutzow1998} for counterexamples.
-
-% ---------------------------------------------------------
-\subsection{From the Jacobian matrix to $\mathrm{Lip}(T_t)$}\label{subsec:lip-control}
-% ---------------------------------------------------------
-
-Fix $(t,\omega)$ and assume that the flow map $u\mapsto T_t(\omega,u):=X_t(u,\omega)$ is of class $C^1$.
-We denote its Jacobian matrix by $J_t(u,\omega):=\partial_u T_t(\omega,u)\in\mathbb{R}^{d\times d}$.
-
-\begin{lemma}[Flow Lipschitz constant via Jacobian matrix]\label{lem:lip-via-J}
-For each fixed $(t,\omega)$,
-\begin{equation*}
-\mathrm{Lip}(T_t(\omega)) = \sup_{u\in\mathbb{R}^d}\|J_t(u,\omega)\|_{\mathrm{op}}\in[0,\infty].
-\end{equation*}
-\end{lemma}
-
-\begin{proof}
-Since $u\mapsto T_t(\omega,u)$ is $C^1$, the mean value theorem implies
-\begin{equation*}
-|T_t(u)-T_t(v)| \le \sup_{\theta\in[0,1]}\|J_t(v+\theta(u-v))\|_{\mathrm{op}}\,|u-v|.
-\end{equation*}
-Taking the supremum over $u\neq v$ yields $\mathrm{Lip}(T_t)\le \sup_u\|J_t(u)\|_{\mathrm{op}}$.
-Conversely, for any $u$ and unit vector $\xi$, letting $v=u+\varepsilon\xi$ and sending $\varepsilon\downarrow 0$ gives
-\begin{equation*}
-\|J_t(u)\|_{\mathrm{op}} = \sup_{|\xi|=1}\lim_{\varepsilon\downarrow 0}\frac{|T_t(u+\varepsilon\xi)-T_t(u)|}{\varepsilon}
-\le \mathrm{Lip}(T_t),
-\end{equation*}
-hence equality.
-\end{proof}
-
-
-
-
-
 
 
 
@@ -260,66 +202,50 @@ J_t(u)=\exp\Big(\int_0^t\Big(\partial_x a\big(X_s(u),\mu_s\big)-\tfrac12|\sigma'
 so $|J_t(u)|$ is a random exponential factor.
 \end{remark}
 
-\subsection{Proof of Theorem~\ref{thm:jacobianSDE}}\label{subsec:jacobian-proof}
-
-\begin{proof}
-We give a derivation which makes clear why no derivative of $\mu_t$ appears.
-
-Fix $u\in\mathbb{R}^d$ and a direction $e\in\mathbb{R}^d$ with $|e|=1$. For $h\neq 0$, define the difference quotient
-\begin{equation*}
-\Delta_t^{(h)} := \frac{X_t(u+he)-X_t(u)}{h}.
-\end{equation*}
-Subtract the two SDEs in \eqref{eq:main_eqn} (note that both trajectories use the same random measure $\mu_t$ at time $t$ because they belong to the same flow), obtaining
-\begin{align*}
-d\big(X_t(u+he)-X_t(u)\big)
-&= \Big(a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)\Big)\,dt\\
-&\quad + \Big(\sigma(X_t(u+he))-\sigma(X_t(u))\Big)\,dW_t.
-\end{align*}
-
-Divide by $h$:
-\begin{equation}
-d\Delta_t^{(h)}
-= \frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}\,dt
-+ \frac{\sigma(X_t(u+he))-\sigma(X_t(u))}{h}\,dW_t.
-\label{eq:diffquot}
-\end{equation}
-
-By the mean value theorem and the regularity in Assumption~\ref{ass:general_lipschitz},
-\begin{equation*}
-\frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}
-= \int_0^1 \partial_x a\big(X_t(u)+\theta(X_t(u+he)-X_t(u)),\mu_t\big)\,d\theta\ \Delta_t^{(h)},
-\end{equation*}
-and similarly for $\sigma$, with $\partial\sigma^{(k)}$.
-Denote the averaged matrices by $A_t^{(h)}$ and $B_t^{(h,k)}$. Then \eqref{eq:diffquot} is a linear SDE:
-\begin{equation*}
-d\Delta_t^{(h)} = A_t^{(h)}\,\Delta_t^{(h)}\,dt + \sum_{k=1}^d B_t^{(h,k)}\,\Delta_t^{(h)}\,dW_t^k,
-\qquad \Delta_0^{(h)} = e.
-\end{equation*}
-Uniform boundedness of $A_t^{(h)}$ and $B_t^{(h,k)}$ follows from Assumption~\ref{ass:general_lipschitz}.
-Standard stability results for linear SDEs with uniformly bounded coefficients imply that, as $h\to 0$,
-$\Delta_t^{(h)}$ converges in probability (and, along subsequences, almost surely) to the directional derivative $J_t(u)e$.
-Passing to the limit in the coefficients yields
-\begin{equation*}
-d(J_t(u)e)= A_t(u)\,(J_t(u)e)\,dt + \sum_{k=1}^d B_t^{(k)}(u)\,(J_t(u)e)\,dW_t^k,
-\qquad J_0(u)e=e.
-\end{equation*}
-Since this holds for every basis vector $e$, it yields the matrix SDE \eqref{eq:JacSDE}.
-\end{proof}
+% \subsection{Proof of Theorem~\ref{thm:jacobianSDE}}\label{subsec:jacobian-proof}
 
 % \begin{proof}
-% From \eqref{eq:directional-pathwise},
-% $|J_t(u)\xi|^{2q}\le \exp(q(2L+dL_\sigma^2)t)\exp(qN_t)$.
-% Since $\langle N\rangle_t\le 4dL_\sigma^2 t$, the exponential martingale inequality gives
+% We give a derivation which makes clear why no derivative of $\mu_t$ appears.
+
+% Fix $u\in\mathbb{R}^d$ and a direction $e\in\mathbb{R}^d$ with $|e|=1$. For $h\neq 0$, define the difference quotient
 % \begin{equation*}
-% \mathbb{E}\,e^{qN_t}
-% =\mathbb{E}\Big[e^{qN_t-\frac12 q^2\langle N\rangle_t}\,e^{\frac12 q^2\langle N\rangle_t}\Big]
-% \le \exp\Big(\tfrac12 q^2\cdot 4dL_\sigma^2 t\Big),
+% \Delta_t^{(h)} := \frac{X_t(u+he)-X_t(u)}{h}.
 % \end{equation*}
-% which yields \eqref{eq:moment-direction}.
-% For \eqref{eq:moment-op}, note $\|J\|_{\mathrm{op}}\le \|J\|_{\mathrm{HS}}$ and
-% $\|J\|_{\mathrm{HS}}^2=\sum_{i=1}^d |Je_i|^2$.
-% For $q\ge1$, $(\sum_{i=1}^d a_i)^q\le d^{q-1}\sum_{i=1}^d a_i^q$ for $a_i\ge0$; apply this with $a_i=|J_te_i|^2$
-% and then use \eqref{eq:moment-direction} for each $e_i$.
+% Subtract the two SDEs in \eqref{eq:main_eqn} (note that both trajectories use the same random measure $\mu_t$ at time $t$ because they belong to the same flow), obtaining
+% \begin{align*}
+% d\big(X_t(u+he)-X_t(u)\big)
+% &= \Big(a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)\Big)\,dt\\
+% &\quad + \Big(\sigma(X_t(u+he))-\sigma(X_t(u))\Big)\,dW_t.
+% \end{align*}
+
+% Divide by $h$:
+% \begin{equation}
+% d\Delta_t^{(h)}
+% = \frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}\,dt
+% + \frac{\sigma(X_t(u+he))-\sigma(X_t(u))}{h}\,dW_t.
+% \label{eq:diffquot}
+% \end{equation}
+
+% By the mean value theorem and the regularity in Assumption~\ref{ass:general_lipschitz},
+% \begin{equation*}
+% \frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}
+% = \int_0^1 \partial_x a\big(X_t(u)+\theta(X_t(u+he)-X_t(u)),\mu_t\big)\,d\theta\ \Delta_t^{(h)},
+% \end{equation*}
+% and similarly for $\sigma$, with $\partial\sigma^{(k)}$.
+% Denote the averaged matrices by $A_t^{(h)}$ and $B_t^{(h,k)}$. Then \eqref{eq:diffquot} is a linear SDE:
+% \begin{equation*}
+% d\Delta_t^{(h)} = A_t^{(h)}\,\Delta_t^{(h)}\,dt + \sum_{k=1}^d B_t^{(h,k)}\,\Delta_t^{(h)}\,dW_t^k,
+% \qquad \Delta_0^{(h)} = e.
+% \end{equation*}
+% Uniform boundedness of $A_t^{(h)}$ and $B_t^{(h,k)}$ follows from Assumption~\ref{ass:general_lipschitz}.
+% Standard stability results for linear SDEs with uniformly bounded coefficients imply that, as $h\to 0$,
+% $\Delta_t^{(h)}$ converges in probability (and, along subsequences, almost surely) to the directional derivative $J_t(u)e$.
+% Passing to the limit in the coefficients yields
+% \begin{equation*}
+% d(J_t(u)e)= A_t(u)\,(J_t(u)e)\,dt + \sum_{k=1}^d B_t^{(k)}(u)\,(J_t(u)e)\,dW_t^k,
+% \qquad J_0(u)e=e.
+% \end{equation*}
+% Since this holds for every basis vector $e$, it yields the matrix SDE \eqref{eq:JacSDE}.
 % \end{proof}
 
 
@@ -387,7 +313,6 @@ Consequently,
 \end{equation}
 \end{corollary}
 
-
 \begin{definition}[Random Jacobian matrix/Lipschitz constant on a set]\label{def:jacobian-constant}
 For a (nonempty) set $K\subset\mathbb{R}^d$, define
 \begin{equation*}
@@ -411,6 +336,27 @@ If $\mu_0$ satisfies $\mathrm{LSI}(C_0)$ and $\mathrm{supp}(\mu_0)\subset K$ for
 \mu_t(\omega)\text{ satisfies }\mathrm{LSI}\big(C_0\,\mathcal{K}_t(\omega;K)^2\big).
 \end{equation*}
 \end{corollary}
+
+\begin{lemma}[Flow Lipschitz constant via Jacobian matrix]\label{lem:lip-via-J}
+For each fixed $(t,\omega)$ such that the flow map $u\mapsto T_t(\omega,u):=X_t(u,\omega)$ is of class $C^1$,
+\begin{equation*}
+\mathrm{Lip}(T_t(\omega)) = \sup_{u\in\mathbb{R}^d}\|J_t(u,\omega)\|_{\mathrm{op}}\in[0,\infty].
+\end{equation*}
+\end{lemma}
+
+\begin{proof}
+Since $u\mapsto T_t(\omega,u)$ is $C^1$, the mean value theorem implies
+\begin{equation*}
+|T_t(u)-T_t(v)| \le \sup_{\theta\in[0,1]}\|J_t(v+\theta(u-v))\|_{\mathrm{op}}\,|u-v|.
+\end{equation*}
+Taking the supremum over $u\neq v$ yields $\mathrm{Lip}(T_t)\le \sup_u\|J_t(u)\|_{\mathrm{op}}$.
+Conversely, for any $u$ and unit vector $\xi$, letting $v=u+\varepsilon\xi$ and sending $\varepsilon\downarrow 0$ gives
+\begin{equation*}
+\|J_t(u)\|_{\mathrm{op}} = \sup_{|\xi|=1}\lim_{\varepsilon\downarrow 0}\frac{|T_t(u+\varepsilon\xi)-T_t(u)|}{\varepsilon}
+\le \mathrm{Lip}(T_t),
+\end{equation*}
+hence equality.
+\end{proof}
 
 \bibliographystyle{amsplain}
 \bibliography{bibliography}
