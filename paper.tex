@@ -2,8 +2,6 @@
 \usepackage{graphicx}
 \usepackage{amsthm}
 \newtheorem{assumption}{Assumption}
-%%
-%--%Place your definitions here
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
@@ -48,7 +46,10 @@ X_0(u)=u,\\[1mm]
 \end{cases}
 \label{eq:main_eqn}
 \end{equation}
-Here $\mu_0$ is a deterministic initial probability measure, the drift $a:\mathbb{R}^d\times\mathcal{P}_2(\mathbb{R}^d)\to\mathbb{R}^d$ may depend on the current measure, and the diffusion coefficient $\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}$ is state-dependent and non-constant.
+Here $\mu_0$ is a deterministic initial probability measure, 
+$a:\mathbb{R}^d\times\mathcal{P}_2(\mathbb{R}^d)\to\mathbb{R}^d$ is the drift, where 
+$\mathcal{P}_2(\mathbb{R}^d)$ denotes the space of Borel probability measures on $\mathbb{R}^d$ with finite second moment, 
+and the diffusion coefficient $\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}$ is state-dependent and non-constant.
 
 
 
@@ -62,16 +63,34 @@ acts on the initial measure by pushforward,
 \end{equation*}
 so the evolution is best viewed as a random transport of measures by a stochastic flow.  Such equations are called Stochastic Differential Equations with Interactions and were proposed by Andrey A. Dorogovtsev in \cite{dorogovtsev2003}. 
 
+\subsection*{Notation}
+We write $|\cdot|$ for the Euclidean norm on $\mathbb{R}^d$.
+For a matrix $M\in\mathbb{R}^{d\times d}$ we set
+\begin{equation*}
+\|M\|_{\mathrm{op}}:=\sup_{|v|=1}|Mv|,
+\end{equation*}
+
+
+
+For $\sigma=(\sigma^{(1)},\ldots,\sigma^{(d)})$ with columns $\sigma^{(k)}:\mathbb{R}^d\to\mathbb{R}^d$, we define
+\begin{equation*}
+\|\partial\sigma(x)\|_{\mathrm{op}}:=\max_{1\le k\le d}\|\partial \sigma^{(k)}(x)\|_{\mathrm{op}}.
+\end{equation*}
+
 \begin{assumption}[A2]\label{ass:general_lipschitz}
 The coefficients satisfy the following conditions:
 \begin{enumerate}
-\item[(i)] The map $x\mapsto a(x,\mu)$ is $C^1$ for each $\mu\in\mathcal{P}_2(\mathbb{R}^d)$ and
+\item[(i)] The map $x\mapsto a(x,\mu)$ is $C^2$ for each $\mu\in\mathcal{P}_2(\mathbb{R}^d)$ and
 \begin{equation*}
 \sup_{x,\mu}\|\partial_x a(x,\mu)\|_{\mathrm{op}}\le L.
 \end{equation*}
-\item[(ii)] The diffusion $\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}$ is $C^1$ and there exists $L_\sigma<\infty$ such that
+\item[(ii)] The diffusion $\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}$ is $C^2$ and there exists $L_\sigma<\infty$ such that
 \begin{equation*}
 \sup_x \|\partial \sigma(x)\|_{\mathrm{op}}\le L_\sigma.
+\end{equation*}
+\item[(iii)] There exists $L_\mu<\infty$ such that for all $x\in\mathbb{R}^d$ and all $\mu,\nu\in\mathcal{P}_2(\mathbb{R}^d)$,
+\begin{equation*}
+|a(x,\mu)-a(x,\nu)|\le L_\mu\,W_2(\mu,\nu).
 \end{equation*}
 \end{enumerate}
 \end{assumption}
@@ -108,21 +127,8 @@ A probability measure $\mu$ on $\mathbb{R}^d$ is said to satisfy a logarithmic S
 
 In the constant diffusion case $\sigma(x)\equiv \sigma_0$, the flow $T_t(\omega)$ is (pathwise) Lipschitz with a deterministic bound with $\mathrm{Lip}(T_t)\le e^{Lt}$ if $a(\cdot,\mu)$ is $L$-Lipschitz in space, which immediately implies propagation of LSI with a deterministic constant $C_0 e^{2Lt}$.
 
-\subsection*{Notation}
-We write $|\cdot|$ for the Euclidean norm on $\mathbb{R}^d$.
-For a matrix $M\in\mathbb{R}^{d\times d}$ we set
-\begin{equation*}
-\|M\|_{\mathrm{op}}:=\sup_{|v|=1}|Mv|,
-\qquad
-\|M\|_{\mathrm{HS}}:=\Big(\sum_{i,j=1}^d M_{ij}^2\Big)^{1/2}.
-\end{equation*}
-For $\sigma=(\sigma^{(1)},\ldots,\sigma^{(d)})$ with columns $\sigma^{(k)}:\mathbb{R}^d\to\mathbb{R}^d$, we define
-\begin{equation*}
-\|\partial\sigma(x)\|_{\mathrm{op}}:=\max_{1\le k\le d}\|\partial \sigma^{(k)}(x)\|_{\mathrm{op}}.
-\end{equation*}
 
-Given a map $f:\mathbb{R}^d\to\mathbb{R}^m$ of class $C^1$, we write $\partial f(x)$ for its Jacobian matrix, i.e.
-$\big(\partial f(x)\big)_{ij}:=\partial_{x_j} f_i(x)$.
+
 
 
 
@@ -166,9 +172,7 @@ We now state the SDE satisfied by $J_t(u)$.
 \begin{theorem}[Jacobian matrix SDE for \eqref{eq:main_eqn}]\label{thm:jacobianSDE}
 Under Assumption~\ref{ass:general_lipschitz}, for each $u\in\mathbb{R}^d$, the Jacobian matrix process $J_t(u)$ exists and satisfies the linear matrix SDE (cf.\ \cite{Kunita1986,dorogovtsev2023intermittency})
 \begin{equation}
-\boxed{
 dJ_t(u)= A_t(u)\,J_t(u)\,dt + \sum_{k=1}^d B_t^{(k)}(u)\,J_t(u)\,dW_t^{k},\qquad J_0(u)=I,
-}
 \label{eq:JacSDE}
 \end{equation}
 where
@@ -202,54 +206,9 @@ J_t(u)=\exp\Big(\int_0^t\Big(\partial_x a\big(X_s(u),\mu_s\big)-\tfrac12|\sigma'
 so $|J_t(u)|$ is a random exponential factor.
 \end{remark}
 
-% \subsection{Proof of Theorem~\ref{thm:jacobianSDE}}\label{subsec:jacobian-proof}
-
-% \begin{proof}
-% We give a derivation which makes clear why no derivative of $\mu_t$ appears.
-
-% Fix $u\in\mathbb{R}^d$ and a direction $e\in\mathbb{R}^d$ with $|e|=1$. For $h\neq 0$, define the difference quotient
-% \begin{equation*}
-% \Delta_t^{(h)} := \frac{X_t(u+he)-X_t(u)}{h}.
-% \end{equation*}
-% Subtract the two SDEs in \eqref{eq:main_eqn} (note that both trajectories use the same random measure $\mu_t$ at time $t$ because they belong to the same flow), obtaining
-% \begin{align*}
-% d\big(X_t(u+he)-X_t(u)\big)
-% &= \Big(a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)\Big)\,dt\\
-% &\quad + \Big(\sigma(X_t(u+he))-\sigma(X_t(u))\Big)\,dW_t.
-% \end{align*}
-
-% Divide by $h$:
-% \begin{equation}
-% d\Delta_t^{(h)}
-% = \frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}\,dt
-% + \frac{\sigma(X_t(u+he))-\sigma(X_t(u))}{h}\,dW_t.
-% \label{eq:diffquot}
-% \end{equation}
-
-% By the mean value theorem and the regularity in Assumption~\ref{ass:general_lipschitz},
-% \begin{equation*}
-% \frac{a(X_t(u+he),\mu_t)-a(X_t(u),\mu_t)}{h}
-% = \int_0^1 \partial_x a\big(X_t(u)+\theta(X_t(u+he)-X_t(u)),\mu_t\big)\,d\theta\ \Delta_t^{(h)},
-% \end{equation*}
-% and similarly for $\sigma$, with $\partial\sigma^{(k)}$.
-% Denote the averaged matrices by $A_t^{(h)}$ and $B_t^{(h,k)}$. Then \eqref{eq:diffquot} is a linear SDE:
-% \begin{equation*}
-% d\Delta_t^{(h)} = A_t^{(h)}\,\Delta_t^{(h)}\,dt + \sum_{k=1}^d B_t^{(h,k)}\,\Delta_t^{(h)}\,dW_t^k,
-% \qquad \Delta_0^{(h)} = e.
-% \end{equation*}
-% Uniform boundedness of $A_t^{(h)}$ and $B_t^{(h,k)}$ follows from Assumption~\ref{ass:general_lipschitz}.
-% Standard stability results for linear SDEs with uniformly bounded coefficients imply that, as $h\to 0$,
-% $\Delta_t^{(h)}$ converges in probability (and, along subsequences, almost surely) to the directional derivative $J_t(u)e$.
-% Passing to the limit in the coefficients yields
-% \begin{equation*}
-% d(J_t(u)e)= A_t(u)\,(J_t(u)e)\,dt + \sum_{k=1}^d B_t^{(k)}(u)\,(J_t(u)e)\,dW_t^k,
-% \qquad J_0(u)e=e.
-% \end{equation*}
-% Since this holds for every basis vector $e$, it yields the matrix SDE \eqref{eq:JacSDE}.
-% \end{proof}
 
 
-\section{Pathwise control of $\|J_t\|$ and a ``Jacobian matrix/Lipschitz constant''}\label{subsec:jacobian-constant}
+\section{Pathwise control of $\|J_t\|$ and a random Lipschitz constant}\label{subsec:jacobian-constant}
 % ---------------------------------------------------------
 
 Throughout, fix $u\in\mathbb{R}^d$ and a unit vector $\xi\in\mathbb{R}^d$.
@@ -313,6 +272,58 @@ Consequently,
 \end{equation}
 \end{corollary}
 
+\begin{proof}
+From Proposition~\ref{prop:directional-exp-bound},
+\begin{equation*}
+|J_t(u)\xi|^{2}
+\le \exp\Big((2L+dL_\sigma^2)t+N_t(u,\xi)\Big),
+\end{equation*}
+where $N_t(u,\xi)$ is a continuous local martingale satisfying
+\begin{equation*}
+\langle N(u,\xi)\rangle_t\le 4dL_\sigma^2 t.
+\end{equation*}
+Therefore, for every $q\ge1$,
+\begin{equation*}
+|J_t(u)\xi|^{2q}
+\le \exp\Big(q(2L+dL_\sigma^2)t+qN_t(u,\xi)\Big).
+\end{equation*}
+Taking expectations and using the exponential martingale estimate
+\begin{equation*}
+\mathbb{E}e^{qN_t}
+\le \exp\Big(\frac{q^2}{2}\langle N\rangle_t^{\max}\Big)
+\le \exp\big(2q^2 dL_\sigma^2 t\big),
+\end{equation*}
+we obtain
+\begin{equation*}
+\mathbb{E}\,|J_t(u)\xi|^{2q}
+\le \exp\Big(q(2L+dL_\sigma^2)t+2q^2dL_\sigma^2 t\Big),
+\end{equation*}
+which is \eqref{eq:moment-direction}.
+
+Next, let $(e_1,\dots,e_d)$ be the canonical basis of $\mathbb{R}^d$. Since
+\begin{equation*}
+\|J_t(u)\|_{\mathrm{HS}}^2=\sum_{i=1}^d |J_t(u)e_i|^2,
+\end{equation*}
+and $x\mapsto x^q$ is convex on $[0,\infty)$ for $q\ge1$,
+\begin{equation*}
+\|J_t(u)\|_{\mathrm{HS}}^{2q}
+=\Big(\sum_{i=1}^d |J_t(u)e_i|^2\Big)^q
+\le d^{\,q-1}\sum_{i=1}^d |J_t(u)e_i|^{2q}.
+\end{equation*}
+Taking expectations and applying \eqref{eq:moment-direction} to each basis vector gives
+\begin{equation*}
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{HS}}^{2q}
+\le d^{\,q}\exp\Big(q(2L+dL_\sigma^2)t+2q^2 dL_\sigma^2 t\Big).
+\end{equation*}
+Finally, since $\|M\|_{\mathrm{op}}\le \|M\|_{\mathrm{HS}}$ for every matrix $M$, we also have
+\begin{equation*}
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{op}}^{2q}
+\le
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{HS}}^{2q}.
+\end{equation*}
+This proves \eqref{eq:moment-op}.
+\end{proof}
+
 \begin{definition}[Random Jacobian matrix/Lipschitz constant on a set]\label{def:jacobian-constant}
 For a (nonempty) set $K\subset\mathbb{R}^d$, define
 \begin{equation*}
@@ -357,6 +368,782 @@ Conversely, for any $u$ and unit vector $\xi$, letting $v=u+\varepsilon\xi$ and 
 \end{equation*}
 hence equality.
 \end{proof}
+
+
+
+\section{Finite-time moment bounds for $\mathcal{K}_t(\cdot;K)$}\label{sec:Kt-moment} 
+
+The pointwise estimate in Corollary~\ref{cor:moment-bound} controls $\|J_t(u)\|_{\mathrm{op}}$ for fixed $u$. To control the random Lipschitz constant
+\begin{equation}
+\mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}
+\end{equation}
+on a compact set $K$, we impose the following additional spatial regularity assumption. \begin{assumption}\label{ass:spatial-lip-derivatives} There exist constants $L^{(2)}<\infty$ and $L_\sigma^{(2)}<\infty$ such that for all $\mu\in\mathcal{P}_2(\mathbb{R}^d)$ and all $x,y\in\mathbb{R}^d$, \begin{align*} \|\partial_x a(x,\mu)-\partial_x a(y,\mu)\|_{\mathrm{op}} &\le L^{(2)}\,|x-y|,\\ \max_{1\le k\le d}\|\partial \sigma^{(k)}(x)-\partial \sigma^{(k)}(y)\|_{\mathrm{op}} &\le L_\sigma^{(2)}\,|x-y|. \end{align*} \end{assumption} \begin{proposition}[Moment bound for $\mathcal{K}_t(\cdot;K)$]\label{prop:Kt-moment} Assume Assumption~\ref{ass:general_lipschitz} and Assumption~\ref{ass:spatial-lip-derivatives}. Then for every compact $K\subset\mathbb{R}^d$, every $p\ge 1$, and every $t\ge0$, \begin{equation}\label{eq:Kt-finite-moment} \mathbb{E}\,\mathcal{K}_t(\cdot;K)^p<\infty. \end{equation} Moreover, there exist constants $C_{p,K},c_p<\infty$ (depending only on $p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}$) such that \begin{equation}\label{eq:Kt-exp-growth} \mathbb{E}\,\mathcal{K}_t(\cdot;K)^p \le C_{p,K}\,e^{c_p t}, \qquad t\ge0. \end{equation} \end{proposition}
+
+\begin{proof}
+Fix a compact set $K\subset\mathbb{R}^d$, $t\ge0$, and $p\ge1$.
+Choose an even integer $m>\max\{2p,2d\}$.
+It is enough to prove \eqref{eq:Kt-exp-growth} with $p$ replaced by $m$, because then H\"older's inequality gives
+\[
+\mathbb{E}\,\mathcal{K}_t(\cdot;K)^p
+\le
+\big(\mathbb{E}\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
+\]
+
+\smallskip
+\noindent\emph{Step 1: Moment bounds for flow increments.}
+Fix $u,v\in\mathbb{R}^d$ and set
+\[
+\Delta X_t:=X_t(u)-X_t(v).
+\]
+Since the same random measure $\mu_t$ appears in both equations, subtraction yields
+\[
+d\Delta X_t
+=
+\big(a(X_t(u),\mu_t)-a(X_t(v),\mu_t)\big)\,dt
++
+\big(\sigma(X_t(u))-\sigma(X_t(v))\big)\,dW_t.
+\]
+By the mean value theorem and Assumption~\ref{ass:general_lipschitz}, there exist adapted matrix-valued processes
+$\widetilde A_t(u,v)$ and $\widetilde B_t^{(1)}(u,v),\dots,\widetilde B_t^{(d)}(u,v)$ such that
+\[
+d\Delta X_t
+=
+\widetilde A_t(u,v)\,\Delta X_t\,dt
++
+\sum_{k=1}^d \widetilde B_t^{(k)}(u,v)\,\Delta X_t\,dW_t^k,
+\qquad
+\Delta X_0=u-v,
+\]
+and
+\[
+\|\widetilde A_t(u,v)\|_{\mathrm{op}}\le L,
+\qquad
+\|\widetilde B_t^{(k)}(u,v)\|_{\mathrm{op}}\le L_\sigma.
+\]
+Applying Corollary~\ref{cor:moment-bound} to this linear equation, with exponent $m$, gives
+\begin{equation}\label{eq:DX-moment-fullproof}
+\mathbb{E}\,|\Delta X_t|^m
+\le C_m e^{c_m t}|u-v|^m,
+\qquad u,v\in\mathbb{R}^d,
+\end{equation}
+for constants $C_m,c_m<\infty$ depending only on $m,d,L,L_\sigma$.
+
+\smallskip
+\noindent\emph{Step 2: Uniform moment bounds for $J_t(u)$.}
+By Corollary~\ref{cor:moment-bound}, for every $q\ge1$ and every $u\in\mathbb{R}^d$,
+\[
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{op}}^{2q}
+\le d^q \exp\Big(q(2L+dL_\sigma^2)t+2q^2 dL_\sigma^2 t\Big).
+\]
+In particular, taking $q=m/2$ and $q=m$, we obtain
+\begin{equation}\label{eq:J-moment-fullproof}
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{op}}^m
+\le C_m e^{c_m t},
+\qquad
+\mathbb{E}\,\|J_t(u)\|_{\mathrm{op}}^{2m}
+\le C_m e^{c_m t},
+\end{equation}
+uniformly in $u\in\mathbb{R}^d$.
+
+\smallskip
+\noindent\emph{Step 3: Increment estimate for $u\mapsto J_t(u)$.}
+Fix $u,v\in\mathbb{R}^d$ and define
+\[
+D_t:=J_t(u)-J_t(v).
+\]
+Subtracting the Jacobian equations \eqref{eq:JacSDE} at $u$ and $v$, we obtain
+\begin{equation}\label{eq:D-SDE-fullproof}
+\begin{aligned}
+dD_t
+&=
+A_t(u)D_t\,dt+\sum_{k=1}^d B_t^{(k)}(u)D_t\,dW_t^k \\
+&\quad
++\big(A_t(u)-A_t(v)\big)J_t(v)\,dt
++\sum_{k=1}^d \big(B_t^{(k)}(u)-B_t^{(k)}(v)\big)J_t(v)\,dW_t^k,
+\qquad D_0=0,
+\end{aligned}
+\end{equation}
+where
+\[
+A_t(w):=\partial_x a(X_t(w),\mu_t),
+\qquad
+B_t^{(k)}(w):=\partial_x \sigma^{(k)}(X_t(w)).
+\]
+By Assumptions~\ref{ass:general_lipschitz} and \ref{ass:spatial-lip-derivatives},
+\[
+\|A_t(w)\|_{\mathrm{op}}\le L,
+\qquad
+\|B_t^{(k)}(w)\|_{\mathrm{op}}\le L_\sigma,
+\]
+and
+\begin{equation}\label{eq:AB-difference-fullproof}
+\|A_t(u)-A_t(v)\|_{\mathrm{op}}
+\le L^{(2)}|X_t(u)-X_t(v)|,
+\qquad
+\|B_t^{(k)}(u)-B_t^{(k)}(v)\|_{\mathrm{op}}
+\le L_\sigma^{(2)}|X_t(u)-X_t(v)|.
+\end{equation}
+
+We estimate $\mathbb{E}\sup_{s\le t}\|D_s\|_{\mathrm{HS}}^m$.
+Write
+\[
+F_s:=\big(A_s(u)-A_s(v)\big)J_s(v),
+\qquad
+G_s^{(k)}:=\big(B_s^{(k)}(u)-B_s^{(k)}(v)\big)J_s(v).
+\]
+Then \eqref{eq:D-SDE-fullproof} becomes
+\[
+dD_t
+=
+A_t(u)D_t\,dt+\sum_{k=1}^d B_t^{(k)}(u)D_t\,dW_t^k
++
+F_t\,dt+\sum_{k=1}^d G_t^{(k)}\,dW_t^k,
+\qquad D_0=0.
+\]
+
+Integrating from $0$ to $s\le t$,
+\[
+D_s
+=
+\int_0^s A_r(u)D_r\,dr
++\sum_{k=1}^d \int_0^s B_r^{(k)}(u)D_r\,dW_r^k
++\int_0^s F_r\,dr
++\sum_{k=1}^d \int_0^s G_r^{(k)}\,dW_r^k.
+\]
+Hence, using $(a_1+\cdots+a_4)^m\le C_m(a_1^m+\cdots+a_4^m)$,
+\begin{align*}
+\sup_{s\le t}\|D_s\|_{\mathrm{HS}}^m
+&\le
+C_m\Bigg[
+\sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\mathrm{HS}}^m
++
+\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s B_r^{(k)}(u)D_r\,dW_r^k\Big\|_{\mathrm{HS}}^m \\
+&\hspace{2cm}
++
+\sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\mathrm{HS}}^m
++
+\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s G_r^{(k)}\,dW_r^k\Big\|_{\mathrm{HS}}^m
+\Bigg].
+\end{align*}
+Taking expectations, we estimate each term separately.
+
+% For the drift term involving $A_r(u)D_r$,
+% \[
+% \sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\mathrm{HS}}
+% \le
+% L\int_0^t \|D_r\|_{\mathrm{HS}}\,dr,
+% \]
+% hence by Jensen's inequality,
+% \[
+% \mathbb{E}\sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\mathrm{HS}}^m
+% \le
+% L^m t^{m-1}\int_0^t \mathbb{E}\sup_{\rho\le r}\|D_\rho\|_{\mathrm{HS}}^m\,dr.
+% \]
+
+% For the stochastic term involving $B_r^{(k)}(u)D_r$, the Burkholder--Davis--Gundy inequality yields
+% \begin{align*}
+% \mathbb{E}\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s B_r^{(k)}(u)D_r\,dW_r^k\Big\|_{\mathrm{HS}}^m
+% &\le
+% C_m\,
+% \mathbb{E}\Big(\int_0^t \sum_{k=1}^d \|B_r^{(k)}(u)D_r\|_{\mathrm{HS}}^2\,dr\Big)^{m/2} \\
+% &\le
+% C_m\,
+% \mathbb{E}\Big(\int_0^t dL_\sigma^2\,\|D_r\|_{\mathrm{HS}}^2\,dr\Big)^{m/2}.
+% \end{align*}
+% Since \(m\ge2\), Jensen's inequality gives
+% \[
+% \Big(\int_0^t \|D_r\|_{\mathrm{HS}}^2\,dr\Big)^{m/2}
+% \le
+% t^{\frac m2-1}\int_0^t \|D_r\|_{\mathrm{HS}}^m\,dr
+% \le
+% t^{\frac m2-1}\int_0^t \sup_{\rho\le r}\|D_\rho\|_{\mathrm{HS}}^m\,dr,
+% \]
+% so
+% \[
+% \mathbb{E}\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s B_r^{(k)}(u)D_r\,dW_r^k\Big\|_{\mathrm{HS}}^m
+% \le
+% C_m t^{\frac m2-1}\int_0^t \mathbb{E}\sup_{\rho\le r}\|D_\rho\|_{\mathrm{HS}}^m\,dr.
+% \]
+
+% Next,
+% \[
+% \sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\mathrm{HS}}^m
+% \le
+% t^{m-1}\int_0^t \|F_r\|_{\mathrm{HS}}^m\,dr,
+% \]
+% hence
+% \[
+% \mathbb{E}\sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\mathrm{HS}}^m
+% \le
+% t^{m-1}\int_0^t \mathbb{E}\|F_r\|_{\mathrm{HS}}^m\,dr.
+% \]
+
+% Similarly, by BDG,
+% \begin{align*}
+% \mathbb{E}\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s G_r^{(k)}\,dW_r^k\Big\|_{\mathrm{HS}}^m
+% &\le
+% C_m\,\mathbb{E}\Big(\int_0^t \sum_{k=1}^d \|G_r^{(k)}\|_{\mathrm{HS}}^2\,dr\Big)^{m/2} \\
+% &\le
+% C_m t^{\frac m2-1}\int_0^t \sum_{k=1}^d \mathbb{E}\|G_r^{(k)}\|_{\mathrm{HS}}^m\,dr.
+% \end{align*}
+......(!!!Missed proof!!!!!).....
+Combining the four estimates, we obtain
+\begin{equation}\label{eq:gronwall-ineq-fullproof}
+\Phi(t)
+\le
+C_m\int_0^t \Phi(r)\,dr
++
+C_m(1+t^{m-1}+t^{\frac m2-1})\int_0^t
+\Big(
+\mathbb{E}\|F_r\|_{\mathrm{HS}}^m
++
+\sum_{k=1}^d \mathbb{E}\|G_r^{(k)}\|_{\mathrm{HS}}^m
+\Big)\,dr,
+\end{equation}
+where
+\[
+\Phi(t):=\mathbb{E}\sup_{s\le t}\|D_s\|_{\mathrm{HS}}^m.
+\]
+
+We now estimate the forcing terms.
+By \eqref{eq:AB-difference-fullproof},
+\[
+\|F_r\|_{\mathrm{HS}}
+\le
+L^{(2)}|X_r(u)-X_r(v)|\,\|J_r(v)\|_{\mathrm{HS}},
+\]
+and
+\[
+\|G_r^{(k)}\|_{\mathrm{HS}}
+\le
+L_\sigma^{(2)}|X_r(u)-X_r(v)|\,\|J_r(v)\|_{\mathrm{HS}}.
+\]
+Hence, by Hölder's inequality,
+\begin{align*}
+\mathbb{E}\|F_r\|_{\mathrm{HS}}^m
+&\le
+C\,
+\Big(\mathbb{E}|X_r(u)-X_r(v)|^{2m}\Big)^{1/2}
+\Big(\mathbb{E}\|J_r(v)\|_{\mathrm{HS}}^{2m}\Big)^{1/2}, \\
+\mathbb{E}\|G_r^{(k)}\|_{\mathrm{HS}}^m
+&\le
+C\,
+\Big(\mathbb{E}|X_r(u)-X_r(v)|^{2m}\Big)^{1/2}
+\Big(\mathbb{E}\|J_r(v)\|_{\mathrm{HS}}^{2m}\Big)^{1/2}.
+\end{align*}
+Since \(\|M\|_{\mathrm{HS}}\le \sqrt d\,\|M\|_{\mathrm{op}}\), Step 1 and \eqref{eq:J-moment-fullproof} yield
+\[
+\mathbb{E}\|F_r\|_{\mathrm{HS}}^m
++
+\sum_{k=1}^d \mathbb{E}\|G_r^{(k)}\|_{\mathrm{HS}}^m
+\le
+C_m e^{c_m r}|u-v|^m.
+\]
+Substituting into \eqref{eq:gronwall-ineq-fullproof}, we obtain
+\[
+\Phi(t)
+\le
+C_m\int_0^t \Phi(r)\,dr
++
+C_m(1+t^{m-1}+t^{\frac m2-1})\int_0^t e^{c_m r}|u-v|^m\,dr.
+\]
+Since
+\[
+\int_0^t e^{c_m r}\,dr \le C_m e^{c_m t},
+\]
+this gives
+\[
+\Phi(t)
+\le
+C_m\int_0^t \Phi(r)\,dr
++
+C_m(1+t^{m-1}+t^{\frac m2-1})e^{c_m t}|u-v|^m.
+\]
+By Grönwall's lemma,
+\[
+\Phi(t)
+\le
+C_m(1+t^{m-1}+t^{\frac m2-1})e^{c_m t}|u-v|^m.
+\]
+Absorbing the polynomial factor into the exponential by enlarging \(c_m\), we get
+\[
+\Phi(t)\le C_m e^{c_m t}|u-v|^m.
+\]
+In particular,
+\[
+\mathbb{E}\,\|D_t\|_{\mathrm{HS}}^m
+\le
+\mathbb{E}\sup_{s\le t}\|D_s\|_{\mathrm{HS}}^m
+\le
+C_m e^{c_m t}|u-v|^m.
+\]
+Since \(\|D_t\|_{\mathrm{op}}\le \|D_t\|_{\mathrm{HS}}\), we conclude that
+\begin{equation}\label{eq:J-increment-op-fullproof}
+\mathbb{E}\,\|J_t(u)-J_t(v)\|_{\mathrm{op}}^m
+\le
+C_m e^{c_m t}|u-v|^m,
+\qquad u,v\in\mathbb{R}^d.
+\end{equation}
+
+\smallskip
+\noindent\emph{Step 4: Hölder control on the compact set \(K\).}
+Fix \(\beta\in(0,1-d/m)\).
+Since \(m>d\), the increment estimate \eqref{eq:J-increment-op-fullproof} implies, by the Kolmogorov theorem applied in the spatial variable \(u\), that for each fixed \(t\ge0\) there exists a modification of \(u\mapsto J_t(u)\) whose sample paths on \(K\) are \(\beta\)-H\"older continuous.
+Moreover, the quantitative form of the theorem yields
+\begin{equation}\label{eq:holder-bound-fullproof}
+\mathbb{E}\,[J_t]_{\beta;K}^m
+\le
+C_{m,\beta,K}e^{c_m t},
+\end{equation}
+where
+\[
+[J_t]_{\beta;K}
+:=
+\sup_{\substack{u,v\in K\\u\neq v}}
+\frac{\|J_t(u)-J_t(v)\|_{\mathrm{op}}}{|u-v|^\beta}.
+\]
+
+\smallskip
+\noindent\emph{Step 5: Supremum over \(K\).}
+Choose any point \(u_0\in K\).
+Then for every \(u\in K\),
+\[
+\|J_t(u)\|_{\mathrm{op}}
+\le
+\|J_t(u_0)\|_{\mathrm{op}}
++
+[J_t]_{\beta;K}|u-u_0|^\beta
+\le
+\|J_t(u_0)\|_{\mathrm{op}}
++
+[J_t]_{\beta;K}(\operatorname{diam}K)^\beta.
+\]
+Therefore,
+\[
+\mathcal{K}_t(\omega;K)
+=
+\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}
+\le
+\|J_t(u_0,\omega)\|_{\mathrm{op}}
++
+[J_t(\omega)]_{\beta;K}(\operatorname{diam}K)^\beta.
+\]
+Taking \(m\)-th moments and using \eqref{eq:J-moment-fullproof} and \eqref{eq:holder-bound-fullproof}, we obtain
+\[
+\mathbb{E}\,\mathcal{K}_t(\cdot;K)^m
+\le
+C_{m,K}e^{c_m t}.
+\]
+As explained at the beginning, this implies
+\[
+\mathbb{E}\,\mathcal{K}_t(\cdot;K)^p
+\le
+C_{p,K}e^{c_p t},
+\qquad t\ge0,
+\]
+for every \(p\ge1\).
+In particular, \eqref{eq:Kt-finite-moment} holds.
+\end{proof}
+
+
+
+
+
+
+
+% =========================================================
+\section{Other properties of $\mu_t$}
+% =========================================================
+
+In this section we record several consequences of the identity
+\begin{equation*}
+T_t(\omega,u):=X_t(u,\omega),
+\end{equation*}
+which expresses the random measure $\mu_t$ as the pushforward of the initial law $\mu_0$ under the stochastic flow.
+
+\subsection{Support propagation}
+
+\begin{proposition}[Support propagation]\label{prop:support-propagation}
+For every $t\ge 0$ and a.s.\ $\omega$,
+\begin{equation*}
+\operatorname{supp}\mu_t(\omega)
+=
+\overline{T_t(\omega,\operatorname{supp}\mu_0)}.
+\end{equation*}
+In particular, if $\operatorname{supp}\mu_0\subset K$ for some compact set $K\subset\mathbb{R}^d$, then
+\begin{equation*}
+\operatorname{supp}\mu_t(\omega)\subset T_t(\omega,K),
+\end{equation*}
+and hence $\mu_t(\omega)$ has compact support.
+\end{proposition}
+
+\begin{proof}
+Fix $t\ge0$ and $\omega$ such that $T_t(\omega,\cdot)$ is continuous.
+Since $\mu_t(\omega)=T_t(\omega)_{\#}\mu_0$, for every open set $G\subset\mathbb{R}^d$ we have
+\begin{equation*}
+\mu_t(\omega)(G)=\mu_0\big(T_t(\omega,\cdot)^{-1}(G)\big).
+\end{equation*}
+Let $x\in T_t(\omega,\operatorname{supp}\mu_0)$, say $x=T_t(\omega,u)$ with $u\in\operatorname{supp}\mu_0$.
+If $G$ is any open neighborhood of $x$, then by continuity of $T_t(\omega,\cdot)$ the preimage
+$T_t(\omega,\cdot)^{-1}(G)$ is an open neighborhood of $u$, hence
+\begin{equation*}
+\mu_0\big(T_t(\omega,\cdot)^{-1}(G)\big)>0.
+\end{equation*}
+Therefore $\mu_t(\omega)(G)>0$, so $x\in\operatorname{supp}\mu_t(\omega)$.
+This proves
+\begin{equation*}
+T_t(\omega,\operatorname{supp}\mu_0)\subset \operatorname{supp}\mu_t(\omega).
+\end{equation*}
+Since $\operatorname{supp}\mu_t(\omega)$ is closed, we get
+\begin{equation*}
+\overline{T_t(\omega,\operatorname{supp}\mu_0)}
+\subset
+\operatorname{supp}\mu_t(\omega).
+\end{equation*}
+
+Conversely, let $x\notin \overline{T_t(\omega,\operatorname{supp}\mu_0)}$.
+Then there exists an open neighborhood $G$ of $x$ such that
+\begin{equation*}
+G\cap T_t(\omega,\operatorname{supp}\mu_0)=\varnothing.
+\end{equation*}
+Hence
+\begin{equation*}
+T_t(\omega,\cdot)^{-1}(G)\cap \operatorname{supp}\mu_0=\varnothing,
+\end{equation*}
+which implies
+\begin{equation*}
+\mu_0\big(T_t(\omega,\cdot)^{-1}(G)\big)=0.
+\end{equation*}
+Therefore $\mu_t(\omega)(G)=0$, so $x\notin\operatorname{supp}\mu_t(\omega)$.
+Thus
+\begin{equation*}
+\operatorname{supp}\mu_t(\omega)\subset
+\overline{T_t(\omega,\operatorname{supp}\mu_0)}.
+\end{equation*}
+Combining the two inclusions yields the claim.
+If $\operatorname{supp}\mu_0\subset K$ with $K$ compact, then $T_t(\omega,K)$ is compact by continuity of $T_t(\omega,\cdot)$, and the stated inclusion follows.
+\end{proof}
+
+\begin{remark}[Geometric consequences]
+By Proposition~\ref{prop:support-propagation}, geometric properties preserved by continuous images are transported pathwise by the flow.
+For example, if $\operatorname{supp}\mu_0$ is compact or connected, then the same holds for $\operatorname{supp}\mu_t(\omega)$.
+\end{remark}
+
+\subsection{Concentration transfer}
+
+We next record the basic concentration-transfer principle under a random Lipschitz map.
+
+\begin{proposition}[Pathwise concentration transfer]\label{prop:concentration-transfer}
+Let $K:=\operatorname{supp}(\mu_0)$ and assume that for a.s.\ $\omega$ the map $T_t(\omega,\cdot)$ is Lipschitz on $K$, with Lipschitz constant
+\begin{equation*}
+L_t(\omega;K):=\sup_{\substack{u,v\in K\\u\neq v}}
+\frac{|T_t(\omega,u)-T_t(\omega,v)|}{|u-v|}.
+\end{equation*}
+Assume that $\mu_0$ satisfies the concentration inequality
+\begin{equation}\label{eq:general-concentration-mu0}
+\mu_0(f-\mu_0(f)\ge r)\le \Psi(r),
+\qquad r\ge0,
+\end{equation}
+for every $1$-Lipschitz function $f:\mathbb{R}^d\to\mathbb{R}$, where $\Psi:[0,\infty)\to[0,1]$ is nonincreasing.
+Then for a.s.\ $\omega$,
+\begin{equation}\label{eq:general-concentration-mut}
+\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+\le
+\Psi\Big(\frac{r}{L_t(\omega;K)}\Big),
+\qquad r\ge0,
+\end{equation}
+for every $1$-Lipschitz function $g:\mathbb{R}^d\to\mathbb{R}$.
+\end{proposition}
+
+\begin{proof}
+...
+% Fix $\omega$ such that $T_t(\omega,\cdot)$ is Lipschitz on $K$.
+% Let $g:\mathbb{R}^d\to\mathbb{R}$ be $1$-Lipschitz and define
+% \begin{equation*}
+% h(u):=\frac{g(T_t(\omega,u))}{L_t(\omega;K)},\qquad u\in K.
+% \end{equation*}
+% Then $h$ is $1$-Lipschitz on $K$.
+% Extending $h$ to a $1$-Lipschitz function on $\mathbb{R}^d$ if necessary, we may apply \eqref{eq:general-concentration-mu0} to obtain
+% \begin{equation*}
+% \mu_0\big(h-\mu_0(h)\ge s\big)\le \Psi(s),\qquad s\ge0.
+% \end{equation*}
+% Since $\mu_t(\omega)=T_t(\omega)_{\#}\mu_0$, we have
+% \begin{equation*}
+% \mu_t(\omega)(g)=\mu_0(g\circ T_t(\omega,\cdot)),
+% \end{equation*}
+% and therefore
+% \begin{align*}
+% \mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+% &=
+% \mu_0\big(g\circ T_t(\omega,\cdot)-\mu_0(g\circ T_t(\omega,\cdot))\ge r\big)\\
+% &=
+% \mu_0\big(h-\mu_0(h)\ge r/L_t(\omega;K)\big)\\
+% &\le
+% \Psi\Big(\frac{r}{L_t(\omega;K)}\Big).
+% \end{align*}
+% This proves \eqref{eq:general-concentration-mut}.
+\end{proof}
+
+\begin{corollary}[Gaussian concentration under the random flow]\label{cor:gaussian-concentration-transfer}
+Assume that for some $C_{\mathrm{conc}}>0$,
+\begin{equation}\label{eq:gaussian-concentration-mu0}
+\mu_0(f-\mu_0(f)\ge r)\le \exp\Big(-\frac{r^2}{C_{\mathrm{conc}}}\Big),
+\qquad r\ge0,
+\end{equation}
+for every $1$-Lipschitz function $f:\mathbb{R}^d\to\mathbb{R}$.
+Then for a.s.\ $\omega$,
+\begin{equation*}
+\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+\le
+\exp\Big(-\frac{r^2}{C_{\mathrm{conc}}\,L_t(\omega;K)^2}\Big),
+\qquad r\ge0,
+\end{equation*}
+for every $1$-Lipschitz function $g:\mathbb{R}^d\to\mathbb{R}$.
+If, moreover, $K$ is compact, then one may take
+\begin{equation*}
+L_t(\omega;K)\le \mathcal K_t(\omega;K)
+\end{equation*}
+by the mean value theorem.
+\end{corollary}
+
+\begin{proof}
+Apply Proposition~\ref{prop:concentration-transfer} with
+\begin{equation*}
+\Psi(r):=\exp\Big(-\frac{r^2}{C_{\mathrm{conc}}}\Big).
+\end{equation*}
+The last claim follows from the estimate
+\begin{equation*}
+|T_t(\omega,u)-T_t(\omega,v)|
+\le
+\sup_{z\in K}\|J_t(z,\omega)\|_{\mathrm{op}}\,|u-v|
+=
+\mathcal K_t(\omega;K)\,|u-v|,
+\end{equation*}
+valid for $u,v\in K$.
+\end{proof}
+
+\begin{remark}[Concentration as a corollary of LSI]
+If $\mu_0$ satisfies a logarithmic Sobolev inequality, then it satisfies Gaussian concentration.
+Hence Corollary~\ref{cor:lsi-jacobian-constant} yields, in particular, a pathwise concentration inequality for $\mu_t(\omega)$ with a random constant controlled by $\mathcal K_t(\omega;K)^2$.
+\end{remark}
+
+
+
+\section{Poincar\'e and Talagrand inequalities}\label{sec:poincare-talagrand}
+% =========================================================
+
+In this section we record two further functional inequalities that are stable under pushforward by a Lipschitz map.
+% As before, the key input is that for a.s.\ $\omega$,
+% \begin{equation*}
+% \mu_t(\omega)=T_t(\omega)_{\#}\mu_0,
+% \qquad
+% T_t(\omega,u):=X_t(u,\omega),
+% \end{equation*}
+% and that on compact subsets of the initial support the map $T_t(\omega,\cdot)$ is pathwise Lipschitz with random Lipschitz constant controlled by the Jacobian matrix.
+
+\subsection{Poincar\'e inequality}
+
+\begin{definition}[Poincar\'e inequality]
+A probability measure $\mu$ on $\mathbb{R}^d$ is said to satisfy a Poincar\'e inequality with constant $C_P>0$ if for every $h\in \mathcal C_c^1(\mathbb{R}^d)$,
+\begin{equation}
+\mathrm{Var}_\mu(h):=\int_{\mathbb{R}^d} h^2\,d\mu-\Big(\int_{\mathbb{R}^d} h\,d\mu\Big)^2
+\le
+C_P\int_{\mathbb{R}^d} |\nabla h|^2\,d\mu.
+\label{eq:poincare-def}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Poincar\'e inequality under a Lipschitz pushforward]\label{prop:poincare-pushforward}
+Let $\mu$ be a probability measure on $\mathbb{R}^d$ satisfying $\mathrm{PI}(C_P)$, and let
+$T:\mathbb{R}^d\to\mathbb{R}^d$ be a Lipschitz map with Lipschitz constant $\mathrm{Lip}(T)$.
+Then the pushforward measure $\nu:=T_{\#}\mu$ satisfies
+\begin{equation*}
+\mathrm{PI}\big(C_P\,\mathrm{Lip}(T)^2\big).
+\end{equation*}
+\end{proposition}
+
+\begin{proof}
+Let $g\in \mathcal C_c^1(\mathbb{R}^d)$ and set $f:=g\circ T$.
+Then
+\begin{equation*}
+\int_{\mathbb{R}^d} g\,d\nu=\int_{\mathbb{R}^d} g(T(u))\,\mu(du)=\int_{\mathbb{R}^d} f(u)\,\mu(du),
+\end{equation*}
+and similarly
+\begin{equation*}
+\int_{\mathbb{R}^d} g^2\,d\nu=\int_{\mathbb{R}^d} f^2\,d\mu.
+\end{equation*}
+Hence
+\begin{equation*}
+\mathrm{Var}_\nu(g)=\mathrm{Var}_\mu(f).
+\end{equation*}
+Applying the Poincar\'e inequality for $\mu$ gives
+\begin{equation*}
+\mathrm{Var}_\nu(g)
+=
+\mathrm{Var}_\mu(f)
+\le
+C_P\int_{\mathbb{R}^d} |\nabla f(u)|^2\,\mu(du).
+\end{equation*}
+Since $f=g\circ T$ and $T$ is Lipschitz, we have a.e.
+\begin{equation*}
+|\nabla f(u)|
+\le
+\mathrm{Lip}(T)\,|\nabla g(T(u))|.
+\end{equation*}
+Therefore
+\begin{equation*}
+\mathrm{Var}_\nu(g)
+\le
+C_P\,\mathrm{Lip}(T)^2
+\int_{\mathbb{R}^d} |\nabla g(T(u))|^2\,\mu(du)
+=
+C_P\,\mathrm{Lip}(T)^2
+\int_{\mathbb{R}^d} |\nabla g(x)|^2\,\nu(dx).
+\end{equation*}
+This proves the claim.
+\end{proof}
+
+\begin{corollary}[Pathwise Poincar\'e inequality]\label{cor:poincare-jacobian-constant}
+If $\mu_0$ satisfies $\mathrm{PI}(C_P)$ and $\operatorname{supp}(\mu_0)\subset K$ for some compact set $K\subset \mathbb{R}^d$, then for every $t\ge0$ and a.s.\ $\omega$,
+\begin{equation*}
+\mu_t(\omega)=T_t(\omega)_{\#}\mu_0
+\quad\Longrightarrow\quad
+\mu_t(\omega)\text{ satisfies }\mathrm{PI}\big(C_P\,\mathcal K_t(\omega;K)^2\big).
+\end{equation*}
+\end{corollary}
+
+\begin{proof}
+By Proposition~\ref{prop:poincare-pushforward}, it suffices to bound the Lipschitz constant of $T_t(\omega,\cdot)$ on $K$.
+Since $K$ is compact and $u\mapsto T_t(\omega,u)$ is of class $C^1$, the mean value theorem gives
+\begin{equation*}
+|T_t(\omega,u)-T_t(\omega,v)|
+\le
+\sup_{z\in K}\|J_t(z,\omega)\|_{\mathrm{op}}\,|u-v|
+=
+\mathcal K_t(\omega;K)\,|u-v|,
+\qquad u,v\in K.
+\end{equation*}
+Hence $\mathrm{Lip}(T_t(\omega)|_K)\le \mathcal K_t(\omega;K)$, and the result follows.
+\end{proof}
+
+\subsection{Talagrand transport inequalities}
+
+\begin{definition}[Talagrand transport inequality]
+Let $p\ge1$.
+A probability measure $\mu$ on $\mathbb{R}^d$ is said to satisfy the Talagrand transport inequality $T_p(C_T)$ with constant $C_T>0$ if for every probability measure $\nu$ on $\mathbb{R}^d$ with finite $p$-th moment,
+\begin{equation}
+W_p(\nu,\mu)^2 \le 2C_T\,\Ent(\nu\mid \mu),
+\label{eq:Tp-def}
+\end{equation}
+where
+\begin{equation*}
+\Ent(\nu\mid\mu)=
+\begin{cases}
+\displaystyle \int_{\mathbb{R}^d}\log\Big(\frac{d\nu}{d\mu}\Big)\,d\nu,& \nu\ll \mu,\\[3mm]
++\infty,& \text{otherwise}.
+\end{cases}
+\end{equation*}
+In particular, the case $p=2$ is the classical Talagrand inequality.
+\end{definition}
+
+\begin{proposition}[Transport inequality under a Lipschitz pushforward]\label{prop:talagrand-pushforward}
+Let $\mu$ be a probability measure on $\mathbb{R}^d$ satisfying $T_p(C_T)$ for some $p\ge1$, and let
+$T:\mathbb{R}^d\to\mathbb{R}^d$ be a Lipschitz map with Lipschitz constant $\mathrm{Lip}(T)$.
+Then the pushforward measure $\eta:=T_{\#}\mu$ satisfies
+\begin{equation*}
+T_p\big(C_T\,\mathrm{Lip}(T)^2\big).
+\end{equation*}
+\end{proposition}
+
+\begin{proof}
+Let $\lambda$ be any probability measure on $\mathbb{R}^d$.
+If $\lambda\not\ll \eta$, then $\Ent(\lambda\mid\eta)=+\infty$ and the inequality is trivial.
+Assume therefore that $\lambda\ll \eta$.
+
+Choose a probability measure $\widetilde\lambda$ on $\mathbb{R}^d$ such that
+\begin{equation*}
+T_{\#}\widetilde\lambda=\lambda
+\qquad\text{and}\qquad
+\Ent(\widetilde\lambda\mid \mu)=\Ent(\lambda\mid \eta).
+\end{equation*}
+For instance, one may take the measure
+\begin{equation*}
+\widetilde\lambda(du):=
+\frac{d\lambda}{d\eta}(T(u))\,\mu(du).
+\end{equation*}
+Indeed,
+\begin{equation*}
+T_{\#}\widetilde\lambda(A)
+=
+\int_{\mathbb{R}^d}\mathbf 1_{\{T(u)\in A\}}\frac{d\lambda}{d\eta}(T(u))\,\mu(du)
+=
+\int_A \frac{d\lambda}{d\eta}(x)\,\eta(dx)
+=
+\lambda(A),
+\end{equation*}
+and
+\begin{equation*}
+\Ent(\widetilde\lambda\mid\mu)
+=
+\int_{\mathbb{R}^d}\log\Big(\frac{d\lambda}{d\eta}(T(u))\Big)\,\widetilde\lambda(du)
+=
+\int_{\mathbb{R}^d}\log\Big(\frac{d\lambda}{d\eta}(x)\Big)\,\lambda(dx)
+=
+\Ent(\lambda\mid\eta).
+\end{equation*}
+
+Now let $\pi$ be a coupling of $\widetilde\lambda$ and $\mu$.
+Then $(T,T)_{\#}\pi$ is a coupling of $\lambda$ and $\eta$, so by Lipschitz continuity of $T$,
+\begin{equation*}
+\int_{\mathbb{R}^d\times\mathbb{R}^d}|x-y|^p\,d((T,T)_{\#}\pi)(x,y)
+=
+\int_{\mathbb{R}^d\times\mathbb{R}^d}|T(u)-T(v)|^p\,d\pi(u,v)
+\le
+\mathrm{Lip}(T)^p
+\int |u-v|^p\,d\pi(u,v).
+\end{equation*}
+Taking the infimum over all couplings $\pi$ of $\widetilde\lambda$ and $\mu$ yields
+\begin{equation*}
+W_p(\lambda,\eta)\le \mathrm{Lip}(T)\,W_p(\widetilde\lambda,\mu).
+\end{equation*}
+Since $\mu$ satisfies $T_p(C_T)$,
+\begin{equation*}
+W_p(\widetilde\lambda,\mu)^2
+\le
+2C_T\,\Ent(\widetilde\lambda\mid\mu)
+=
+2C_T\,\Ent(\lambda\mid\eta).
+\end{equation*}
+Combining the two inequalities, we obtain
+\begin{equation*}
+W_p(\lambda,\eta)^2
+\le
+\mathrm{Lip}(T)^2\,W_p(\widetilde\lambda,\mu)^2
+\le
+2C_T\,\mathrm{Lip}(T)^2\,\Ent(\lambda\mid\eta),
+\end{equation*}
+which proves that $\eta$ satisfies $T_p(C_T\,\mathrm{Lip}(T)^2)$.
+\end{proof}
+
+\begin{corollary}[Pathwise Talagrand inequality]\label{cor:talagrand-jacobian-constant}
+Let $p\ge1$.
+If $\mu_0$ satisfies $T_p(C_T)$ and $\operatorname{supp}(\mu_0)\subset K$ for some compact set $K\subset\mathbb{R}^d$, then for every $t\ge0$ and a.s.\ $\omega$,
+\begin{equation*}
+\mu_t(\omega)=T_t(\omega)_{\#}\mu_0
+\quad\Longrightarrow\quad
+\mu_t(\omega)\text{ satisfies }T_p\big(C_T\,\mathcal K_t(\omega;K)^2\big).
+\end{equation*}
+\end{corollary}
+
+\begin{proof}
+Apply Proposition~\ref{prop:talagrand-pushforward} with $T=T_t(\omega,\cdot)|_K$ and use the same Lipschitz estimate as in the proof of Corollary~\ref{cor:poincare-jacobian-constant}.
+\end{proof}
+
+% \begin{remark}[Relation to logarithmic Sobolev inequalities]
+% It is classical that a logarithmic Sobolev inequality implies the Talagrand inequality $T_2$.
+% Therefore Corollary~\ref{cor:lsi-jacobian-constant} also yields pathwise $T_2$-transport inequalities for $\mu_t(\omega)$.
+% Corollary~\ref{cor:talagrand-jacobian-constant} shows more generally that any transport inequality already satisfied by $\mu_0$ is preserved under the random flow, with the constant multiplied by the square of the corresponding pathwise Lipschitz constant.
+% \end{remark}
 
 \bibliographystyle{amsplain}
 \bibliography{bibliography}
