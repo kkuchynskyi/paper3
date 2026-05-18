@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[ukrainian]{babel}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\newtheorem{theorem}{Теорема}[section]
+\newtheorem{corollary}[theorem]{Наслідок}
+\newtheorem{proposition}[theorem]{Твердження}
+\newtheorem{remark}[theorem]{Зауваження}
+\newtheorem{definition}[theorem]{Означення}
+\newtheorem{assumption}[theorem]{Припущення}
+\newcommand{\Ent}{\mathrm{Ent}}
+\newcommand{\Lip}{\mathrm{Lip}}
+\newcommand{\supp}{\mathrm{supp}}
+\newcommand{\HS}{\mathrm{HS}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Ptwo}{\mathcal{P}_2}
+
+\title{Функціональні нерівності для стохастичних диференціальних рівнянь з взаємодією\\
+\large Короткий виклад основних результатів}
+\author{ Kyrylo Kuchynskyi}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section{Постановка задачі}
+Розглянемо стохастичні диференціальні рівняння з взаємодією (\cite{Dorogovtsev2004}):
+\begin{equation}
+\begin{cases}
+ dX_t(u)=a\bigl(X_t(u),\mu_t\bigr)\,dt+\sigma\bigl(X_t(u)\bigr)\,dW_t,\\
+ X_0(u)=u,\\
+ \mu_t=\mu_0\circ X_t^{-1}.
+\end{cases}
+\label{eq:main}
+\end{equation}
+Тут $\mu_0$ --- задана початкова міра, $a:\R^d\times \Ptwo(\R^d)\to\R^d$ --- коефіцієнт переносу, а $\sigma:\R^d\to\R^{d\times d}$ --- коефіцієнт дифузії. Для фіксованих $(t,\omega)$ позначаємо
+\[
+T_t(\omega,u):=X_t(u,\omega), \qquad \mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}.
+\]
+
+Оскільки далі нам знадобляться функціональні та транспортні нерівності для ймовірнісних мір, зафіксуємо відповідні означення.
+
+\begin{definition}
+Нехай $\mu$ --- ймовірнісна міра на $\R^d$, а $p\ge 1$.
+\begin{enumerate}
+\item Кажемо, що $\mu$ задовольняє логарифмічну нерівність Соболєва $\mathrm{LSI}(C)$, якщо для всіх $f\in C_0^\infty(\R^d)$ виконується
+\[
+\Ent_\mu(f^2):=\int f^2\log f^2\,d\mu-\left(\int f^2\,d\mu\right)\log\left(\int f^2\,d\mu\right)
+\le 2C\int |\nabla f|^2\,d\mu.
+\]
+\item Кажемо, що $\mu$ задовольняє нерівність Пуанкаре $\mathrm{PI}(C_P)$, якщо для всіх $f\in C_0^\infty(\R^d)$ маємо
+\[
+\int \Bigl(f-\int f\,d\mu\Bigr)^2\,d\mu
+\le C_P\int |\nabla f|^2\,d\mu.
+\]
+\item Кажемо, що $\mu$ задовольняє транспортну нерівність Талаграна $T_p(C_T)$, якщо для кожної ймовірнісної міри $\nu\ll\mu$
+\[
+W_p(\nu,\mu)^2\le 2C_T\,\mathrm{H}(\nu\mid\mu),
+\qquad
+\mathrm{H}(\nu\mid\mu):=\int \log\!\left(\frac{d\nu}{d\mu}\right)\,d\nu.
+\]
+\end{enumerate}
+\end{definition}
+
+\medskip
+\noindent
+Еволюцію міри $\mu_t$ доцільно трактувати як випадкове перенесення початкової міри $\mu_0$ стохастичним потоком $T_t$. Тому важливим є не лише існування розв'язку $X_t(u)$, а й геометричні властивості відображення $u\mapsto X_t(u)$: як саме воно змінює відстані, наскільки розтягує простір і яким чином при цьому переносяться функціональні нерівності початкової міри.
+
+\begin{assumption}
+Існують сталі $L,L_\sigma,L_\mu<\infty$ такі, що:
+\begin{enumerate}
+\item для кожної $\mu\in\Ptwo(\R^d)$ відображення $x\mapsto a(x,\mu)$ є $C^2$ і
+\[
+\sup_{x,\mu}\|\partial_x a(x,\mu)\|_{\op}\le L;
+\]
+\item $\sigma\in C^2(\R^d;\R^{d\times d})$ і
+\[
+\sup_x\|\partial \sigma(x)\|_{\op}\le L_\sigma;
+\]
+\item для всіх $x\in\R^d$ та $\mu,\nu\in\Ptwo(\R^d)$
+\[
+|a(x,\mu)-a(x,\nu)|\le L_\mu W_2(\mu,\nu).
+\]
+\end{enumerate}
+\end{assumption}
+Основна ідея роботи полягає в такому. Спочатку досліджуємо матрицю Якобі стохастичного потоку. Далі за її допомогою одержуємо контроль сталої Ліпшица потоку на компактних множинах. Нарешті, цей контроль дає змогу перенести логарифмічну нерівність Соболєва, нерівність Пуанкаре та транспортні нерівності на випадкові міри $\mu_t$.
+
+
+\subsection{Основні результати}
+
+\medskip
+\noindent
+
+За наведених умов рівняння \eqref{eq:main} породжує модифікацію стохастичного потоку класу $C^1$ за початковою точкою $u$. Позначимо його матрицю Якобі
+\[
+J_t(u):=\partial_u X_t(u)\in\R^{d\times d}.
+\]
+
+\begin{theorem}[Рівняння для матриці Якобі, \cite{dorogovtsev2023intermittency}]
+Для кожного $u\in\R^d$ процес $J_t(u)$ існує і задовольняє лінійне матричне СДР
+\begin{equation}
+ dJ_t(u)=A_t(u)J_t(u)\,dt+\sum_{k=1}^d B_t^{(k)}(u)J_t(u)\,dW_t^k,
+ \qquad J_0(u)=I,
+\label{eq:jac}
+\end{equation}
+де
+\[
+A_t(u):=\partial_x a\bigl(X_t(u),\mu_t\bigr),
+\qquad
+B_t^{(k)}(u):=\partial_x \sigma^{(k)}\bigl(X_t(u)\bigr),
+\]
+а $\sigma^{(k)}$ --- $k$-й стовпчик матриці $\sigma$. Крім того,
+\[
+\|A_t(u)\|_{\op}\le L,
+\qquad
+\|B_t^{(k)}(u)\|_{\op}\le L_\sigma
+\quad \text{для всіх } t,u,\omega.
+\]
+\end{theorem}
+
+
+\begin{proposition}
+Нехай $\xi\in\R^d$ --- одиничний вектор. Тоді для всіх $t\ge 0$
+\begin{equation}
+|J_t(u)\xi|^2\le
+\exp\Bigl((2L+dL_\sigma^2)t+N_t(u,\xi)\Bigr)
+\quad \text{майже напевно},
+\label{eq:pathwise}
+\end{equation}
+де $N_t(u,\xi)$ --- неперервний локальний мартингал вигляду
+\[
+N_t(u,\xi)=\sum_{k=1}^d\int_0^t \theta_s^{(k)}(u,\xi)\,dW_s^k,
+\qquad |\theta_s^{(k)}(u,\xi)|\le 2L_\sigma,
+\]
+Звідси
+\[
+\langle N(u,\xi)\rangle_t\le 4dL_\sigma^2 t.
+\]
+\end{proposition}
+
+\begin{corollary}
+Для будь-якого $q\ge 1$ і всіх $t\ge 0$ маємо
+\begin{equation}
+\mathbb E|J_t(u)\xi|^{2q}
+\le
+\exp\Bigl(q(2L+dL_\sigma^2)t+2q^2dL_\sigma^2 t\Bigr).
+\label{eq:dir-moment}
+\end{equation}
+Звідси одержуємо оцінку операторної норми:
+\begin{equation}
+\mathbb E\|J_t(u)\|_{\op}^{2q}
+\le
+\mathbb E\|J_t(u)\|_{\HS}^{2q}
+\le
+ d^q\exp\Bigl(q(2L+dL_\sigma^2)t+2q^2dL_\sigma^2 t\Bigr).
+\label{eq:op-moment}
+\end{equation}
+\end{corollary}
+
+Оцінки для $J_t(u)$, одержані вище, стосуються фіксованої точки $u$. Однак для подальшого аналізу потоку треба контролювати його поведінку на множині початкових умов. Для компакта $K\subset\R^d$ введемо випадкову сталу Ліпшица
+\[
+\mathcal K_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\op}.
+\]
+Тоді для майже всіх $\omega$ потік $T_t(\omega,\cdot)$ задовольняє умову Ліпшица на $K$, причому
+\[
+\Lip(T_t(\omega)|_K)\le \mathcal K_t(\omega;K).
+\]
+
+Саме цей контроль сталої Ліпшица є ключовим для подальших результатів.
+
+Те, що відображення $T$ є ліпшицевим, дає змогу переносити функціональні нерівності від міри $\mu$ до міри $\mu\circ T^{-1}$, причому відповідна стала Ліпшица змінюється згідно з величиною $\Lip(T)$. У нашій ситуації ця стала Ліпшица є випадковою і контролюється величиною $\mathcal K_t$.
+\begin{corollary}[Перенесення логарифмічної нерівності Соболєва]
+Нехай початкова міра $\mu_0$ задовольняє $\mathrm{LSI}(C_0)$ і $\supp(\mu_0)\subset K$ для деякого компакту $K$. Тоді для кожного $t\ge 0$ для майже всіх $\omega$
+\[
+\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}
+\quad \Longrightarrow \quad
+\mu_t(\omega) \text{ задовольняє } \mathrm{LSI}\bigl(C_0\mathcal K_t(\omega;K)^2\bigr).
+\]
+\end{corollary}
+
+Для одержання моментних оцінок супремуму на компакті нам знадобиться додаткова просторова регулярність похідних коефіцієнтів.
+
+\begin{assumption}
+Існують сталі $L^{(2)},L_\sigma^{(2)}<\infty$ такі, що для всіх $\mu\in\Ptwo(\R^d)$ і $x,y\in\R^d$
+\[
+\|\partial_x a(x,\mu)-\partial_x a(y,\mu)\|_{\op}
+\le L^{(2)}|x-y|,
+\]
+\[
+\max_{1\le k\le d}
+\|\partial\sigma^{(k)}(x)-\partial\sigma^{(k)}(y)\|_{\op}
+\le L_\sigma^{(2)}|x-y|.
+\]
+\end{assumption}
+
+\begin{proposition}[Скінченні моменти випадкової сталої Ліпшица]
+Нехай виконуються базові умови та умова Ліпшица для похідних. Тоді для кожного компакту $K\subset\R^d$, кожного $p\ge 1$ та всіх $t\ge 0$
+\begin{equation}
+\mathbb E\,\mathcal K_t(\cdot;K)^p<\infty.
+\label{eq:Kfinite}
+\end{equation}
+Більше того, існують сталі $C_{p,K},c_p<\infty$, що залежать лише від
+$p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}$, такі що
+\begin{equation}
+\mathbb E\,\mathcal K_t(\cdot;K)^p
+\le C_{p,K}e^{c_p t},
+\qquad t\ge 0.
+\label{eq:Kgrowth}
+\end{equation}
+\end{proposition}
+
+Далі з'ясуємо, як стохастичний потік переносить геометричні та функціональні властивості початкової міри.
+
+
+\begin{proposition}[Перенесення нерівності концентрації]
+Нехай $K:=\supp(\mu_0)$ і для майже всіх $\omega$ відображення $T_t(\omega,\cdot)$ є ліпшицевим на $K$ зі сталою
+\[
+L_t(\omega;K):=
+\sup_{u\neq v,\,u,v\in K}
+\frac{|T_t(\omega,u)-T_t(\omega,v)|}{|u-v|}.
+\]
+Припустимо, що для кожної функції $f$ зі сталою Ліпшица, не більшою за $1$, виконується
+\[
+\mu_0(f-\mu_0(f)\ge r)\le \Psi(r), \qquad r\ge 0,
+\]
+де $\Psi$ --- незростаюча функція. Тоді для кожної функції $g$ зі сталою Ліпшица, не більшою за $1$,
+\[
+\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+\le
+\Psi\Bigl(\frac{r}{L_t(\omega;K)}\Bigr),
+\qquad r\ge 0.
+\]
+Зокрема, якщо $\mu_0$ має гауссову концентрацію, то й $\mu_t(\omega)$ має гауссову концентрацію з випадковою сталою порядку $L_t(\omega;K)^2$, а на компакті можна брати $L_t(\omega;K)\le \mathcal K_t(\omega;K)$.
+\end{proposition}
+
+\begin{proposition}[Перенесення нерівності Пуанкаре]
+Нехай $\mu_0$ задовольняє нерівність Пуанкаре $\mathrm{PI}(C_P)$ і $\supp(\mu_0)\subset K$, де $K$ --- компакт. Тоді для кожного $t\ge 0$ для майже всіх $\omega$
+\[
+\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}
+\quad \Longrightarrow \quad
+\mu_t(\omega) \text{ задовольняє } \mathrm{PI}\bigl(C_P\mathcal K_t(\omega;K)^2\bigr).
+\]
+\end{proposition}
+
+\begin{proposition}[Перенесення транспортних нерівностей Талаграна]
+Нехай $p\ge 1$ і $\mu_0$ задовольняє транспортну нерівність $T_p(C_T)$. Якщо $\supp(\mu_0)\subset K$ для деякого компакту $K$, то для кожного $t\ge 0$ для майже всіх $\omega$
+\[
+\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}
+\quad \Longrightarrow \quad
+\mu_t(\omega) \text{ задовольняє } T_p\bigl(C_T\mathcal K_t(\omega;K)^2\bigr).
+\]
+\end{proposition}
+
+
+\begin{thebibliography}{9}
+
+\bibitem{Dorogovtsev2004}
+A.\,A.~Dorogovtsev,
+\emph{Stochastic equations with coefficients depending on a measure-valued process},
+Stochastic Processes and their Applications, 113(2):281--303, 2004.
+
+\bibitem{dorogovtsev2023intermittency}
+A.~Dorogovtsev and A.~Weiss,
+\emph{Intermittency Phenomena for Mass Distributions of Stochastic Flows with interaction},
+arXiv:2304.02571 [math.PR], 2023.
+
+\end{thebibliography}
+
+\end{document}
