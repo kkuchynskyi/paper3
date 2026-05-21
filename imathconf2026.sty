@@ -1,0 +1,184 @@
+%Youngconf2026
+
+%%%%%%%%%%%% Template for International Conference of Young Mathematicians  %%%%%%%%%%%%%%%%
+%%%%%%%%%%%% June 3-5, 2026, Kyiv, Ukraine. %%%%%%%%%%%%%
+%%%%%%%%%%%% Please do NOT modify the preamble. %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{latexsym,amsfonts,amssymb,amsmath,amsthm}
+\usepackage{graphics,graphicx,longtable,array,euscript,epsfig}
+%Subcations for subfigures
+\usepackage{caption,subcaption}
+%Make \FloatBarrier command at the end of every section
+\usepackage[section]{placeins}
+\usepackage{cite}
+\usepackage[T2A]{fontenc}
+\usepackage[cp1251]{inputenc}
+\usepackage{mathrsfs}
+%\usepackage{mathabx}
+\usepackage{enumerate}
+\usepackage[ukrainian,english]{babel}
+%Provide import and subimport commands
+\usepackage{import}
+%Used to define the counter correspondence
+%We use the work counter to count the number of article we are in.
+%Next package provide the command to atach every local paper counter
+%to the counter work and reset all them in one \refstepcounter command in
+%the redefinition of subimport
+\usepackage{chngcntr}
+
+\setlength{\voffset}{-25mm}
+\setlength{\hoffset}{-20mm}
+\setlength{\textwidth}{170mm}
+\setlength{\textheight}{240mm}
+
+
+\sloppy
+
+
+%Define new counter which is used to count articles
+%and reset per article counter in a single command
+\newcounter{work}
+\counterwithin*{section}{work}
+\counterwithin*{figure}{work}
+\counterwithin*{table}{work}
+%Force to reset the equation counter, since it may not be
+%set to 0 automatically if the article do not contain sections
+\counterwithin*{equation}{work}
+
+%Redefine the subimport to reset all local paper counters
+\let\old@subimport\subimport
+%\renewcommand{\subimport}[2]{%
+%\refstepcounter{work} %
+%\clearpage
+%\begingroup
+%\old@subimport{#1}{#2}
+%\endgroup
+%}
+\newcommand{\subimportwork}[2]{%
+\refstepcounter{work}%
+\clearpage
+\begingroup
+\label{work@#2}
+\old@subimport{#1}{#2}
+\setcounter{theorem}{0}
+\setcounter{remark}{0}
+\setcounter{lemma}{0}
+\setcounter{proposition}{0}
+\setcounter{corollary}{0}
+\setcounter{definition}{0}
+\setcounter{example}{0}
+\setcounter{problem}{0}
+\setcounter{algorithm}{0}
+\endgroup
+}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Define new theorem styles to make them independent on the changes
+%in amsthm package
+\newtheoremstyle{plainstyle} % name
+{\topsep}                    % Space above
+{\topsep}                    % Space below
+{\itshape}                   % Body font
+{\parindent}                 % Indent amount
+{\bfseries}                  % Theorem head font
+{.}                          % Punctuation after theorem head
+{.5em}                       % Space after theorem head
+{}  % Theorem head spec (can be left empty, meaning normal)
+
+\newtheoremstyle{definitionstyle} % name
+{\topsep}                    % Space above
+{\topsep}                    % Space below
+{\normalfont}                % Body font
+{\parindent}                 % Indent amount
+{\bfseries}                  % Theorem head font
+{.}                          % Punctuation after theorem head
+{.5em}                       % Space after theorem head
+{}  % Theorem head spec (can be left empty, meaning normal)
+
+\newtheoremstyle{remarkstyle} % name
+{\topsep}                    % Space above
+{\topsep}                    % Space below
+{\normalfont}                % Body font
+{\parindent}                 % Indent amount
+{\bfseries}                  % Theorem head font
+{.}                          % Punctuation after theorem head
+{.5em}                       % Space after theorem head
+{}  % Theorem head spec (can be left empty, meaning normal)
+%\theoremstyle{mytheoremstyle}
+%\newtheorem{thm}{Theorem}
+
+
+
+%Different styles for different theorem environments
+\theoremstyle{plainstyle}% default (italic body)
+\newtheorem{theorem}{\protect\theoremname}
+\newtheorem{lemma}{\protect\lemmaname}
+\newtheorem{proposition}{\protect\propositionname}
+\newtheorem{corollary}{\protect\corollaryname}
+\newtheorem{algorithm}{\protect\algorithname}
+
+\theoremstyle{definitionstyle} % Roman body
+\newtheorem{definition}{\protect\definitionname}
+\newtheorem{example}{\protect\examplename}
+
+\theoremstyle{remarkstyle} % Roman body
+\newtheorem{problem}{\protect\problemname}
+\newtheorem{remark}{\protect\remarkname}
+\newcommand{\theoremname}{}
+\newcommand{\lemmaname}{}
+\newcommand{\definitionname}{}
+\newcommand{\problemname}{}
+\newcommand{\corollaryname}{}
+\newcommand{\propositionname}{}
+\newcommand{\remarkname}{}
+\newcommand{\algorithname}{}
+\newcommand{\examplename}{}
+
+
+\addto\captionsenglish{%
+	\renewcommand{\theoremname}{Theorem}%
+	\renewcommand{\lemmaname}{Lemma}
+	\renewcommand{\definitionname}{Definition}
+	\renewcommand{\examplename}{Example}%
+	\renewcommand{\problemname}{Problem}
+	\renewcommand{\corollaryname}{Corollary}
+	\renewcommand{\propositionname}{Proposition}
+	\renewcommand{\remarkname}{Remark}
+	\renewcommand{\algorithname}{Algorithm}
+}
+
+
+\addto\captionsukrainian{%
+	\renewcommand{\theoremname}{Òåîðåìà}%
+	\renewcommand{\lemmaname}{Ëåìà}%
+	\renewcommand{\definitionname}{Îçíà÷åííÿ} %
+	\renewcommand{\examplename}{Ïðèêëàä}%
+	\renewcommand{\problemname}{Çàäà÷à} %
+	\renewcommand{\corollaryname}{Íàñë³äîê}%
+	\renewcommand{\propositionname}{Òâåðäæåííÿ}%
+	\renewcommand{\remarkname}{Çàóâàæåííÿ}%
+	\renewcommand{\algorithname}{Àëãîðèòì}%
+}
+
+\renewcommand{\@evenhead}{\vbox{\hfill {\footnotesize \sc \centerline{International Conference of Young Mathematicians} \\ [0.8ex] \centerline{The Institute of Mathematics of the National Academy of Sciences of Ukraine} \\ [0.8ex] \centerline{June 3-5, 2026, Kyiv, Ukraine}\ \ \ }\vspace{0.5mm}{\hrule height 1.0pt} \vspace{0.5mm}{\hrule height 0.5pt}}}
+
+\renewcommand{\@oddhead}{\vbox{\hfill {\footnotesize \sc \centerline{International Conference of Young Mathematicians} \\ [0.8ex] \centerline{The Institute of Mathematics of the National Academy of Sciences of Ukraine} \\ [0.8ex] \centerline{June 3-5, 2026, Kyiv, Ukraine}\ \ \ }\vspace{0.5mm}{\hrule height 1.0pt} \vspace{0.5mm}{\hrule height 0.5pt}}}\vskip 7mm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{textcomp} %package which lets \texttildelow comand for low tilde simbol, which we use in conf.url
+%\usepackage{hyperref}% package to use \href which let to hide real look of link and use some equation in its description instead of textcomp package
+%\hypersetup{
+%    colorlinks=true,
+%    linkcolor=black,
+%    filecolor=black,
+%    urlcolor=black,
+%    pdfpagemode=FullScreen,
+%    }
+
+
+\renewcommand{\@evenfoot}{http://www.imath.kiev.ua/{\fontencoding{TS1}\fontfamily{ptm}\selectfont\texttildelow}young/youngconf2026}
+\renewcommand{\@oddfoot}{http://www.imath.kiev.ua/{\fontencoding{TS1}\fontfamily{ptm}\selectfont\texttildelow}young/youngconf2026}
+

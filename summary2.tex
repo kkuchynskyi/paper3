@@ -1,0 +1,174 @@
+% !TeX encoding = windows-1251
+\documentclass[12pt]{article}
+\usepackage{imathconf2026}
+
+\begin{document}
+\selectlanguage{ukrainian} %вибір мови тез english або ukrainian
+\renewcommand{\definitionname}{Означення}
+\renewcommand{\propositionname}{Твердження}
+
+
+\begin{center}
+\textbf{\Large \sc Функціональні нерівності для стохастичних диференціальних рівнянь з взаємодією}\\[1ex]
+\textbf{К.~Кучинський${}^1$}\\[0.4ex]
+${}^1$Інститут математики НАН України, Київ, Україна\\[0.4ex]
+\textit{kuchinskii1999@gmail.com}
+\end{center}
+
+
+Розглядаємо стохастичне диференціальне рівняння з взаємодією~\cite{Dorogovtsev2004}
+\begin{equation}\label{eq:main}
+\begin{cases}
+ dX_t(u)=a\bigl(X_t(u),\mu_t\bigr)\,dt+\sigma\bigl(X_t(u)\bigr)\,dB_t,\\
+ X_0(u)=u,\\
+ \mu_t=\mu_0\circ X_t^{-1}.
+\end{cases}
+\end{equation}
+Тут $\mu_0$ --- задана початкова міра,
+$\mathcal{P}_2(\mathbb{R}^d)$ --- простір борелівських ймовірнісних мір
+на $\mathbb{R}^d$ зі скінченним другим моментом,
+$a:\mathbb{R}^d\times\mathcal{P}_2(\mathbb{R}^d)\to\mathbb{R}^d$ ---
+коефіцієнт переносу, а $\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}$
+--- коефіцієнт дифузії.
+
+
+\textbf{Припущення.}
+Існують сталі $L,L_\sigma,L_\mu<\infty$ такі, що:
+\begin{enumerate}
+\item для кожної $\mu\in\mathcal{P}_2(\mathbb{R}^d)$ відображення
+$x\mapsto a(x,\mu)$ є $C^2(\mathbb{R}^d)$ і
+\[
+\sup_{x,\mu}\|\partial_x a(x,\mu)\|_{\mathrm{op}}\le L;
+\]
+\item $\sigma\in C^2(\mathbb{R}^d)$ і
+\[
+\sup_x\|\partial \sigma(x)\|_{\mathrm{op}}\le L_\sigma;
+\]
+\item для всіх $x\in\mathbb{R}^d$ та
+$\mu,\nu\in\mathcal{P}_2(\mathbb{R}^d)$
+\[
+|a(x,\mu)-a(x,\nu)|\le L_\mu W_2(\mu,\nu),
+\]
+де $W_2$ --- метрика Васерштайна порядку $2$.
+\end{enumerate}
+
+За наведених припущень з \cite[теорема~2.3.1]{dorogovtsev2023}
+випливає існування та єдиність розв'язку рівняння~\eqref{eq:main}.
+
+Мотивація подальших результатів така: контроль
+$J_t(u)=\partial_uX_t(u)$ приводить до контролю випадкової сталої
+Ліпшица
+\[
+\mathcal K_t(K):=\sup_{u\in K}\|\partial_uX_t(u)\|_{\mathrm{op}}
+\]
+на компактах $K\subset\mathbb{R}^d$, а це, своєю чергою, дозволяє
+переносити геометричні та функціональні властивості від початкової міри
+$\mu_0$ до випадкової міри $\mu_t$.
+
+\begin{proposition}
+Для кожного компакту $K\subset\mathbb{R}^d$, кожного $p\ge 1$ та всіх
+$t\ge 0$ маємо $\mathbb E\,\mathcal K_t(K)^p<\infty$. Більше того,
+існують сталі $C_{p,K},c_p<\infty$ такі, що
+\[
+\mathbb E\,\mathcal K_t(K)^p\le C_{p,K}e^{c_pt}.
+\]
+\end{proposition}
+
+Щоб сформулювати наступний результат, нагадаємо означення нерівності
+концентрації~\cite{Ledoux2001}.
+
+\begin{definition}
+Кажемо, що ймовірнісна міра $\mu$ на $\mathbb{R}^d$ задовольняє
+нерівність концентрації з функцією $\Psi$, якщо для кожної борелівської
+множини $A\subset\mathbb{R}^d$ такої, що $\mu(A)\ge 1/2$, та кожного
+$r\ge 0$ виконується
+\[
+\mu(A_r)\ge 1-\Psi(r),
+\qquad
+A_r:=\{x\in\mathbb{R}^d:\mathrm{dist}(x,A)\le r\}.
+\]
+\end{definition}
+
+\begin{proposition}[Концентрація міри]
+Нехай носій $\mu_0$ міститься в компакті $K$ і $\mu_0$ задовольняє
+нерівність концентрації з функцією $\Psi$. Тоді майже напевно міра
+$\mu_t$ задовольняє нерівність концентрації з функцією
+$r\mapsto \Psi\bigl(r/\mathcal K_t(K)\bigr)$. Зокрема, гауссова
+концентрація зберігається з випадковою сталою порядку
+$\mathcal K_t(K)^2$.
+\end{proposition}
+
+Для наступного твердження нагадаємо означення нерівності
+Пуанкаре~\cite{BakryGentilLedoux2014}.
+
+\begin{definition}
+Кажемо, що ймовірнісна міра $\mu$ на $\mathbb{R}^d$ задовольняє
+нерівність Пуанкаре $\mathrm{PI}(C_P)$, якщо для всіх
+$f\in C_0^\infty(\mathbb{R}^d)$ маємо
+\[
+\int \Bigl(f-\int f\,d\mu\Bigr)^2\,d\mu
+\le C_P\int |\nabla f|^2\,d\mu.
+\]
+\end{definition}
+
+\begin{proposition}[Нерівність Пуанкаре]
+Якщо $\mu_0$ має компактний носій і задовольняє нерівність Пуанкаре
+$\mathrm{PI}(C_P)$, то майже напевно міра $\mu_t$ задовольняє нерівність
+Пуанкаре $\mathrm{PI}\bigl(C_P\mathcal K_t(K)^2\bigr)$.
+\end{proposition}
+
+Нарешті, сформулюємо транспортну нерівність
+Талаграна~\cite{Ledoux2001}.
+
+\begin{definition}
+Нехай $p\ge 1$. Кажемо, що ймовірнісна міра $\mu$ на $\mathbb{R}^d$
+задовольняє транспортну нерівність Талаграна $T_p(C_T)$, якщо для кожної
+ймовірнісної міри $\nu\ll\mu$
+\[
+W_p(\nu,\mu)^2\le 2C_T\,\mathrm{H}(\nu\mid\mu),
+\qquad
+\mathrm{H}(\nu\mid\mu):=\int \log\!\left(\frac{d\nu}{d\mu}\right)\,d\nu.
+\]
+\end{definition}
+
+\begin{proposition}[Нерівність Талаграна]
+Якщо $\mu_0$ має компактний носій і задовольняє транспортну нерівність
+Талаграна $T_p(C_T)$, то майже напевно міра $\mu_t$ задовольняє
+нерівність $T_p\bigl(C_T\mathcal K_t(K)^2\bigr)$.
+\end{proposition}
+
+Таким чином, оцінки для матриці Якобі стохастичного потоку забезпечують
+контроль його сталої Ліпшица на компактах і дають наведені вище
+результати про перенесення нерівності концентрації, нерівності Пуанкаре
+та транспортної нерівності Талаграна від початкової міри $\mu_0$ до
+випадкових мір $\mu_t$.
+
+\vskip 2mm
+{\small
+\begingroup
+\renewcommand{\section}[2]{}
+\begin{thebibliography}{9}
+
+\bibitem{Dorogovtsev2004}
+Dorogovtsev~A.~A., \textit{Stochastic equations with coefficients
+depending on a measure-valued process}, Stochastic Processes and their
+Applications \textbf{113} (2004), no.~2, 281--303.
+
+\bibitem{dorogovtsev2023}
+Dorogovtsev~A.~A., \textit{Measure-valued Processes and Stochastic
+Flows}, De Gruyter Studies in Mathematics, vol.~3, Walter de Gruyter
+GmbH \& Co KG, Berlin, 2023.
+
+\bibitem{BakryGentilLedoux2014}
+Bakry~D., Gentil~I., Ledoux~M., \textit{Analysis and Geometry of Markov
+Diffusion Operators}, Springer, 2014.
+
+\bibitem{Ledoux2001}
+Ledoux~M., \textit{The Concentration of Measure Phenomenon}, American
+Mathematical Society, 2001.
+
+\end{thebibliography}
+\endgroup}
+
+
+\end{document}

@@ -1,4 +1,9 @@
 {
+    "files.autoSave": "off",
+    "files.autoGuessEncoding": true,
+    "files.encoding": "windows1251",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.recipe.default": "latexmk",
     "latex-workshop.latex.outDir": "%DIR%/build",
     "latex-workshop.latex.tools": [
         {
