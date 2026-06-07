@@ -197,7 +197,7 @@ We now state the SDE satisfied by \(J_t(u)\) for \eqref{eq:main_eqn} from \cite{
     \end{equation*}
 \end{theorem}
 
-This theorem shows that even the drift coefficient depends on the 
+This theorem shows that even the drift coefficient depends on the
 measure \( \mu_t \), the \eqref{eq:JacSDE} does not contain the
 derivative with respect to it. Because of that fact we can evaluate
 \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
@@ -538,7 +538,7 @@ which proves that \(\eta\) satisfies \(T_p(C_T\,\mathrm{Lip}(T)^2)\).
 The preceding pathwise estimates use the quantity \( \mathcal K_t(\omega;K)\)
 which controls the worst possible stretching of the flow on the compact set \(K\). Let consider
 another quantity for the transported measure \(\mu_t=\mu_0\circ T_t^{-1}\) as the
-averaged Jacobian 
+averaged Jacobian
 \begin{equation*}
     \mathcal E_t := \int_{\mathbb{R}^d}\|J_t(u)\|_{\mathrm{HS}}^2\,\mu_0(du).
 \end{equation*}
@@ -547,27 +547,27 @@ the maximal deformation on the whole support.
 
 
 \begin{proposition}[Averaged Jacobian energy estimate]\label{prop:averaged-jacobian-energy}
-Assume that the flow is differentiable in the initial label and that there
-exist constants \(L_{\mathrm{sym}},\Gamma<\infty\) such that
-\begin{equation}\label{eq:one-sided-drift-jacobian}
-    \langle z,\partial_xa(x,\mu)z\rangle
-    \le
-    L_{\mathrm{sym}}|z|^2,
-    \qquad x,z\in\mathbb{R}^d,\ \mu\in\mathcal P_2(\mathbb{R}^d),
-\end{equation}
-and
-\begin{equation}\label{eq:quadratic-diffusion-jacobian}
-    \sum_{k=1}^d|\partial_x\sigma^{(k)}(x)z|^2
-    \le
-    \Gamma^2|z|^2,
-    \qquad x,z\in\mathbb{R}^d.
-\end{equation}
-Then
-\begin{equation}\label{eq:averaged-jacobian-energy-bound}
-    \mathbb E\mathcal E_t
-    \le
-    d\exp\{(2L_{\mathrm{sym}}+\Gamma^2)t\}.
-\end{equation}
+    Assume that the flow is differentiable in the initial label and that there
+    exist constants \(L_{\mathrm{sym}},\Gamma<\infty\) such that
+    \begin{equation}\label{eq:one-sided-drift-jacobian}
+        \langle z,\partial_xa(x,\mu)z\rangle
+        \le
+        L_{\mathrm{sym}}|z|^2,
+        \qquad x,z\in\mathbb{R}^d,\ \mu\in\mathcal P_2(\mathbb{R}^d),
+    \end{equation}
+    and
+    \begin{equation}\label{eq:quadratic-diffusion-jacobian}
+        \sum_{k=1}^d|\partial_x\sigma^{(k)}(x)z|^2
+        \le
+        \Gamma^2|z|^2,
+        \qquad x,z\in\mathbb{R}^d.
+    \end{equation}
+    Then
+    \begin{equation}\label{eq:averaged-jacobian-energy-bound}
+        \mathbb E\mathcal E_t
+        \le
+        d\exp\{(2L_{\mathrm{sym}}+\Gamma^2)t\}.
+    \end{equation}
 \end{proposition}
 
 Recall that
@@ -589,11 +589,11 @@ Applying It\^o's formula to \(\|J_t(u)\|_{\mathrm{HS}}^2\) gives
     d\|J_t(u)\|_{\mathrm{HS}}^2
      & =
     \bigg[
-        2\langle J_t(u),A_t(u)J_t(u)\rangle_{\mathrm{HS}}
-        +
-        \sum_{k=1}^d
-        \|C_t^{(k)}(u)J_t(u)\|_{\mathrm{HS}}^2
-    \bigg]dt                                                     \\
+    2\langle J_t(u),A_t(u)J_t(u)\rangle_{\mathrm{HS}}
+    +
+    \sum_{k=1}^d
+    \|C_t^{(k)}(u)J_t(u)\|_{\mathrm{HS}}^2
+    \bigg]dt \\
      & \quad
     +
     2\sum_{k=1}^d
@@ -669,7 +669,7 @@ SDEWI in such case looks
         -
         \int_{\mathbb{R}^d}
         \nabla W(X_t(u)-X_t(v))\,\mu_0(dv)
-    \bigg]dt
+        \bigg]dt
     +
     \sigma(X_t(u))\,dB_t.
 \end{equation}

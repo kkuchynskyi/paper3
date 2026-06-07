@@ -2,6 +2,18 @@
     "files.autoSave": "off",
     "files.autoGuessEncoding": true,
     "files.encoding": "windows1251",
+    "[latex]": {
+        "editor.defaultFormatter": "James-Yu.latex-workshop",
+        "editor.formatOnSave": true
+    },
+    "latex-workshop.formatting.latex": "latexindent",
+    "latex-workshop.formatting.latexindent.path": "/usr/local/bin/latexindent",
+    "latex-workshop.formatting.latexindent.args": [
+        "-c",
+        "%DIR%/",
+        "%TMPFILE%",
+        "-y=defaultIndent: '%INDENT%'"
+    ],
     "latex-workshop.latex.autoBuild.run": "onSave",
     "latex-workshop.latex.recipe.default": "latexmk",
     "latex-workshop.latex.outDir": "%DIR%/build",
