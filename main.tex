@@ -84,9 +84,9 @@ and the diffusion coefficient \(\sigma:\R^d\to\R^{d\times d}\) is state-dependen
 conditions and carrying a \(d\)-dimensional Brownian motion \(B=(B^1,\dots,B^d) \).
 
 % Motivation
-The main difference from an ordinary stochastic differential equation is the dependence on all other particles via the push-forward measure \(\mu_t\); that is why
-"with the interaction" comes.  The Brownian motion generates the \(\sigma\)-algebra \(\mathcal{F}_t\). For each
-realization \(\omega \in \mathcal{F}_t\), the map
+Unlike a classical stochastic differential equation, the drift depends on the current distribution of the
+entire system through the random measure \( \mu_t \). This dependence represents the interaction between particles. For
+each realization \(\omega \in \mathcal{F}_t\), the map
 \begin{equation*}
     T_t(\omega,\cdot):u\mapsto X_t(u,\omega)
 \end{equation*}
@@ -219,6 +219,7 @@ where
         \sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
     \end{equation*}
 \end{assumption}
+\clearpage
 
 
 
@@ -239,11 +240,11 @@ For a fixed \(\omega\) and \(t\), define the flow map \(T_t(\omega,u):=X_t(u,\om
 \begin{equation*}
     J_t(u):=\partial_u T_t(u)=\partial_u X_t(u)\in\R^{d\times d}.
 \end{equation*}
-We use the Jacobian SDE from \cite{dorogovtsev2023intermittency}.
+We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}.
 For \cref{eq:main-sdewi}, it has the following form.
 
-\begin{theorem}[\cite{dorogovtsev2023intermittency}]\label{thm:jacobian-sde}
-    Under \Cref{ass:general-lipschitz}, for each \(u\in\R^d\), the Jacobian matrix process \(J_t(u)\) exists and satisfies the linear matrix SDE (cf.\ \cite{Kunita1986,dorogovtsev2023intermittency})
+\begin{theorem}[\cite{dorogovtsev_weiss2023}]\label{thm:jacobian-sde}
+    Under \Cref{ass:general-lipschitz}, for each \(u\in\R^d\), the Jacobian matrix process \(J_t(u)\) exists and satisfies the linear matrix SDE (cf.\ \cite{Kunita1986,dorogovtsev_weiss2023})
     \begin{equation}\label{eq:jacobian-sde}
         dJ_t(u)= A_t(u)\,J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)\,J_t(u)\,dB_t^{k},\qquad J_0(u)=I,
     \end{equation}
@@ -285,8 +286,9 @@ estimate follows by applying the vector estimate to the columns of \(J_t(u)\)
 and using \(\|J_t(u)\|_{\op}\le \|J_t(u)\|_{\HS}\).
 \hfill\(\Box\)
 
-This theorem shows that even the drift coefficient depends on the measure \( \mu_t \), the Jacobian SDE in \cref{eq:jacobian-sde} does not contain the
-derivative with respect to it. Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
+Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on
+the spatial argument \(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\)
+using Kunita's theorem for the stochastic flows.
 
 Under \Cref{ass:general-lipschitz}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986}) yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\)
 the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
@@ -998,6 +1000,8 @@ Combining the two inequalities, we obtain
 which proves that \(\eta\) satisfies \(T_p(C_T\,\Lip(T)^2)\).
 \hfill\(\Box\)
 
+\clearpage
+
 
 
 
@@ -1082,11 +1086,7 @@ condition \cref{eq:one-sided-drift-jacobian} gives
 \end{equation*}
 Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
 \begin{equation*}
-    \sum_{k=1}^d\|C_t^{(k)}J\|_{\HS}^2
-    =
-    \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2
-    \le
-    \Gamma^2\|J\|_{\HS}^2.
+    \sum_{k=1}^d\|C_t^{(k)}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
 \end{equation*}
 Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
 martingale term, hence
@@ -1102,6 +1102,7 @@ To estimate \(\E\sup_{u\in K}\|J_t(u)\|^p\), one must control increments \(J_t(u
 regularity of \(\partial_xa\) and \(\partial\sigma\). The averaged quantity \(\mathcal E_t\) does not compare two labels. It only estimates each
 \(J_t(u)\) and integrates in \(u\), so the one-sided bounds \cref{eq:one-sided-drift-jacobian,eq:quadratic-diffusion-jacobian}
 are sufficient.
+\clearpage
 
 
 
