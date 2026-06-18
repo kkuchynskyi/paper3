@@ -18,8 +18,13 @@
 \newcommand{\Ent}{\mathrm{Ent}}
 
 \usepackage[unicode,hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref} % for cref
 
-\title[Interacting SDEs]{Functional Inequalities for Solutions of Stochastic Differential Equations with Interaction for Non-Constant Diffusion}
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+
+% \title[Interacting SDEs]{Functional Inequalities for Solutions of Stochastic Differential Equations with Interaction for Non-Constant Diffusion}
+\title[Interacting SDEs]{The geometric properties of the measure-valued solutions of Stochastic Differential Equations with Interaction}
 
 \author{Kyrylo Kuchynskyi}
 \address{Ukraine, Kyiv-4, 3, Tereschenkivska st.}
@@ -30,10 +35,9 @@
 \keywords{common noise, interacting SDEs, stochastic flows, logarithmic Sobolev inequality, Jacobian matrix flow}
 
 \begin{document}
-
+% TODO: Rewrite abstract
 \begin{abstract}
-    We study interacting SDEs driven by common noise where the diffusion coefficient is state-dependent.
-    We derive the SDE for the Jacobian matrix of the associated stochastic flow and obtain a pathwise exponential bound on directional derivatives, which yields a pathwise logarithmic Sobolev inequality for the transported measures with a random constant controlled by the flow Lipschitz constant.
+    ...
 \end{abstract}
 
 \maketitle
@@ -47,21 +51,120 @@
 % ============================================================
 \section{Introduction}\label{sec:intro}
 
+% The introduction of SDEWI
 We consider Stochastic Differential Equations with Interactions that were proposed by Andrey A. Dorogovtsev in \cite{dorogovtsev2003},
-% PDF landmark: base interacting SDE with common noise.
+%  Main SDEWIN equation
 \begin{equation}\label{eq:main_eqn}
     \begin{cases}
-        dX_t(u) = a\big(X_t(u),\mu_t\big)\,dt + \sigma\big(X_t(u)\big)\,dB_t, \\[2mm]
-        X_0(u)=u, u \in \mathbb{R}^d                                          \\[1mm]
-        \mu_t = \mu_0\circ X_t^{-1}.
+        dX_t(u) & = a\big(X_t(u),\mu_t\big)\,dt + \sigma\big(X_t(u)\big)\,dB_t, \\[1mm]
+        X_0(u)  & = u,                                                          \\[1mm]
+        \mu_t   & = \mu_0\circ X_t^{-1}.
     \end{cases}
 \end{equation}
 Here \(\mu_0\) is a deterministic initial probability measure,
 \(a:\mathbb{R}^d\times\mathcal{P}_2(\mathbb{R}^d)\to\mathbb{R}^d\) is the drift, where
 \(\mathcal{P}_2(\mathbb{R}^d)\) denotes the space of Borel probability measures on \(\mathbb{R}^d\) with finite second moment,
-and the diffusion coefficient \(\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}\) is state-dependent and non-constant.
+and the diffusion coefficient \(\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}\) is state-dependent and non-constant. The main differnnce from
+the ordianry Stochastic Diferential Equation is the dependence on the all other particles via push-forward measure \( \mu_t \), that why
+"with the interaction" comes.
 
-In this paper we consider a specific form of the SDEWI in which the dependence on \( \mu_t \)
+
+% The mapping perspective
+For each realization \(\omega \in \mathcal{F}_t\), the map
+\begin{equation*}
+    T_t(\omega,\cdot):u\mapsto X_t(u,\omega)
+\end{equation*}
+acts on the initial measure by pushforward,
+\begin{equation*}
+    \mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1},
+\end{equation*}
+so the evolution is best viewed as a random transport of measures by a stochastic flow.
+
+% Section 2 motivation
+In \Cref{sec:jacobian-bound} we investigate the norm of Jacobian and how its affect the functional inequalities.
+We write \(|\cdot|\) for the Euclidean norm on \(\mathbb{R}^d\).
+For a matrix \(M\in\mathbb{R}^{d\times d}\) we set
+\begin{equation*}
+    \|M\|_{\mathrm{op}}:=\sup_{|v|=1}|Mv|,
+\end{equation*}
+
+% Assumption on the coefficients
+For \(\sigma=(\sigma^{(1)},\ldots,\sigma^{(d)})\) with columns \(\sigma^{(k)}:\mathbb{R}^d\to\mathbb{R}^d\), we define
+\begin{equation*}
+    \|\partial\sigma(x)\|_{\mathrm{op}}:=\max_{1\le k\le d}\|\partial \sigma^{(k)}(x)\|_{\mathrm{op}}.
+\end{equation*}
+% Assumption on the coefficients
+\begin{assumption}[A2]\label{ass:general_lipschitz}
+    The coefficients satisfy the following conditions:
+    \begin{enumerate}
+        \item[(i)] For each \(\mu\in\mathcal{P}_2(\mathbb{R}^d)\), the map \(x\mapsto a(x,\mu)\) belongs to \(C^2(\mathbb{R}^d;\mathbb{R}^d)\) and
+              \begin{equation*}
+                  \sup_{x,\mu}\|\partial_x a(x,\mu)\|_{\mathrm{op}}\le L.
+              \end{equation*}
+        \item[(ii)] The diffusion coefficient satisfies \(\sigma\in C^2(\mathbb{R}^d;\mathbb{R}^{d\times d})\) and there exists \(L_\sigma<\infty\) such that
+              \begin{equation*}
+                  \sup_x \|\partial \sigma(x)\|_{\mathrm{op}}\le L_\sigma.
+              \end{equation*}
+        \item[(iii)] There exists \(L_\mu<\infty\) such that for all \(x\in\mathbb{R}^d\) and all \(\mu,\nu\in\mathcal{P}_2(\mathbb{R}^d)\),
+              \begin{equation*}
+                  |a(x,\mu)-a(x,\nu)|\le L_\mu\,W_2(\mu,\nu).
+              \end{equation*}
+    \end{enumerate}
+\end{assumption}
+
+The solution to \cref{eq:main_eqn} generates a \(C^1\) stochastic flow of maps: there exists a modification such that for a.s. \(\omega\) and every \(t\ge 0\) the map
+\(u\mapsto X_t(u,\omega)\) is of class \(C^1(\mathbb{R}^d)\). We study whether logarithmic Sobolev, Poincar\'e, and Talagrand transport inequalities are propagated from the initial measure \(\mu_0\) to the random measure \(\mu_t\).
+
+
+% LSI
+\begin{definition}[Logarithmic Sobolev inequality]
+    Denoting by \(\mathcal{C}^1_c(\mathbb{R}^d)\) the set of compactly supported smooth functions from \(\mathbb{R}^d\) to \(\mathbb{R}\), for \(g\ge 0\) with \(\int g\,d\mu=1\) we define the entropy
+    \begin{equation*}
+        \Ent_\mu(g):=\int g\log g\,d\mu.
+    \end{equation*}
+    A probability measure \(\mu\) on \(\mathbb{R}^d\) is said to satisfy a logarithmic Sobolev inequality with constant \(C>0\) if for every \(h\in\mathcal{C}^1_c(\mathbb{R}^d)\) with \(\int h^2\,d\mu=1\) one has
+    \begin{equation}
+        \Ent_\mu(h^2)\le C\int_{\mathbb{R}^d}|\nabla h|^2\,d\mu.
+        \label{eq:lsi_def}
+    \end{equation}
+\end{definition}
+
+
+% Poincare inequality
+\begin{definition}[Poincar\'e inequality]
+    A probability measure \(\mu\) on \(\mathbb{R}^d\) is said to satisfy a Poincar\'e inequality with constant \(C_P>0\), denoted by \(\mathrm{PI}(C_P)\), if for every \(h\in \mathcal C_c^1(\mathbb{R}^d)\),
+    \begin{equation}
+        \mathrm{Var}_\mu(h):=\int_{\mathbb{R}^d} h^2\,d\mu-\Big(\int_{\mathbb{R}^d} h\,d\mu\Big)^2
+        \le
+        C_P\int_{\mathbb{R}^d} |\nabla h|^2\,d\mu.
+        \label{eq:poincare-def}
+    \end{equation}
+\end{definition}
+
+
+% Talagrand transport inequality
+\begin{definition}[Talagrand transport inequality]
+    Let \(p\ge1\). A probability measure \(\mu\) on \(\mathbb{R}^d\) is said to satisfy the Talagrand transport inequality \(T_p(C_T)\) with constant \(C_T>0\) if for every probability measure \(\nu\) on \(\mathbb{R}^d\) with finite \(p\)-th moment,
+    \begin{equation}
+        W_p(\nu,\mu)^2 \le 2C_T\,\Ent(\nu\mid \mu),
+        \label{eq:Tp-def}
+    \end{equation}
+    where
+    \begin{equation*}
+        \Ent(\nu\mid\mu)=
+        \begin{cases}
+            \displaystyle \int_{\mathbb{R}^d}\log\Big(\frac{d\nu}{d\mu}\Big)\,d\nu, & \nu\ll \mu,       \\[3mm]
+            +\infty,                                                                & \text{otherwise}.
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+% Section 3 motivation
+In \Cref{sec:averaged-jacobian}, we replace the pathwise supremum over a compact
+set by an averaged Jacobian energy and derive a corresponding moment estimate.
+
+% Section 4 summary
+In \Cref{sec:internal-fluctuations}, we consider a specific form of the SDEWI in which the dependence on \( \mu_t \)
 remains explicit through the kernel \( K \) and the parameter \( \Theta_t \).
 % PDF landmark: kernel/order-parameter form of the SDEWI.
 \begin{equation}\label{eq:kernel-sdewi}
@@ -80,7 +183,7 @@ where
     \theta(\mu):=\int_{\mathbb{R}^d}\Phi(x)\,\mu(dx),
 \end{equation*}
 
-% PDF landmark: Assumption on global Lipschitz and growth hypotheses.
+% Dissipativity Assumptions on global Lipschitz and growth hypotheses.
 \begin{assumption}[Global Lipschitz and growth hypotheses]\label{ass:global-lip}
     The maps \(b,K,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
     More explicitly, there exists \(L<\infty\) such that
@@ -97,6 +200,490 @@ where
 
 
 
+
+
+% ============================================================
+% Pathwise bound
+% ============================================================
+\section{Pathwise Jacobian Bounds and Functional Inequality Transfer}\label{sec:jacobian-bound}
+
+This section is devoted to the investigation the SDE for the Jacobian
+matrix in \cref{eq:JacSDE} and the norm \(\|J_t(u)\|\) on the compact sets.
+Such norm is the upper bound for Lipshitz constant of the map \( T_t(u) \). Then
+knowing the upper bound for Lipshitz constant we can evaluate
+the concentration inequality, Poincare inequality, Logarithmic sobolev
+inequality and Talgrand inequality.
+
+
+For a fixed \(\omega\) and \(t\), define the flow map \(T_t(\omega,u):=X_t(u,\omega)\) and its Jacobian matrix
+\begin{equation*}
+    J_t(u):=\partial_u T_t(u)=\partial_u X_t(u)\in\mathbb{R}^{d\times d}.
+\end{equation*}
+We now state the SDE satisfied by \(J_t(u)\) for \cref{eq:main_eqn} from \cite{dorogovtsev2023intermittency}.
+
+\begin{theorem}[Jacobian matrix SDE for \cref{eq:main_eqn}]\label{thm:jacobianSDE}
+    Under \Cref{ass:general_lipschitz}, for each \(u\in\mathbb{R}^d\), the Jacobian matrix process \(J_t(u)\) exists and satisfies the linear matrix SDE (cf.\ \cite{Kunita1986,dorogovtsev2023intermittency})
+    \begin{equation}
+        dJ_t(u)= A_t(u)\,J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)\,J_t(u)\,dB_t^{k},\qquad J_0(u)=I,
+        \label{eq:JacSDE}
+    \end{equation}
+    where
+    \begin{equation*}
+        A_t(u):=\partial_x a\big(X_t(u),\mu_t\big),\qquad
+        C_t^{(k)}(u):=\partial_x \sigma^{(k)}\big(X_t(u)\big),
+    \end{equation*}
+    and \(\sigma^{(k)}\) denotes the \(k\)-th column of \(\sigma\).
+    Here \(A_t(u),C_t^{(k)}(u)\in\mathbb{R}^{d\times d}\), the driving Brownian motion is \(B_t=(B_t^1,\ldots,B_t^d)\) with \(B_t^k\in\mathbb{R}\), and the sum runs over the \(d\) components of the noise.
+    Moreover, the coefficients satisfy the uniform bounds
+    \begin{equation*}
+        \|A_t(u)\|_{\mathrm{op}}\le L,\qquad
+        \|C_t^{(k)}(u)\|_{\mathrm{op}}\le L_\sigma
+        \quad \text{for all }t,u,\omega.
+    \end{equation*}
+\end{theorem}
+
+This theorem shows that even the drift coefficient depends on the
+measure \( \mu_t \), the Jacobian SDE in \cref{eq:JacSDE} does not contain the
+derivative with respect to it. Because of that fact we can evaluate
+\(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
+
+Under \Cref{ass:general_lipschitz}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986}) yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
+
+
+
+\begin{definition}[Random Jacobian matrix/Lipschitz constant on a set]\label{def:jacobian-constant}
+    For a (nonempty) set \( K\subset\mathbb{R}^d \), define
+    \begin{equation*}
+        \mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}.
+    \end{equation*}
+    If \(K\) is compact and \(u\mapsto J_t(u,\omega)\) is continuous, then \(\mathcal{K}_t(\omega;K)<\infty\).
+\end{definition}
+
+\begin{remark}[Why \(\mathcal{K}_t(\omega;K)\) is finite and relation to global blow-up examples]
+    The counterexamples of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite
+    global constant \(\sup_{u\in\mathbb{R}^d}\|J_t(u,\omega)\|_{\mathrm{op}}\) for a fixed \((t,\omega)\).
+    In contrast, the quantity \(\mathcal{K}_t(\omega;K)\) is taken over a \emph{compact} set \(K\); under \Cref{ass:general_lipschitz}(iii),
+    for each fixed \((t,\omega)\) the map \(u\mapsto J_t(u,\omega)\) is continuous, hence the supremum over \(K\) is finite.
+\end{remark}
+
+\begin{corollary}[Pathwise LSI with the Jacobian matrix constant]\label{cor:lsi-jacobian-constant}
+    If \(\mu_0\) satisfies \(\mathrm{LSI}(C_0)\) and \(\mathrm{supp}(\mu_0)\subset K\) for some compact \(K\), then for every \(t\ge0\) and a.s.\ \(\omega\),
+    \begin{equation*}
+        \mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}
+        \quad\Longrightarrow\quad
+        \mu_t(\omega)\text{ satisfies }\mathrm{LSI}\big(C_0\,\mathcal{K}_t(\omega;K)^2\big).
+    \end{equation*}
+\end{corollary}
+
+\begin{lemma}[Flow Lipschitz constant via Jacobian matrix]\label{lem:lip-via-J}
+    For each fixed \((t,\omega)\) such that the flow map \(u\mapsto T_t(\omega,u):=X_t(u,\omega)\) is of class \(C^1\),
+    \begin{equation*}
+        \mathrm{Lip}(T_t(\omega)) = \sup_{u\in\mathbb{R}^d}\|J_t(u,\omega)\|_{\mathrm{op}}\in[0,\infty].
+    \end{equation*}
+\end{lemma}
+
+Since \(u\mapsto T_t(\omega,u)\) is \(C^1\), the mean value theorem implies
+\begin{equation*}
+    |T_t(u)-T_t(v)| \le \sup_{\theta\in[0,1]}\|J_t(v+\theta(u-v))\|_{\mathrm{op}}\,|u-v|.
+\end{equation*}
+Taking the supremum over \(u\neq v\) yields \(\mathrm{Lip}(T_t)\le \sup_u\|J_t(u)\|_{\mathrm{op}}\).
+Conversely, for any \(u\) and unit vector \(\xi\), letting \(v=u+\varepsilon\xi\) and sending \(\varepsilon\downarrow 0\) gives
+\begin{equation*}
+    \|J_t(u)\|_{\mathrm{op}} = \sup_{|\xi|=1}\lim_{\varepsilon\downarrow 0}\frac{|T_t(u+\varepsilon\xi)-T_t(u)|}{\varepsilon}
+    \le \mathrm{Lip}(T_t),
+\end{equation*}
+hence equality.
+\hfill\(\Box\)
+
+
+
+
+
+% ============================================================
+% Concentration inequality
+% ============================================================
+\subsection{Finitness on the compact sets}\label{sec:Kt-moment}
+
+Pointwise estimates control \(\|J_t(u)\|_{\mathrm{op}}\) for fixed \(u\). To control the random Lipschitz constant
+\begin{equation}
+    \mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}
+\end{equation}
+on a compact set \(K\), we impose the following additional spatial regularity assumption.
+\begin{assumption}\label{ass:spatial-lip-derivatives}
+    There exist constants \(L^{(2)}<\infty\) and \(L_\sigma^{(2)}<\infty\)
+    such that for all \(\mu\in\mathcal{P}_2(\mathbb{R}^d)\) and all
+    \(x,y\in\mathbb{R}^d\),
+    \begin{align*}
+        \|\partial_x a(x,\mu)-\partial_x a(y,\mu)\|_{\mathrm{op}}
+         & \le L^{(2)}\,|x-y|,        \\
+        \max_{1\le k\le d}\|\partial \sigma^{(k)}(x)-\partial \sigma^{(k)}(y)\|_{\mathrm{op}}
+         & \le L_\sigma^{(2)}\,|x-y|.
+    \end{align*}
+\end{assumption}
+
+\begin{proposition}[Moment bound for \(\mathcal{K}_t(\cdot;K)\)]\label{prop:Kt-moment}
+    Assume \Cref{ass:general_lipschitz,ass:spatial-lip-derivatives}.
+    Then for every compact \(K\subset\mathbb{R}^d\), every \(p\ge 1\),
+    and every \(t\ge0\),
+    \begin{equation}\label{eq:Kt-finite-moment}
+        \mathbb{E}\,\mathcal{K}_t(\cdot;K)^p<\infty.
+    \end{equation}
+    Moreover, there exist constants \(C_{p,K},c_p<\infty\)
+    (depending only on \(p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}\)) such that
+    \begin{equation}\label{eq:Kt-exp-growth}
+        \mathbb{E}\,\mathcal{K}_t(\cdot;K)^p
+        \le C_{p,K}\,e^{c_p t},
+        \qquad t\ge0.
+    \end{equation}
+\end{proposition}
+
+
+
+
+
+
+% ============================================================
+% Concentration inequality
+% ============================================================
+\subsection{Concentration inequality}
+
+In this subsection we record several consequences of the identity
+\begin{equation*}
+    T_t(\omega,u):=X_t(u,\omega),
+\end{equation*}
+which expresses the random measure \(\mu_t\) as the pushforward of the initial law \(\mu_0\) under the stochastic flow.
+
+We next record the basic concentration-transfer principle under a random Lipschitz map.
+
+\begin{proposition}[Pathwise concentration transfer]\label{prop:concentration-transfer}
+    Let \(K:=\operatorname{supp}(\mu_0)\) and assume that for a.s.\ \(\omega\) the map \(T_t(\omega,\cdot)\) is Lipschitz on \(K\), with Lipschitz constant
+    \begin{equation*}
+        L_t(\omega;K):=\sup_{\substack{u,v\in K\\u\neq v}}
+        \frac{|T_t(\omega,u)-T_t(\omega,v)|}{|u-v|}.
+    \end{equation*}
+    Assume that \(\mu_0\) satisfies the concentration inequality
+    \begin{equation}\label{eq:general-concentration-mu0}
+        \mu_0(f-\mu_0(f)\ge r)\le \Psi(r),
+        \qquad r\ge0,
+    \end{equation}
+    for every \(1\)-Lipschitz function \(f:\mathbb{R}^d\to\mathbb{R}\), where \(\Psi:[0,\infty)\to[0,1]\) is nonincreasing.
+    Then for a.s.\ \(\omega\),
+    \begin{equation}\label{eq:general-concentration-mut}
+        \mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+        \le
+        \Psi\Big(\frac{r}{L_t(\omega;K)}\Big),
+        \qquad r\ge0,
+    \end{equation}
+    for every \(1\)-Lipschitz function \(g:\mathbb{R}^d\to\mathbb{R}\).
+\end{proposition}
+
+Fix \(\omega\) such that \(T_t(\omega,\cdot)\) is Lipschitz on \(K\), and write
+\(L:=L_t(\omega;K)\in[0,\infty)\).
+Let \(g:\mathbb{R}^d\to\mathbb{R}\) be \(1\)-Lipschitz.
+
+If \(L=0\), then \(T_t(\omega,\cdot)\) is constant on \(K\), hence
+\(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\) is a Dirac mass and
+\(\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)=0\) for every \(r>0\).
+Thus \cref{eq:general-concentration-mut} is immediate.
+
+Assume now \(L>0\) and define on \(K\)
+\begin{equation}
+    h(u):=\frac{g(T_t(\omega,u))}{L}.
+\end{equation}
+Then \(h\) is \(1\)-Lipschitz on \(K\).
+By the McShane extension theorem, \(h\) extends to a \(1\)-Lipschitz function
+\(\widetilde h:\mathbb{R}^d\to\mathbb{R}\).
+Applying \cref{eq:general-concentration-mu0} to \(\widetilde h\) (and using that \(\mu_0\) is supported on \(K\)) gives
+\begin{equation}
+    \mu_0\big(h-\mu_0(h)\ge s\big)\le \Psi(s),\qquad s\ge0.
+\end{equation}
+Since \(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\),
+\begin{equation}
+    \mu_t(\omega)(g)=\mu_0(g\circ T_t(\omega,\cdot))=L\mu_0(h).
+\end{equation}
+Therefore, for \(r\ge0\),
+\begin{align*}
+    \mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+     & = \mu_0\big(g\circ T_t(\omega,\cdot)-\mu_0(g\circ T_t(\omega,\cdot))\ge r\big) \\
+     & = \mu_0\big(h-\mu_0(h)\ge r/L\big)                                             \\
+     & \le \Psi\Big(\frac{r}{L}\Big)
+    = \Psi\Big(\frac{r}{L_t(\omega;K)}\Big).
+\end{align*}
+This proves \cref{eq:general-concentration-mut}.
+\hfill\(\Box\)
+
+\begin{remark}[Concentration as a corollary of LSI]
+    If \(\mu_0\) satisfies a logarithmic Sobolev inequality, then it satisfies Gaussian concentration.
+    Hence \Cref{cor:lsi-jacobian-constant} yields, in particular, a pathwise concentration inequality for \(\mu_t(\omega)\) with a random constant controlled by \(\mathcal K_t(\omega;K)^2\).
+\end{remark}
+
+
+
+
+
+
+% ============================================================
+% Talagrand transport inequalities
+% ============================================================
+\subsection{Poincar\'e inequality}\label{sec:poincare}
+
+We first record the stability of the Poincar\'e inequality under Lipschitz
+pushforward.
+
+\begin{proposition}[Poincar\'e inequality under a Lipschitz pushforward]\label{prop:poincare-pushforward}
+    Let \(\mu\) be a probability measure on \(\mathbb{R}^d\) satisfying \(\mathrm{PI}(C_P)\), and let
+    \(T:\mathbb{R}^d\to\mathbb{R}^d\) be a Lipschitz map with Lipschitz constant \(\mathrm{Lip}(T)\).
+    Then the pushforward measure \(\nu:=\mu\circ T^{-1}\) satisfies
+    \begin{equation*}
+        \mathrm{PI}\big(C_P\,\mathrm{Lip}(T)^2\big).
+    \end{equation*}
+\end{proposition}
+
+Let \(g\in \mathcal C_c^1(\mathbb{R}^d)\) and set \(f:=g\circ T\).
+Then
+\begin{equation*}
+    \int_{\mathbb{R}^d} g\,d\nu=\int_{\mathbb{R}^d} g(T(u))\,\mu(du)=\int_{\mathbb{R}^d} f(u)\,\mu(du),
+\end{equation*}
+and similarly
+\begin{equation*}
+    \int_{\mathbb{R}^d} g^2\,d\nu=\int_{\mathbb{R}^d} f^2\,d\mu.
+\end{equation*}
+Hence
+\begin{equation*}
+    \mathrm{Var}_\nu(g)=\mathrm{Var}_\mu(f).
+\end{equation*}
+Applying the Poincar\'e inequality for \(\mu\) gives
+\begin{equation*}
+    \mathrm{Var}_\nu(g) = \mathrm{Var}_\mu(f) \le C_P\int_{\mathbb{R}^d} |\nabla f(u)|^2\,\mu(du).
+\end{equation*}
+Since \(f=g\circ T\) and \(T\) is Lipschitz, we have a.e.
+\begin{equation*}
+    |\nabla f(u)| \le \mathrm{Lip}(T)\,|\nabla g(T(u))|.
+\end{equation*}
+Therefore
+\begin{equation*}
+    \mathrm{Var}_\nu(g) \le C_P\,\mathrm{Lip}(T)^2 \int_{\mathbb{R}^d} |\nabla g(T(u))|^2\,\mu(du) = C_P\,\mathrm{Lip}(T)^2 \int_{\mathbb{R}^d} |\nabla g(x)|^2\,\nu(dx).
+\end{equation*}
+This proves the claim.
+\hfill\(\Box\)
+
+\begin{corollary}[Pathwise Poincar\'e inequality]\label{cor:poincare-jacobian-constant}
+    If \(\mu_0\) satisfies \(\mathrm{PI}(C_P)\) and \(\operatorname{supp}(\mu_0)\subset K\) for some compact set \(K\subset \mathbb{R}^d\), then for every \(t\ge0\) and a.s.\ \(\omega\),
+    \begin{equation*}
+        \mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}
+        \quad\Longrightarrow\quad
+        \mu_t(\omega)\text{ satisfies }\mathrm{PI}\big(C_P\,\mathcal K_t(\omega;K)^2\big).
+    \end{equation*}
+\end{corollary}
+
+By \Cref{prop:poincare-pushforward}, it suffices to bound the Lipschitz constant of \(T_t(\omega,\cdot)\) on \(K\).
+Since \(K\) is compact and \(u\mapsto T_t(\omega,u)\) is of class \(C^1\), the mean value theorem gives
+\begin{equation*}
+    |T_t(\omega,u)-T_t(\omega,v)|
+    \le
+    \sup_{z\in K}\|J_t(z,\omega)\|_{\mathrm{op}}\,|u-v|
+    =
+    \mathcal K_t(\omega;K)\,|u-v|,
+    \qquad u,v\in K.
+\end{equation*}
+Hence \(\mathrm{Lip}(T_t(\omega)|_K)\le \mathcal K_t(\omega;K)\), and the result follows.
+\hfill\(\Box\)
+
+
+
+
+
+
+% ============================================================
+% Talagrand transport inequalities
+% ============================================================
+\subsection{Talagrand transport inequalities}\label{sec:talagrand}
+
+We next record the analogous stability property for Talagrand transport
+inequalities.
+
+\begin{proposition}[Transport inequality under a Lipschitz pushforward]\label{prop:talagrand-pushforward}
+    Let \(\mu\) be a probability measure on \(\mathbb{R}^d\) satisfying \(T_p(C_T)\) for some \(p\ge1\), and let
+    \(T:\mathbb{R}^d\to\mathbb{R}^d\) be a Lipschitz map with Lipschitz constant \(\mathrm{Lip}(T)\).
+    Then the pushforward measure \(\eta:=\mu\circ T^{-1}\) satisfies
+    \begin{equation*}
+        T_p\big(C_T\,\mathrm{Lip}(T)^2\big).
+    \end{equation*}
+\end{proposition}
+
+Let \(\lambda\) be any probability measure on \(\mathbb{R}^d\).
+If \(\lambda\not\ll \eta\), then \(\Ent(\lambda\mid\eta)=+\infty\) and the inequality is trivial.
+Assume therefore that \(\lambda\ll \eta\).
+
+Choose a probability measure \(\widetilde\lambda\) on \(\mathbb{R}^d\) such that
+\begin{equation*}
+    \widetilde\lambda\circ T^{-1}=\lambda
+    \qquad\text{and}\qquad
+    \Ent(\widetilde\lambda\mid \mu)=\Ent(\lambda\mid \eta).
+\end{equation*}
+For instance, one may take the measure
+\begin{equation*}
+    \widetilde\lambda(du):=
+    \frac{d\lambda}{d\eta}(T(u))\,\mu(du).
+\end{equation*}
+Indeed,
+\begin{equation*}
+    (\widetilde\lambda\circ T^{-1})(A)
+    =
+    \int_{\mathbb{R}^d}\mathbf 1_{\{T(u)\in A\}}\frac{d\lambda}{d\eta}(T(u))\,\mu(du)
+    =
+    \int_A \frac{d\lambda}{d\eta}(x)\,\eta(dx)
+    =
+    \lambda(A),
+\end{equation*}
+and
+\begin{equation*}
+    \Ent(\widetilde\lambda\mid\mu)
+    =
+    \int_{\mathbb{R}^d}\log\Big(\frac{d\lambda}{d\eta}(T(u))\Big)\,\widetilde\lambda(du)
+    =
+    \int_{\mathbb{R}^d}\log\Big(\frac{d\lambda}{d\eta}(x)\Big)\,\lambda(dx)
+    =
+    \Ent(\lambda\mid\eta).
+\end{equation*}
+
+Now let \(\pi\) be a coupling of \(\widetilde\lambda\) and \(\mu\).
+Then \(\pi\circ (T,T)^{-1}\) is a coupling of \(\lambda\) and \(\eta\), so by Lipschitz continuity of \(T\),
+\begin{equation*}
+    \int_{\mathbb{R}^d\times\mathbb{R}^d}|x-y|^p\,d(\pi\circ (T,T)^{-1})(x,y)
+    =
+    \int_{\mathbb{R}^d\times\mathbb{R}^d}|T(u)-T(v)|^p\,d\pi(u,v)
+    \le
+    \mathrm{Lip}(T)^p
+    \int |u-v|^p\,d\pi(u,v).
+\end{equation*}
+Taking the infimum over all couplings \(\pi\) of \(\widetilde\lambda\) and \(\mu\) yields
+\begin{equation*}
+    W_p(\lambda,\eta)\le \mathrm{Lip}(T)\,W_p(\widetilde\lambda,\mu).
+\end{equation*}
+Since \(\mu\) satisfies \(T_p(C_T)\),
+\begin{equation*}
+    W_p(\widetilde\lambda,\mu)^2
+    \le
+    2C_T\,\Ent(\widetilde\lambda\mid\mu)
+    =
+    2C_T\,\Ent(\lambda\mid\eta).
+\end{equation*}
+Combining the two inequalities, we obtain
+\begin{equation*}
+    W_p(\lambda,\eta)^2
+    \le
+    \mathrm{Lip}(T)^2\,W_p(\widetilde\lambda,\mu)^2
+    \le
+    2C_T\,\mathrm{Lip}(T)^2\,\Ent(\lambda\mid\eta),
+\end{equation*}
+which proves that \(\eta\) satisfies \(T_p(C_T\,\mathrm{Lip}(T)^2)\).
+\hfill\(\Box\)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% ============================================================
+% The averaged Jacobian
+% ============================================================
+\section{The averaged Jacobian}\label{sec:averaged-jacobian}
+
+The preceding pathwise estimates use the quantity \( \mathcal K_t(\omega;K)\)
+which controls the worst possible stretching of the flow on the compact set \(K\). Let consider
+another quantity for the transported measure \(\mu_t=\mu_0\circ T_t^{-1}\) as the
+averaged Jacobian
+\begin{equation*}
+    \mathcal E_t := \int_{\mathbb{R}^d}\|J_t(u)\|_{\mathrm{HS}}^2\,\mu_0(du).
+\end{equation*}
+It measures average deformation of the flow over the initial mass, rather than
+the maximal deformation on the whole support.
+
+
+\begin{proposition}[Averaged Jacobian energy estimate]\label{prop:averaged-jacobian-energy}
+    Assume that the flow is differentiable in the initial label and that there
+    exist constants \(L_{\mathrm{sym}},\Gamma<\infty\) such that
+    \begin{equation}\label{eq:one-sided-drift-jacobian}
+        \langle z,\partial_xa(x,\mu)z\rangle
+        \le
+        L_{\mathrm{sym}}|z|^2,
+        \qquad x,z\in\mathbb{R}^d,\ \mu\in\mathcal P_2(\mathbb{R}^d),
+    \end{equation}
+    and
+    \begin{equation}\label{eq:quadratic-diffusion-jacobian}
+        \sum_{k=1}^d|\partial_x\sigma^{(k)}(x)z|^2
+        \le
+        \Gamma^2|z|^2,
+        \qquad x,z\in\mathbb{R}^d.
+    \end{equation}
+    Then
+    \begin{equation}\label{eq:averaged-jacobian-energy-bound}
+        \mathbb E\mathcal E_t
+        \le
+        d\exp\{(2L_{\mathrm{sym}}+\Gamma^2)t\}.
+    \end{equation}
+\end{proposition}
+
+Recall that
+\begin{equation*}
+    dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)J_t(u)\,dB_t^k,
+\end{equation*}
+where
+\begin{equation*}
+    A_t(u)=\partial_xa(X_t(u),\mu_t), \qquad C_t^{(k)}(u)=\partial_x\sigma^{(k)}(X_t(u)).
+\end{equation*}
+Applying It\^o's formula to \(\|J_t(u)\|_{\mathrm{HS}}^2\) gives
+\begin{align*}
+    d\|J_t(u)\|_{\mathrm{HS}}^2 & =
+    \bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle_{\mathrm{HS}} +
+    \sum_{k=1}^d\|C_t^{(k)}(u)J_t(u)\|_{\mathrm{HS}}^2 \bigg]dt                                                         \\
+                                & \quad + 2\sum_{k=1}^d \langle J_t(u),C_t^{(k)}(u)J_t(u)\rangle_{\mathrm{HS}}\,dB_t^k.
+\end{align*}
+Since
+\begin{equation}
+    \langle J,A_tJ\rangle_{\mathrm{HS}} = \sum_{i=1}^d\langle Je_i,A_tJe_i\rangle,
+\end{equation}
+condition \cref{eq:one-sided-drift-jacobian} gives
+\begin{equation*}
+    2\langle J,A_tJ\rangle_{\mathrm{HS}} \le 2L_{\mathrm{sym}}\|J\|_{\mathrm{HS}}^2.
+\end{equation*}
+Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
+\begin{equation*}
+    \sum_{k=1}^d\|C_t^{(k)}J\|_{\mathrm{HS}}^2
+    =
+    \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2
+    \le
+    \Gamma^2\|J\|_{\mathrm{HS}}^2.
+\end{equation*}
+Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
+martingale term, hence
+\begin{equation*}
+    \frac{d}{dt}\mathbb E\mathcal E_t \le (2L_{\mathrm{sym}}+\Gamma^2)\mathbb E\mathcal E_t.
+\end{equation*}
+Since \(J_0(u)=I\), we have \(\mathcal E_0=\|I\|_{\mathrm{HS}}^2=d\). Gronwall's
+lemma proves \cref{eq:averaged-jacobian-energy-bound}.
+\hfill\(\Box\)
+
+
+To estimate \(\mathbb E\sup_{u\in K}\|J_t(u)\|^p\), one must control increments \(J_t(u)-J_t(v)\), which requires assumptions on the spatial
+regularity of \(\partial_xa\) and \(\partial\sigma\). The averaged quantity \(\mathcal E_t\) does not compare two labels. It only estimates each
+\(J_t(u)\) and integrates in \(u\), so the one-sided bounds \cref{eq:one-sided-drift-jacobian,eq:quadratic-diffusion-jacobian}
+are sufficient.
 
 
 
@@ -204,7 +791,7 @@ The dissipativity condition covers several basic models.
 \subsection{Proof}
 % PDF landmark: Theorem on exponential synchronization in expected W2 spread.
 \begin{theorem}[Synchronization under dissipativity assumptions]\label{thm:synchronization-dissipativity}
-    Assume that \(\mu_0\in\mathcal P_2(\mathbb{R}^d)\) and that Assumption~\ref{ass:pairwise-dissipativity} holds. Then
+    Assume that \(\mu_0\in\mathcal P_2(\mathbb{R}^d)\) and that \Cref{ass:pairwise-dissipativity} holds. Then
     \begin{equation*}
         \mathbb E\mathcal D_t \le e^{-\lambda t}\mathcal D_0.
     \end{equation*}
@@ -224,13 +811,13 @@ The dissipativity condition covers several basic models.
     \begin{equation*}
         Z_t^{u,v}:=X_t(u)-X_t(v).
     \end{equation*}
-    We first prove that under Assumption~\ref{ass:pairwise-dissipativity}
+    We first prove that under \Cref{ass:pairwise-dissipativity}
     \begin{equation*}
         \mathbb E|Z_t^{u,v}|^2 \le e^{-\lambda t}|u-v|^2,
     \end{equation*}
     then we integrate this estimate with respect to \(\mu_0(du)\mu_0(dv)\).
 
-    Writing SDEWI \eqref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
+    Writing \cref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
     \begin{equation*}
         dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^m H_{\ell,t}^{u,v}\,dB_t^\ell,
     \end{equation*}
@@ -259,7 +846,7 @@ The dissipativity condition covers several basic models.
         d|Z_t^{u,v}|^2 & = 2\langle Z_t^{u,v},G_t^{u,v}\rangle\,dt + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2\,dt \\
                        & \quad+ 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
     \end{align*}
-    Apply Assumption~\ref{ass:pairwise-dissipativity} with
+    Apply \Cref{ass:pairwise-dissipativity} with
     \(x=X_t(u)\), \(y=X_t(v)\), \(\theta=\Theta_t\), and \(\nu=\mu_t\). Then
     \begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
     \end{equation*}
@@ -277,7 +864,7 @@ The dissipativity condition covers several basic models.
         dY_t^{u,v} & = e^{\lambda t} \left[ \lambda |Z_t^{u,v}|^2 + 2\langle Z_t^{u,v},G_t^{u,v}\rangle + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \right]dt \\
                    & \quad+ 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
     \end{align*}
-    By the drift bound \eqref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
+    By the drift bound \cref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
     \begin{equation*}
         dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
     \end{equation*}
@@ -351,298 +938,7 @@ The dissipativity condition covers several basic models.
 
 
 
-
-
-
-
-% ============================================================
-% Random metric-measure geometry of the transported flow
-% ============================================================
-\section{Random Metric-Measure Geometry of the Flow}\label{sec:random-mm-geometry}
-
-Let
-\begin{equation*}
-    S_0:=\operatorname{supp}\mu_0,
-\end{equation*}
-and
-\begin{equation*}
-    S_t(\omega):=\operatorname{supp}\mu_t(\omega).
-\end{equation*}
-
-For \(x,y\in S_t(\omega)\), define
-\begin{equation}\label{eq:transported-metric}
-    d_t^\omega(x,y) := \left| T_t(\omega,\cdot)^{-1}(x) - T_t(\omega,\cdot)^{-1}(y)         \right|.
-\end{equation}
-
-\begin{theorem}[Random metric-measure geometry of the SDEWI flow]\label{thm:random-mm-geometry}
-    Fix \(t\ge0\). Assume that there is an event \(\Omega_t\) of probability
-    one such that, for every \(\omega\in\Omega_t\), the map
-    \begin{equation*}
-        T_t(\omega,\cdot):\mathbb{R}^d\to\mathbb{R}^d
-    \end{equation*}
-    is a homeomorphism. Then, pathwise for every \(\omega\in\Omega_t\),
-    \begin{equation*}
-        T_t(\omega): (S_0,|\cdot|,\mu_0) \longrightarrow (S_t(\omega),d_t^\omega,\mu_t(\omega))
-    \end{equation*}
-    is an isomorphism of metric-measure spaces. More precisely,
-    \begin{align}
-        S_t(\omega)                             & = T_t(\omega,S_0), \label{eq:support-transport}           \\
-        d_t^\omega(T_t(\omega,u),T_t(\omega,v)) & = |u-v|, \qquad u,v\in S_0, \label{eq:isometry-transport} \\
-        \mu_t(\omega)                           & = T_t(\omega)_\#\mu_0. \label{eq:measure-transport}
-    \end{align}
-\end{theorem}
-
-\begin{proof}
-    Fix \(t\ge0\) and \(\omega\in\Omega_t\). Write
-    \begin{equation*}
-        T:=T_t(\omega,\cdot), \qquad \mu:=\mu_0,
-        \qquad
-        \nu:=\mu_t(\omega)=T_\#\mu,
-    \end{equation*}
-    and
-    \begin{equation*}
-        S_0:=\operatorname{supp}\mu,
-        \qquad
-        S_t:=\operatorname{supp}\nu.
-    \end{equation*}
-
-    First, \(S_t=T(S_0)\). If \(x=T(u)\) with \(u\in S_0\), then every open
-    set \(U\ni x\) has \(T^{-1}(U)\) open and containing \(u\).
-    Hence \(\mu(T^{-1}(U))>0\), so \(\nu(U)>0\), and \(x\in S_t\). Thus
-    \(T(S_0)\subset S_t\).
-    Conversely, if \(x\notin T(S_0)\), then since \(T\) is a homeomorphism and \(S_0\) is closed, there is an open
-    neighborhood \(U\ni x\) with \(U\cap T(S_0)=\varnothing\). Then \(T^{-1}(U)\cap S_0=\varnothing\), so \(\mu(T^{-1}(U))=0\) and
-    \(\nu(U)=0\). Hence \(x\notin S_t\), proving
-    \eqref{eq:support-transport}.
-
-    The formula \eqref{eq:transported-metric} defines a genuine metric on
-    \(S_t\), because \(T:S_0\to S_t\) is bijective and Euclidean distance is
-    a metric on \(S_0\). Moreover,
-    \begin{equation*}
-        d_t^\omega(T(u),T(v)) = |T^{-1}(T(u))-T^{-1}(T(v))| = |u-v|,
-    \end{equation*}
-    so \(T:(S_0,|\cdot|)\to(S_t,d_t^\omega)\) is an isometry. Since
-    \(\nu=T_\#\mu\), \(T\) also preserves the measure. This proves the
-    metric-measure isomorphism.
-    This completes the proof.
-\end{proof}
-
-\subsection{Corollaries}
-
-\begin{corollary}[Diameter and transported balls]\label{cor:diameter-ball-transport}
-    Under the assumptions of Theorem~\ref{thm:random-mm-geometry},
-    \begin{equation}\label{eq:diameter-transport}
-        \operatorname{diam}_{d_t^\omega}S_t(\omega) = \operatorname{diam}S_0,
-    \end{equation}
-    and for every \(u\in S_0\) and \(r>0\),
-    \begin{equation}\label{eq:ball-transport}
-        B_{d_t^\omega}(T_t(\omega,u),r) =T_t(\omega,B(u,r)\cap S_0).
-    \end{equation}
-\end{corollary}
-
-\begin{proof}
-    Write \(T:=T_t(\omega,\cdot)\). By Theorem~\ref{thm:random-mm-geometry}, \(T:(S_0,|\cdot|)\to
-    (S_t(\omega),d_t^\omega)\) is an isometry.
-
-    For \(u\in S_0\) and \(r>0\), a point \(x\in S_t(\omega)\) belongs to
-    \(B_{d_t^\omega}(T(u),r)\) if and only if \(x=T(v)\) for some
-    \(v\in S_0\) with \(|v-u|<r\). Hence
-    \begin{equation*}
-        B_{d_t^\omega}(T(u),r) = T(B(u,r)\cap S_0).
-    \end{equation*}
-    This proves \eqref{eq:ball-transport}. The diameter identity
-    \eqref{eq:diameter-transport} follows by taking suprema over pairs.
-\end{proof}
-
-\begin{corollary}[Measure of transported balls]\label{cor:ball-measure-transport}
-    Under the assumptions of Theorem~\ref{thm:random-mm-geometry}, for every
-    \(u\in S_0\) and \(r>0\),
-    \begin{equation}
-        \mu_t(\omega)\big(B_{d_t^\omega}(T_t(\omega,u),r)\big)
-        =
-        \mu_0(B(u,r)\cap S_0).
-        \label{eq:ball-measure-transport}
-    \end{equation}
-\end{corollary}
-
-\begin{proof}
-    By \eqref{eq:ball-transport} and
-    \(\mu_t(\omega)=T_t(\omega)_\#\mu_0\),
-    \begin{equation*}
-        \mu_t(\omega)\big(B_{d_t^\omega}(T_t(\omega,u),r)\big) =
-        \mu_t(\omega)\big(T_t(\omega,B(u,r)\cap S_0)\big) = \mu_0(B(u,r)\cap S_0).
-    \end{equation*}
-\end{proof}
-
-\begin{corollary}[Metric-measure inequalities in the transported metric]\label{cor:transported-metric-inequalities}
-    Under the assumptions of Theorem~\ref{thm:random-mm-geometry}, every
-    purely metric-measure property is preserved exactly under the isomorphism
-    \begin{equation*}
-        (S_0,|\cdot|,\mu_0) \simeq (S_t(\omega),d_t^\omega,\mu_t(\omega)).
-    \end{equation*}
-    In particular, concentration, doubling, isoperimetric, and Cheeger
-    properties are preserved in the transported metric. Poincar\'e,
-    logarithmic Sobolev, and Talagrand inequalities are also preserved with
-    the same constants.
-
-    If \(\mu_0\) satisfies \(T_p(C_T)\), then \(\mu_t(\omega)\) satisfies
-    \(T_p(C_T)\) in the random metric \(d_t^\omega\). If, in addition,
-    \(T_t(\omega,\cdot)\) is \(L\)-Lipschitz on \(S_0\), then
-    \(\mu_t(\omega)\) satisfies the Euclidean transport inequality
-    \(T_p(C_TL^2)\).
-\end{corollary}
-
-\begin{proof}
-    Write \(T:=T_t(\omega,\cdot)\), \(\mu:=\mu_0\), and
-    \(\nu:=\mu_t(\omega)\). By Theorem~\ref{thm:random-mm-geometry},
-    \(T:(S_0,|\cdot|,\mu)\to(S_t,d_t^\omega,\nu)\) is a metric-measure
-    isomorphism.
-
-    For example, \(h:S_t\to\mathbb{R}\) is \(1\)-Lipschitz with respect to
-    \(d_t^\omega\) if and only if \(h\circ T:S_0\to\mathbb{R}\) is
-    \(1\)-Lipschitz in the Euclidean metric. Hence concentration inequalities
-    for Euclidean \(1\)-Lipschitz functions under \(\mu_0\) transfer exactly
-    to \(d_t^\omega\)-Lipschitz functions under \(\mu_t(\omega)\). The same
-    invariance argument applies to the other purely metric-measure
-    properties.
-
-    For transport inequalities, let \(\alpha,\beta\) be probability measures
-    on \(S_t\), and set
-    \begin{equation*}
-        \alpha_0:=(T^{-1})_\#\alpha,
-        \qquad
-        \beta_0:=(T^{-1})_\#\beta.
-    \end{equation*}
-    Couplings are transported bijectively by \(T\), and the transportation
-    costs are identical:
-    \begin{equation*}
-        W_{p,d_t^\omega}(\alpha,\beta)
-        =
-        W_p(\alpha_0,\beta_0).
-    \end{equation*}
-    Relative entropy is also invariant under pushforward:
-    \begin{equation*}
-        \operatorname{Ent}(\alpha\mid\nu)
-        =
-        \operatorname{Ent}(\alpha_0\mid\mu).
-    \end{equation*}
-    Therefore any \(T_p(C_T)\) inequality for \(\mu\) transfers to \(\nu\) in
-    the metric \(d_t^\omega\). If \(T\) is \(L\)-Lipschitz on \(S_0\), then
-    \begin{equation*}
-        |x-y|\le L\,d_t^\omega(x,y),
-        \qquad x,y\in S_t,
-    \end{equation*}
-    and the Euclidean \(T_p(C_TL^2)\) estimate follows.
-\end{proof}
-
-\begin{corollary}[Weighted functional inequalities]\label{cor:weighted-functional-inequalities}
-    Assume the hypotheses of Theorem~\ref{thm:random-mm-geometry}. Suppose,
-    in addition, that \(T_t(\omega,\cdot)\) is a \(C^1\)-diffeomorphism and
-    define
-    \begin{equation*}
-        J_t(u,\omega):=D_uT_t(\omega,u).
-    \end{equation*}
-    For \(x=T_t(\omega,u)\), define the co-metric matrix
-    \begin{equation}\label{eq:random-cometric}
-        G_t^\omega(x) := J_t(u,\omega)J_t(u,\omega)^\top.
-    \end{equation}
-    If \(\mu_0\) satisfies \(\mathrm{LSI}(C_0)\), then \(\mu_t(\omega)\)
-    satisfies the weighted logarithmic Sobolev inequality
-    \begin{equation}\label{eq:weighted-lsi}
-        \operatorname{Ent}_{\mu_t(\omega)}(h^2)
-        \le
-        C_0
-        \int
-        \left\langle G_t^\omega(x)\nabla h(x), \nabla h(x) \right\rangle
-        \,\mu_t(\omega)(dx).
-    \end{equation}
-    If \(\mu_0\) satisfies \(\mathrm{PI}(C_P)\), then
-    \begin{equation}\label{eq:weighted-pi}
-        \operatorname{Var}_{\mu_t(\omega)}(h)
-        \le C_P \int \left\langle G_t^\omega(x)\nabla h(x), \nabla h(x) \right\rangle
-        \,\mu_t(\omega)(dx).
-    \end{equation}
-    Finally, if
-    \begin{equation}\label{eq:flow-lip-constant}
-        \mathcal K_t(\omega;S_0) := \sup_{u\in S_0} \|J_t(u,\omega)\|_{\mathrm{op}} <\infty,
-    \end{equation}
-    then the ordinary Euclidean inequalities follow:
-    \begin{equation*}
-        \mathrm{LSI}(C_0)
-        \Longrightarrow
-        \mu_t(\omega)\in
-        \mathrm{LSI}\big(C_0\mathcal K_t(\omega;S_0)^2\big),
-    \end{equation*}
-    and
-    \begin{equation*}
-        \mathrm{PI}(C_P)
-        \Longrightarrow
-        \mu_t(\omega)\in
-        \mathrm{PI}\big(C_P\mathcal K_t(\omega;S_0)^2\big).
-    \end{equation*}
-\end{corollary}
-
-\begin{proof}
-    Write \(T:=T_t(\omega,\cdot)\), \(\mu:=\mu_0\), and
-    \(\nu:=\mu_t(\omega)\). Put \(J(u):=D_uT(u)\). If \(x=T(u)\), let
-    \begin{equation*}
-        G(x)=J(u)J(u)^\top.
-    \end{equation*}
-    Let \(h\in C_c^1(\mathbb{R}^d)\) and set \(f=h\circ T\). Entropy is
-    invariant under the pushforward, so
-    \begin{equation*}
-        \operatorname{Ent}_{\nu}(h^2)
-        =
-        \operatorname{Ent}_{\mu}(f^2).
-    \end{equation*}
-    If \(\mu\) satisfies \(\mathrm{LSI}(C_0)\), then
-    \begin{equation*}
-        \operatorname{Ent}_{\nu}(h^2)
-        \le
-        C_0\int |\nabla f(u)|^2\,\mu(du).
-    \end{equation*}
-    By the chain rule,
-    \begin{equation*}
-        \nabla f(u)=J(u)^\top\nabla h(T(u)),
-    \end{equation*}
-    so
-    \begin{equation*}
-        |\nabla f(u)|^2
-        =
-        \left\langle
-        J(u)J(u)^\top\nabla h(T(u)),
-        \nabla h(T(u))
-        \right\rangle.
-    \end{equation*}
-    Pushing forward by \(T\) proves \eqref{eq:weighted-lsi}. The proof of
-    \eqref{eq:weighted-pi} is identical, with entropy replaced by variance.
-
-    If \(L=\sup_{u\in S_0}\|J(u)\|_{\mathrm{op}}\), then
-    \begin{equation*}
-        \left\langle G(x)\nabla h(x),\nabla h(x)\right\rangle
-        =
-        |J(u)^\top\nabla h(x)|^2
-        \le
-        L^2|\nabla h(x)|^2,
-    \end{equation*}
-    giving the Euclidean LSI and Poincar\'e constants.
-\end{proof}
-
-\begin{remark}
-    The ordinary Euclidean geometry of \(\mu_t(\omega)\) may stretch,
-    contract, or become anisotropic, but the intrinsic random metric geometry
-    is exactly the initial geometry transported by the stochastic flow:
-    \begin{equation*}
-        \text{common noise transports the initial metric-measure space; it does not erase it.}
-    \end{equation*}
-\end{remark}
-
-
-% ============================================================
-% Jacobian bounds: pathwise flow stretching and functional inequalities
-% ============================================================
-
-\bibliographystyle{apalike} % `apalike` replaced `plain`
+\bibliographystyle{apalike}
 \bibliography{reference}
 
 \end{document}

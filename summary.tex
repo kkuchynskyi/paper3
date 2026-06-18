@@ -6,22 +6,22 @@
 \selectlanguage{english} %abstract language selection. possible options english or ukrainian
 
 \begin{center}
-\textbf{\Large \sc Stochastic differential equations with interaction for non-constant diffusion}\\[1ex]
-\textbf{K.~Kuchynskyi}\\[0.4ex]
-${}^1$Institute of Mathematics of NAS of Ukraine, Kyiv, Ukraine\\[0.4ex]
-\textit{kkuchynskyi@imath.kiev.ua}
+    \textbf{\Large \sc Stochastic differential equations with interaction for non-constant diffusion}\\[1ex]
+    \textbf{K.~Kuchynskyi}\\[0.4ex]
+    ${}^1$Institute of Mathematics of NAS of Ukraine, Kyiv, Ukraine\\[0.4ex]
+    \textit{kkuchynskyi@imath.kiev.ua}
 \end{center}
 
 We consider stochastic differential equations with interaction
 (\cite{Dorogovtsev2004}):
 \begin{equation}
-\begin{cases}
-dX_t(u)=a\bigl(X_t(u),\mu_t\bigr)\,dt+
-\sigma\bigl(X_t(u)\bigr)\,dB_t,\\
-X_0(u)=u,\\
-\mu_t=\mu_0\circ X_t^{-1}.
-\end{cases}
-\label{eq:main-summary}
+    \begin{cases}
+        dX_t(u)=a\bigl(X_t(u),\mu_t\bigr)\,dt+
+        \sigma\bigl(X_t(u)\bigr)\,dB_t, \\
+        X_0(u)=u,                       \\
+        \mu_t=\mu_0\circ X_t^{-1}.
+    \end{cases}
+    \label{eq:main-summary}
 \end{equation}
 Here $\mu_0$ is a deterministic probability measure on $\mathbb R^d$,
 $\mathcal P_2(\mathbb R^d)$ denotes the space of Borel probability measures on
@@ -29,29 +29,29 @@ $\mathbb R^d$ with finite second moment,
 $a:\mathbb R^d\times\mathcal P_2(\mathbb R^d)\to\mathbb R^d$ is the drift,
 and $\sigma:\mathbb R^d\to\mathbb R^{d\times d}$ is a diffusion
 coefficient.  For fixed $(t,\omega)$ we write
-\[
-T_t(\omega,u):=X_t(u,\omega)
-\]
+\begin{equation}
+    T_t(\omega,u):=X_t(u,\omega)
+\end{equation}
 The evolution of the measure is treated pathwise as a random transport by
 the stochastic flow $T_t$.
 
 
 
 \begin{assumption}[A2]\label{ass:general_lipschitz}
-The maps $x\mapsto a(x,\mu)$ and $\sigma$ are $C^2$, and there exist
-constants $L,L_\sigma,L_\mu<\infty$ such that
-\[
-\sup_{x,\mu}\|\partial_xa(x,\mu)\|_{\mathrm{op}}\le L,\qquad
-\sup_x\|\partial\sigma(x)\|_{\mathrm{op}}\le L_\sigma,
-\]
-and $|a(x,\mu)-a(x,\nu)|\le L_\mu W_2(\mu,\nu)$ for all
-$x\in\mathbb R^d$ and $\mu,\nu\in\mathcal P_2(\mathbb R^d)$.
+    The maps $x\mapsto a(x,\mu)$ and $\sigma$ are $C^2$, and there exist
+    constants $L,L_\sigma,L_\mu<\infty$ such that
+    \begin{equation}
+        \sup_{x,\mu}\|\partial_xa(x,\mu)\|_{\mathrm{op}}\le L,\qquad
+        \sup_x\|\partial\sigma(x)\|_{\mathrm{op}}\le L_\sigma,
+    \end{equation}
+    and $|a(x,\mu)-a(x,\nu)|\le L_\mu W_2(\mu,\nu)$ for all
+    $x\in\mathbb R^d$ and $\mu,\nu\in\mathcal P_2(\mathbb R^d)$.
 \end{assumption}
 
 Let
-\[
-J_t(u):=\partial_uX_t(u)\in\mathbb R^{d\times d}
-\]
+\begin{equation}
+    J_t(u):=\partial_uX_t(u)\in\mathbb R^{d\times d}
+\end{equation}
 be the Jacobian matrix of the flow.
 
 
@@ -59,49 +59,49 @@ be the Jacobian matrix of the flow.
 
 
 \begin{proposition}
-For every $t\ge0$,
-\begin{equation}
-|J_t(u)\xi|^2\le
-\exp\Big((2L+dL_\sigma^2)t+N_t(u,\xi)\Big)
-\quad \text{a.s.},
-\label{eq:pathwise-summary}
-\end{equation}
-where $N_t(u,\xi)$ is a continuous local martingale of the form
-\[
-N_t(u,\xi)=\sum_{k=1}^d\int_0^t\theta_s^{(k)}(u,\xi)\,dB_s^k,
-\qquad |\theta_s^{(k)}(u,\xi)|\le 2L_\sigma .
-\]
-In particular,
-\[
-\langle N(u,\xi)\rangle_t\le 4dL_\sigma^2t .
-\]
+    For every $t\ge0$,
+    \begin{equation}
+        |J_t(u)\xi|^2\le
+        \exp\Big((2L+dL_\sigma^2)t+N_t(u,\xi)\Big)
+        \quad \text{a.s.},
+        \label{eq:pathwise-summary}
+    \end{equation}
+    where $N_t(u,\xi)$ is a continuous local martingale of the form
+    \begin{equation}
+        N_t(u,\xi)=\sum_{k=1}^d\int_0^t\theta_s^{(k)}(u,\xi)\,dB_s^k,
+        \qquad |\theta_s^{(k)}(u,\xi)|\le 2L_\sigma .
+    \end{equation}
+    In particular,
+    \begin{equation}
+        \langle N(u,\xi)\rangle_t\le 4dL_\sigma^2t .
+    \end{equation}
 \end{proposition}
 
 
 
 For a compact set $K\subset\mathbb R^d$ define the random Jacobian constant
-\[
-\mathcal K_t(\omega;K):=
-\sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}.
-\]
+\begin{equation}
+    \mathcal K_t(\omega;K):=
+    \sup_{u\in K}\|J_t(u,\omega)\|_{\mathrm{op}}.
+\end{equation}
 For almost every $\omega$ the map $u\mapsto J_t(u,\omega)$ is continuous;
 hence $\mathcal K_t(\omega;K)<\infty$ and
-\[
-\operatorname{Lip}\bigl(T_t(\omega)|_K\bigr)
-\le \mathcal K_t(\omega;K).
-\]
+\begin{equation}
+    \operatorname{Lip}\bigl(T_t(\omega)|_K\bigr)
+    \le \mathcal K_t(\omega;K).
+\end{equation}
 This estimate allows us to transfer logarithmic Sobolev, Poincare,
 concentration, and Talagrand transport inequalities from $\mu_0$ to the random
 measure $\mu_t(\omega)$.
 
 \begin{corollary}
-If $\mu_0$ satisfies a logarithmic Sobolev inequality $\mathrm{LSI}(C_0)$ and
-$\operatorname{supp}\mu_0\subset K$ for a compact set $K$, then for every
-$t\ge0$ and almost every $\omega$ the random measure
-$\mu_t(\omega)=T_t(\omega)_{\#}\mu_0$ satisfies
-\[
-\mathrm{LSI}\bigl(C_0\mathcal K_t(\omega;K)^2\bigr).
-\]
+    If $\mu_0$ satisfies a logarithmic Sobolev inequality $\mathrm{LSI}(C_0)$ and
+    $\operatorname{supp}\mu_0\subset K$ for a compact set $K$, then for every
+    $t\ge0$ and almost every $\omega$ the random measure
+    $\mu_t(\omega)=T_t(\omega)_{\#}\mu_0$ satisfies
+    \begin{equation}
+        \mathrm{LSI}\bigl(C_0\mathcal K_t(\omega;K)^2\bigr).
+    \end{equation}
 \end{corollary}
 
 To obtain moment estimates for $\mathcal K_t(\cdot;K)$, assume in addition that
@@ -110,16 +110,16 @@ constants $L^{(2)}$ and $L_\sigma^{(2)}$ for $\partial_xa$ and
 $\partial\sigma$, respectively.
 
 \begin{proposition}
-For every compact $K\subset\mathbb R^d$, every $p\ge1$, and every $t\ge0$,
-\[
-\mathbb E\,\mathcal K_t(\cdot;K)^p<\infty.
-\]
-Moreover, there exist constants $C_{p,K},c_p<\infty$, depending only on
-$p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}$, such that
-\[
-\mathbb E\,\mathcal K_t(\cdot;K)^p\le C_{p,K}e^{c_pt},
-\qquad t\ge0.
-\]
+    For every compact $K\subset\mathbb R^d$, every $p\ge1$, and every $t\ge0$,
+    \begin{equation}
+        \mathbb E\,\mathcal K_t(\cdot;K)^p<\infty.
+    \end{equation}
+    Moreover, there exist constants $C_{p,K},c_p<\infty$, depending only on
+    $p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}$, such that
+    \begin{equation}
+        \mathbb E\,\mathcal K_t(\cdot;K)^p\le C_{p,K}e^{c_pt},
+        \qquad t\ge0.
+    \end{equation}
 \end{proposition}
 
 The proof uses moment estimates for the increments $X_t(u)-X_t(v)$, an SDE for
@@ -128,47 +128,47 @@ Kolmogorov continuity in the spatial variable.
 
 The same pathwise pushforward argument gives further consequences.  If
 $\operatorname{supp}\mu_0\subset K$, then
-\[
-\operatorname{supp}\mu_t(\omega)
-=\overline{T_t(\omega,\operatorname{supp}\mu_0)}.
-\]
+\begin{equation}
+    \operatorname{supp}\mu_t(\omega)
+    =\overline{T_t(\omega,\operatorname{supp}\mu_0)}.
+\end{equation}
 If $\mu_0$ satisfies a Poincare inequality $\mathrm{PI}(C_P)$, then
 $\mu_t(\omega)$ satisfies
-\[
-\mathrm{PI}\bigl(C_P\mathcal K_t(\omega;K)^2\bigr).
-\]
+\begin{equation}
+    \mathrm{PI}\bigl(C_P\mathcal K_t(\omega;K)^2\bigr).
+\end{equation}
 If $\mu_0$ satisfies a Talagrand transport inequality $T_p(C_T)$, $p\ge1$,
 then $\mu_t(\omega)$ satisfies
-\[
-T_p\bigl(C_T\mathcal K_t(\omega;K)^2\bigr).
-\]
+\begin{equation}
+    T_p\bigl(C_T\mathcal K_t(\omega;K)^2\bigr).
+\end{equation}
 Thus logarithmic Sobolev, Poincare, concentration, and transport inequalities
 are propagated by the common-noise flow.  In contrast to the constant diffusion
 case, the constants are random, but they are explicitly controlled by the
 Jacobian matrix of the stochastic flow.
 
 \vskip 2mm
-{\small \textit{Acknowledgements.}}
+    {\small \textit{Acknowledgements.}}
 
 \vskip 2mm
 \begingroup
 \renewcommand{\section}[2]{}
 \begin{thebibliography}{9}
 
-\bibitem{Dorogovtsev2004}
-A.~A. Dorogovtsev,
-\textit{Stochastic equations with coefficients depending on a measure-valued process},
-Stochastic Processes and their Applications, 113(2):281--303, 2004.
+    \bibitem{Dorogovtsev2004}
+    A.~A. Dorogovtsev,
+    \textit{Stochastic equations with coefficients depending on a measure-valued process},
+    Stochastic Processes and their Applications, 113(2):281--303, 2004.
 
-\bibitem{kunita1990}
-H. Kunita,
-\textit{Stochastic Flows and Stochastic Differential Equations},
-Cambridge University Press, 1990.
+    \bibitem{kunita1990}
+    H. Kunita,
+    \textit{Stochastic Flows and Stochastic Differential Equations},
+    Cambridge University Press, 1990.
 
-\bibitem{dorogovtsev2023}
-A. Dorogovtsev and A. Weiss,
-\textit{Intermittency Phenomena for Mass Distributions of Stochastic Flows with interaction},
-arXiv:2304.02571 [math.PR], 2023.
+    \bibitem{dorogovtsev2023}
+    A. Dorogovtsev and A. Weiss,
+    \textit{Intermittency Phenomena for Mass Distributions of Stochastic Flows with interaction},
+    arXiv:2304.02571 [math.PR], 2023.
 
 \end{thebibliography}
 \endgroup
