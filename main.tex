@@ -61,8 +61,8 @@ Here \(\mu_0\) is a deterministic initial probability measure,
 \(\mathcal{P}_2(\mathbb{R}^d)\) denotes the space of Borel probability measures on \(\mathbb{R}^d\) with finite second moment,
 and the diffusion coefficient \(\sigma:\mathbb{R}^d\to\mathbb{R}^{d\times d}\) is state-dependent and non-constant.
 
-In this paper we will consider specific form of the sdewi with the dependence on \( \mu_t \)
-remains explicit through the kernel \( K \) and the order parameter \( \Theta_t \).
+In this paper we consider a specific form of the SDEWI in which the dependence on \( \mu_t \)
+remains explicit through the kernel \( K \) and the parameter \( \Theta_t \).
 % PDF landmark: kernel/order-parameter form of the SDEWI.
 \begin{equation}\label{eq:kernel-sdewi}
     \left\{
@@ -107,17 +107,15 @@ where
 % ============================================================
 \section{Internal fluctuations}\label{sec:internal-fluctuations}
 
+This part investigates the pairwise energy
+\begin{equation*}
+    \mathcal D_t := \iint_{\mathbb{R}^d\times\mathbb{R}^d} |X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv).
+\end{equation*}
 
 % ============================================================
 % Internal fluctuations: pairwise energy and synchronization
 % ============================================================
 \subsection{Dissipativity assumptions}
-% Local comment: pairwise energy measures spread between two labels.
-Define the pairwise energy
-\begin{equation*}
-    \mathcal D_t := \iint_{\mathbb{R}^d\times\mathbb{R}^d} |X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv).
-\end{equation*}
-
 Equivalently, if
 \begin{equation*}
     \bar X_t:=\int_{\mathbb{R}^d}X_t(u)\,\mu_0(du),
@@ -150,7 +148,7 @@ We assume the following dissipativity condition.
 
 The dissipativity condition covers several basic models.
 
-\begin{example}[Mean-field Ornstein--Uhlenbeck interaction]
+\begin{example}[Ornstein--Uhlenbeck SDEWI]
     Consider
     \begin{equation*}
         dX_t(u)= -\lambda_0\big(X_t(u)-m_t\big)\,dt + \sigma(X_t(u))\,dB_t, \qquad m_t=\int_{\mathbb{R}^d} X_t(v)\,\mu_0(dv).
@@ -166,7 +164,7 @@ The dissipativity condition covers several basic models.
     Thus the cloud contracts whenever \(2\lambda_0>L_\sigma^2\).
 \end{example}
 
-\begin{example}[Potential interaction]
+\begin{example}[Gradient systems]
     Take
     \begin{equation*}
         b(x,\theta)=-\nabla V(x), \qquad K(x,y,\theta)=-\nabla W(x-y).
@@ -177,7 +175,7 @@ The dissipativity condition covers several basic models.
     \end{equation*}
     If
     \begin{equation*}
-        D^2V\ge \rho I, \qquad D^2W\ge \kappa I, \qquad \|\sigma(x)-\sigma(y)\|_{\mathrm{HS}} \le L_\sigma |x-y|,
+        D^2V\ge \rho I, \qquad D^2W\ge \kappa I, \qquad \|\sigma(x)-\sigma(y)\| \le L_\sigma |x-y|,
     \end{equation*}
     then
     \begin{equation*}
@@ -185,39 +183,27 @@ The dissipativity condition covers several basic models.
     \end{equation*}
 \end{example}
 
-\begin{example}[Nonlinear consensus toward an order parameter]
+\begin{example}[Nonlinear statistics]
     Let
     \begin{equation*}
         \Theta_t=\int_{\mathbb{R}^d} \psi(X_t(v))\,\mu_0(dv),
     \end{equation*}
     and consider
     \begin{equation*}
-        dX_t(u)
-        =
-        -\lambda_0\big(X_t(u)-\Theta_t\big)\,dt
-        +
-        \sigma(X_t(u),\Theta_t)\,dB_t.
+        dX_t(u) = -\lambda_0\big(X_t(u)-\Theta_t\big)\,dt + \sigma(X_t(u),\Theta_t)\,dB_t.
     \end{equation*}
     For two labels \(u,v\), the order parameter cancels in the drift
     difference:
     \begin{equation*}
-        -\lambda_0\big(X_t(u)-\Theta_t\big)
-        +
-        \lambda_0\big(X_t(v)-\Theta_t\big)
-        =
-        -\lambda_0\big(X_t(u)-X_t(v)\big).
+        -\lambda_0\big(X_t(u)-\Theta_t\big) + \lambda_0\big(X_t(v)-\Theta_t\big) = -\lambda_0\big(X_t(u)-X_t(v)\big).
     \end{equation*}
-    Thus one obtains contraction under \(2\lambda_0>L_\sigma^2\). The
-    order parameter may be nonlinear, for example
-    \begin{equation*}
-        \Theta_t=\int_{\mathbb{R}^d} \tanh(X_t(v))\,\mu_0(dv).
-    \end{equation*}
+
 \end{example}
 
 
 \subsection{Proof}
 % PDF landmark: Theorem on exponential synchronization in expected W2 spread.
-\begin{theorem}[Synchronization under dissipativity]\label{thm:synchronization-dissipativity}
+\begin{theorem}[Synchronization under dissipativity assumptions]\label{thm:synchronization-dissipativity}
     Assume that \(\mu_0\in\mathcal P_2(\mathbb{R}^d)\) and that Assumption~\ref{ass:pairwise-dissipativity} holds. Then
     \begin{equation*}
         \mathbb E\mathcal D_t \le e^{-\lambda t}\mathcal D_0.
@@ -227,14 +213,14 @@ The dissipativity condition covers several basic models.
     \begin{equation*}
         \mathbb E W_2^2(\mu_t,\delta_{\bar X_t}) \le e^{-\lambda t}W_2^2(\mu_0,\delta_{\bar X_0}).
     \end{equation*}
-    Thus the transported measure \(\mu_t\) conventrates around its random center of mass \(\bar X_t\).
+    Thus the transported measure \(\mu_t\) concentrates around its random center of mass \(\bar X_t\).
 \end{theorem}
 
 % Proof idea:
 % 1. Differentiate the stochastic flow.
 \begin{proof}
     % Proof roadmap: first prove pairwise contraction, then integrate over labels.
-    Fix two labels \(u,v\in\mathbb{R}^d\). Define the differnce
+    Fix two labels \(u,v\in\mathbb{R}^d\). Define the difference
     \begin{equation*}
         Z_t^{u,v}:=X_t(u)-X_t(v).
     \end{equation*}
@@ -244,16 +230,16 @@ The dissipativity condition covers several basic models.
     \end{equation*}
     then we integrate this estimate with respect to \(\mu_0(du)\mu_0(dv)\).
 
-    Writing SDEWI \eqref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then substracting the two equations gives
+    Writing SDEWI \eqref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
     \begin{equation*}
         dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^m H_{\ell,t}^{u,v}\,dB_t^\ell,
     \end{equation*}
-    where theg drift coefficient
+    where the drift coefficient
     \begin{align*}
         G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                                                 \\
                   & \quad+  \int_{\mathbb{R}^d} \big[ K(X_t(u),X_t(w),\Theta_t) - K(X_t(v),X_t(w),\Theta_t)\big]\,\mu_0(dw),
     \end{align*}
-    and teh diffusion coefficient is
+    and the diffusion coefficient is
     \begin{equation*}
         H_{\ell,t}^{u,v} := \sigma_\ell(X_t(u),\Theta_t) - \sigma_\ell(X_t(v),\Theta_t).
     \end{equation*}
@@ -295,7 +281,7 @@ The dissipativity condition covers several basic models.
     \begin{equation*}
         dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
     \end{equation*}
-    Thus \(Y_t^{u,v}\) is a nonnegative local supermartingale.
+    % Thus \(Y_t^{u,v}\) is a nonnegative local supermartingale.
 
     To make this completely rigorous, introduce the localization sequence
     \begin{equation*}
@@ -656,7 +642,7 @@ For \(x,y\in S_t(\omega)\), define
 % Jacobian bounds: pathwise flow stretching and functional inequalities
 % ============================================================
 
-\bibliographystyle{plain}
+\bibliographystyle{apalike} % `apalike` replaced `plain`
 \bibliography{reference}
 
 \end{document}
