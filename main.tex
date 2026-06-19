@@ -121,22 +121,28 @@ For \(\sigma=(\sigma^{(1)},\ldots,\sigma^{(d)})\) with columns \(\sigma^{(k)}:\R
     \|\partial\sigma(x)\|_{\op}:=\max_{1\le k\le d}\|\partial \sigma^{(k)}(x)\|_{\op}.
 \end{equation*}
 % Assumption on the coefficients
-\begin{assumption}\label{ass:general-lipschitz}
-    The coefficients satisfy the following conditions:
-    \begin{enumerate}
-        \item[(i)] For each \(\mu\in\cP_2(\R^d)\), the map \(x\mapsto a(x,\mu)\) belongs to \(C^2(\R^d;\R^d)\) and
-              \begin{equation*}
-                  \sup_{x,\mu}\|\partial_x a(x,\mu)\|_{\op}\le L.
-              \end{equation*}
-        \item[(ii)] The diffusion coefficient satisfies \(\sigma\in C^2(\R^d;\R^{d\times d})\) and there exists \(L_\sigma<\infty\) such that
-              \begin{equation*}
-                  \sup_x \|\partial \sigma(x)\|_{\op}\le L_\sigma.
-              \end{equation*}
-        \item[(iii)] There exists \(L_\mu<\infty\) such that for all \(x\in\R^d\) and all \(\mu,\nu\in\cP_2(\R^d)\),
-              \begin{equation*}
-                  |a(x,\mu)-a(x,\nu)|\le L_\mu\,W_2(\mu,\nu).
-              \end{equation*}
-    \end{enumerate}
+\begin{assumption}[Global Lipschitz conditions]
+    \label{ass:wellposedness}
+    The maps
+    \[
+        a:\mathbb R^d\times\mathcal P_2(\mathbb R^d)\to\mathbb R^d,
+        \qquad
+        \sigma:\mathbb R^d\to\mathbb R^{d\times d}
+    \]
+    are Borel measurable. There exist constants
+    $L_x,L_\mu,L_\sigma<\infty$ such that, for all
+    $x,y\in\mathbb R^d$ and $\mu,\nu\in\mathcal P_2(\mathbb R^d)$,
+    \begin{align}
+        |a(x,\mu)-a(y,\nu)|
+         & \le
+        L_x|x-y|+L_\mu W_2(\mu,\nu),
+        \label{eq:a-global-lipschitz}
+        \\
+        \|\sigma(x)-\sigma(y)\|_{\mathrm{HS}}
+         & \le
+        L_\sigma|x-y|.
+        \label{eq:sigma-global-lipschitz}
+    \end{align}
 \end{assumption}
 
 % The remarks on the solution
@@ -145,46 +151,39 @@ for a.s. \(\omega\) and every \(t\ge 0\) the map \(u\mapsto X_t(u,\omega)\) is o
 We study whether logarithmic Sobolev, Poincar\'e, and Talagrand transport inequalities are propagated from
 the initial measure \(\mu_0\) to the random measure \(\mu_t\).
 
+\begin{assumption}[Spatial regularity of the coefficients]
+    \label{ass:flow-regularity}
+    For every $\mu\in\mathcal P_2(\mathbb R^d)$, the map
+    $x\mapsto a(x,\mu)$ belongs to $C^1(\mathbb R^d;\mathbb R^d)$.
+    Each column
+    \[
+        \sigma^{(k)}:\mathbb R^d\to\mathbb R^d,
+        \qquad k=1,\ldots,d,
+    \]
+    belongs to $C^1(\mathbb R^d;\mathbb R^d)$.
 
-% Logarithmic Sobolev inequality
-\begin{definition}[Logarithmic Sobolev inequality]
-    Denoting by \(\mathcal{C}^1_c(\R^d)\) the set of continuously differentiable compactly supported functions from \(\R^d\) to \(\R\), for \(g\ge 0\) with \(\int g\,d\mu=1\) we define the entropy
-    \begin{equation*}
-        \Ent_\mu(g):=\int g\log g\,d\mu.
-    \end{equation*}
-    A probability measure \(\mu\) on \(\R^d\) is said to satisfy a logarithmic Sobolev inequality with constant \(C>0\) if for every \(h\in\mathcal{C}^1_c(\R^d)\) with \(\int h^2\,d\mu=1\) one has
-    \begin{equation}\label{eq:lsi-def}
-        \Ent_\mu(h^2)\le C\int_{\R^d}|\nabla h|^2\,d\mu.
-    \end{equation}
-\end{definition}
+    The map $(x,\mu)\mapsto D_xa(x,\mu)$ is Borel measurable.
+    There exist constants $H_a,H_\sigma<\infty$ such that, for all
+    $x,y\in\mathbb R^d$ and $\mu\in\mathcal P_2(\mathbb R^d)$,
+    \begin{align}
+        \|D_xa(x,\mu)-D_xa(y,\mu)\|_{\mathrm{op}}
+         & \le H_a|x-y|,
+        \label{eq:Da-lipschitz}
+        \\
+        \sum_{k=1}^d
+        \|D\sigma^{(k)}(x)-D\sigma^{(k)}(y)\|_{\mathrm{op}}^2
+         & \le H_\sigma^2|x-y|^2.
+        \label{eq:Dsigma-lipschitz}
+    \end{align}
+\end{assumption}
 
 
-% Poincare inequality
-\begin{definition}[Poincar\'e inequality]
-    A probability measure \(\mu\) on \(\R^d\) is said to satisfy a Poincar\'e inequality with constant \(C_P>0\), denoted by \(\mathrm{PI}(C_P)\), if for every \(h\in \mathcal C_c^1(\R^d)\),
-    \begin{equation}\label{eq:poincare-def}
-        \Var_\mu(h):=\int_{\R^d} h^2\,d\mu-\Big(\int_{\R^d} h\,d\mu\Big)^2
-        \le
-        C_P\int_{\R^d} |\nabla h|^2\,d\mu.
-    \end{equation}
-\end{definition}
 
 
-% Talagrand transport inequality
-\begin{definition}[Talagrand transport inequality]
-    Let \(p\ge1\). A probability measure \(\mu\) on \(\R^d\) is said to satisfy the Talagrand transport inequality \(T_p(C_T)\) with constant \(C_T>0\) if for every probability measure \(\nu\) on \(\R^d\) with finite \(p\)-th moment,
-    \begin{equation}\label{eq:talagrand-def}
-        W_p(\nu,\mu)^2 \le 2C_T\,\Ent(\nu\mid \mu),
-    \end{equation}
-    where
-    \begin{equation*}
-        \Ent(\nu\mid\mu)=
-        \begin{cases}
-            \displaystyle \int_{\R^d}\log\Big(\frac{d\nu}{d\mu}\Big)\,d\nu, & \nu\ll \mu,       \\[3mm]
-            +\infty,                                                        & \text{otherwise}.
-        \end{cases}
-    \end{equation*}
-\end{definition}
+
+
+
+
 
 %%% Section 3 summary %%%
 In \Cref{sec:averaged-jacobian}, we replace the pathwise supremum over a compact set by an averaged Jacobian energy and derive a corresponding moment estimate.
@@ -192,33 +191,7 @@ In \Cref{sec:averaged-jacobian}, we replace the pathwise supremum over a compact
 %%% Section 4 summary %%%
 In \Cref{sec:internal-fluctuations}, we consider a specific form of the SDEWI in which the dependence on \( \mu_t \)
 remains explicit through the kernel \( K \) and the parameter \( \Theta_t \).
-\begin{equation}\label{eq:kernel-sdewi}
-    \begin{cases}
-        dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} K(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
-                & \quad+ \sum_{\ell=1}^m \sigma_\ell(X_t(u),\Theta_t)\,dB_t^\ell,                         \\[1mm]
-        X_0(u)  & =u,\qquad u\in\R^d,                                                                     \\[1mm]
-        \mu_t   & =\mu_0\circ X_t^{-1}.
-    \end{cases}
-\end{equation}
-where
-\begin{equation*}
-    \theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx),
-\end{equation*}
 
-% Dissipativity Assumptions on global Lipschitz and growth hypotheses.
-\begin{assumption}[Global Lipschitz and growth hypotheses]\label{ass:global-lipschitz}
-    The maps \(b,K,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
-    More explicitly, there exists \(L<\infty\) such that
-    \begin{align*}
-        |\Phi(x)-\Phi(y)|           & \le L|x-y|,                               \\
-        |b(x,\theta)-b(y,\eta)|     & \le L\big(|x-y|+|\theta-\eta|\big),       \\
-        |K(x,z,\theta)-K(y,w,\eta)| & \le L\big(|x-y|+|z-w|+|\theta-\eta|\big),
-    \end{align*}
-    and
-    \begin{equation*}
-        \sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
-    \end{equation*}
-\end{assumption}
 \clearpage
 
 
@@ -754,7 +727,17 @@ In particular, \eqref{eq:kt-finite-moment} holds.
 
 
 
-
+% Logarithmic Sobolev inequality
+\begin{definition}[Logarithmic Sobolev inequality]
+    Denoting by \(\mathcal{C}^1_c(\R^d)\) the set of continuously differentiable compactly supported functions from \(\R^d\) to \(\R\), for \(g\ge 0\) with \(\int g\,d\mu=1\) we define the entropy
+    \begin{equation*}
+        \Ent_\mu(g):=\int g\log g\,d\mu.
+    \end{equation*}
+    A probability measure \(\mu\) on \(\R^d\) is said to satisfy a logarithmic Sobolev inequality with constant \(C>0\) if for every \(h\in\mathcal{C}^1_c(\R^d)\) with \(\int h^2\,d\mu=1\) one has
+    \begin{equation}\label{eq:lsi-def}
+        \Ent_\mu(h^2)\le C\int_{\R^d}|\nabla h|^2\,d\mu.
+    \end{equation}
+\end{definition}
 
 
 % ============================================================
@@ -843,6 +826,18 @@ This proves \cref{eq:general-concentration-mut}.
 % ============================================================
 \subsection{Poincar\'e inequality}\label{sec:poincare}
 
+
+% Poincare inequality
+\begin{definition}[Poincar\'e inequality]
+    A probability measure \(\mu\) on \(\R^d\) is said to satisfy a Poincar\'e inequality with constant \(C_P>0\), denoted by \(\mathrm{PI}(C_P)\), if for every \(h\in \mathcal C_c^1(\R^d)\),
+    \begin{equation}\label{eq:poincare-def}
+        \Var_\mu(h):=\int_{\R^d} h^2\,d\mu-\Big(\int_{\R^d} h\,d\mu\Big)^2
+        \le
+        C_P\int_{\R^d} |\nabla h|^2\,d\mu.
+    \end{equation}
+\end{definition}
+
+
 We first record the stability of the Poincar\'e inequality under Lipschitz
 pushforward.
 
@@ -916,6 +911,22 @@ Hence \(\Lip(T_t(\omega)|_K)\le \mathcal K_t(\omega;K)\), and the result follows
 % Talagrand transport inequalities
 % ============================================================
 \subsection{Talagrand transport inequalities}\label{sec:talagrand}
+
+% Talagrand transport inequality
+\begin{definition}[Talagrand transport inequality]
+    Let \(p\ge1\). A probability measure \(\mu\) on \(\R^d\) is said to satisfy the Talagrand transport inequality \(T_p(C_T)\) with constant \(C_T>0\) if for every probability measure \(\nu\) on \(\R^d\) with finite \(p\)-th moment,
+    \begin{equation}\label{eq:talagrand-def}
+        W_p(\nu,\mu)^2 \le 2C_T\,\Ent(\nu\mid \mu),
+    \end{equation}
+    where
+    \begin{equation*}
+        \Ent(\nu\mid\mu)=
+        \begin{cases}
+            \displaystyle \int_{\R^d}\log\Big(\frac{d\nu}{d\mu}\Big)\,d\nu, & \nu\ll \mu,       \\[3mm]
+            +\infty,                                                        & \text{otherwise}.
+        \end{cases}
+    \end{equation*}
+\end{definition}
 
 We next record the analogous stability property for Talagrand transport
 inequalities.
@@ -1112,6 +1123,34 @@ are sufficient.
 % Internal fluctuations: pairwise energy and synchronization
 % ============================================================
 \section{Internal fluctuations}\label{sec:internal-fluctuations}
+
+\begin{equation}\label{eq:kernel-sdewi}
+    \begin{cases}
+        dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} K(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
+                & \quad+ \sum_{\ell=1}^m \sigma_\ell(X_t(u),\Theta_t)\,dB_t^\ell,                         \\[1mm]
+        X_0(u)  & =u,\qquad u\in\R^d,                                                                     \\[1mm]
+        \mu_t   & =\mu_0\circ X_t^{-1}.
+    \end{cases}
+\end{equation}
+where
+\begin{equation*}
+    \theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx),
+\end{equation*}
+
+% Dissipativity Assumptions on global Lipschitz and growth hypotheses.
+\begin{assumption}[Global Lipschitz and growth hypotheses]\label{ass:global-lipschitz}
+    The maps \(b,K,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
+    More explicitly, there exists \(L<\infty\) such that
+    \begin{align*}
+        |\Phi(x)-\Phi(y)|           & \le L|x-y|,                               \\
+        |b(x,\theta)-b(y,\eta)|     & \le L\big(|x-y|+|\theta-\eta|\big),       \\
+        |K(x,z,\theta)-K(y,w,\eta)| & \le L\big(|x-y|+|z-w|+|\theta-\eta|\big),
+    \end{align*}
+    and
+    \begin{equation*}
+        \sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
+    \end{equation*}
+\end{assumption}
 
 This section studies the pairwise energy
 \begin{equation*}
