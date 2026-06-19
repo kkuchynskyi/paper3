@@ -1,0 +1,23 @@
+\begin{thebibliography}{}
+
+\bibitem[Dorogovtsev, 2003]{dorogovtsev2003}
+Dorogovtsev, A.~A. (2003).
+\newblock Stochastic flows with interaction and measure-valued processes.
+\newblock {\em International Journal of Mathematics and Mathematical Sciences}, 2003(63):3963--3977.
+
+\bibitem[Dorogovtsev, 2023]{dorogovtsev2023}
+Dorogovtsev, A.~A. (2023).
+\newblock {\em Measure-Valued Processes and Stochastic Flows}, volume~3 of {\em De Gruyter Series in Probability and Stochastics}.
+\newblock De Gruyter, Berlin.
+
+\bibitem[Dorogovtsev and Wei{\ss}, 2023]{dorogovtsev_weiss2023}
+Dorogovtsev, A.~A. and Wei{\ss}, A. (2023).
+\newblock Intermittency phenomena for mass distributions of stochastic flows with interaction.
+\newblock {\em Stochastics and Dynamics}, 23(7):2350056.
+
+\bibitem[Kunita, 1986]{Kunita1986}
+Kunita, H. (1986).
+\newblock {\em Lectures on Stochastic Flows and Applications}.
+\newblock Tata Institute of Fundamental Research, Bombay.
+
+\end{thebibliography}

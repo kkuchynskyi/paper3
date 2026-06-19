@@ -1,7 +1,7 @@
 .DS_Store
 
 # LaTeX build output
-build/
+build/*
 *.aux
 *.bbl
 *.blg
@@ -11,3 +11,7 @@ build/
 *.out
 *.synctex.gz
 *.toc
+
+# Keep the main build artifacts available for commits.
+!build/
+!build/main*

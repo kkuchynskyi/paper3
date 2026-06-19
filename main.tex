@@ -115,52 +115,23 @@ For a matrix \(M\in\R^{d\times d}\) we set
 
 
 % Assumption on the coefficients
-\begin{assumption}[Global Lipschitz conditions]\label{ass:wellposedness}
-    The maps
+Fix \(\mu_0\in\mathcal P_2(\mathbb R^d)\).
+
+\begin{assumption}[Well-posedness]\label{ass:wellposedness}
+    There exists \(L<\infty\) such that, for all
+    \(x,y\in\mathbb R^d\) and
+    \(\mu,\nu\in\mathcal P_2(\mathbb R^d)\),
     \begin{equation*}
-        a:\mathbb R^d\times\mathcal P_2(\mathbb R^d)\to\mathbb R^d, \qquad \sigma:\mathbb R^d\to\mathbb R^{d\times d}
+        |a(x,\mu)-a(y,\nu)| + \left( \sum_{\ell=1}^{r} |\sigma_\ell(x)-\sigma_\ell(y)|^2 \right)^{1/2}  \le L\bigl(|x-y|+W_2(\mu,\nu)\bigr)
     \end{equation*}
-    are Borel measurable. There exist constants \(L_x,L_\mu,L_\sigma<\infty\) such that, for all
-    \( x,y\in\mathbb R^d\) and \(\mu,\nu\in\mathcal P_2(\mathbb R^d)\),
-    \begin{align}
-        |a(x,\mu)-a(y,\nu)|                                 & \le L_x|x-y|+L_\mu W_2(\mu,\nu), \\
-        \sum_{\ell=1}^{r} |\sigma_\ell(x)-\sigma_\ell(y)|^2 & \le L_\sigma^2|x-y|^2.
-    \end{align}
 \end{assumption}
 
 % The remarks on the solution
-By Theorem~2.3.1 of \cite{dorogovtsev2023}, the \Cref{ass:wellposedness} guarantee the existence and uniqueness of the
-solution to \Cref{eq:main-sdewi}.
-% The solution to \cref{eq:main-sdewi} generates a \(C^1\) stochastic flow of maps: there exists a modification such that
-% for a.s. \(\omega\) and every \(t\ge 0\) the map \(u\mapsto X_t(u,\omega)\) is of class \(C^1(\R^d)\).
-% We study whether logarithmic Sobolev, Poincar\'e, and Talagrand transport inequalities are propagated from
-% the initial measure \(\mu_0\) to the random measure \(\mu_t\).
-
-\begin{assumption}[Spatial regularity of the coefficients]\label{ass:flow-regularity}
-
-    For every \(\mu\in\cP_2(\R^d)\), the map
-    \begin{equation*}
-        x\longmapsto a(x,\mu)
-    \end{equation*}
-    belongs to \(C^1(\R^d;\R^d)\).
-    For every \(\ell=1,\ldots,r\),
-    \begin{equation*}
-        \sigma_\ell\in C^1(\R^d;\R^d).
-    \end{equation*}
-    The map
-    \begin{equation*}
-        (x,\mu)\longmapsto D_xa(x,\mu)
-    \end{equation*}
-    is Borel measurable.
-    There exist constants \(H_a,H_\sigma<\infty\) such that, for all
-    \(x,y,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\),
-    \begin{align}
-        \big|\big(D_xa(x,\mu)-D_xa(y,\mu)\big)z \big|                              & \le H_a|x-y|\,|z|,\label{eq:Da-lipschitz} \\
-        \sum_{\ell=1}^{r} \big| \big(D\sigma_\ell(x)-D\sigma_\ell(y)\big)z \big|^2 & \le
-        H_\sigma^2|x-y|^2|z|^2.
-        \label{eq:Dsigma-lipschitz}
-    \end{align}
-\end{assumption}
+Under \Cref{ass:wellposedness}, \eqref{eq:main-sdewi} admits a unique global solution; see
+\cite[Theorem~2.3.1]{dorogovtsev2023}. This assumption remains in force throughout
+\Cref{sec:jacobian-bound,sec:averaged-jacobian}. Additional spatial regularity conditions are
+stated locally when they are needed. Section~\ref{sec:internal-fluctuations} concerns
+a different kernel model and is treated under separate assumptions.
 
 
 
@@ -194,15 +165,31 @@ This section has two purposes. First, we quantify the spatial distortion of the 
 through its Jacobian \(J_t \). Second, we use this distortion to transfer functional inequalities from the initial
 measure \( \mu_0 \) to the random pushforward measure \( \mu_t \). The technical proof of the compact-set Jacobian estimate is postponed to the final subsection.
 
+\begin{assumption}[Spatial differentiability]\label{ass:flow-differentiability}
+    For every \(\mu\in\mathcal P_2(\mathbb R^d)\), the map \(x\mapsto a(x,\mu)\) belongs to
+    \(C^1(\mathbb R^d;\mathbb R^d)\), and
+    \begin{equation*}
+        \sigma_\ell\in C^1(\mathbb R^d;\mathbb R^d), \qquad \ell=1,\dots,r.
+    \end{equation*}
+\end{assumption}
+
+
+By \Cref{ass:wellposedness,ass:flow-differentiability},
+\begin{equation}
+    \label{eq:basic-derivative-bounds}
+    \|D_xa(x,\mu)\|_{\op}\le L_x,
+    \qquad
+    \sum_{\ell=1}^{r}|D\sigma_\ell(x)z|^2
+    \le L_\sigma^2|z|^2
+\end{equation}
+for all \(x,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\)
 % ============================================================
 % Pathwise Jacobian Bounds and Functional Inequality Transfer
 % ============================================================
 \subsection{The Jacobian flow and distortion constants}
 
-% Motivation for the subsection
-This section is devoted to the investigation of the SDE for the Jacobian matrix in \cref{eq:jacobian-sde} and the Jacobian norm \(\|J_t(u)\|\) on compact sets.
-Such norm is the upper bound for Lipschitz constant of the map \(T_t(u)\). Then knowing the upper bound for Lipschitz constant we can evaluate
-the concentration inequality, Poincar\'e inequality, logarithmic Sobolev inequality and Talagrand inequality.
+% Roadmap to the subsection
+We first identify the Jacobian equation for the stochastic flow and introduce the distortion quantities used throughout the section.
 
 
 For a fixed \(\omega\) and \(t\), define the flow map \(T_t(\omega,u):=X_t(u,\omega)\) and its Jacobian matrix
@@ -212,24 +199,32 @@ For a fixed \(\omega\) and \(t\), define the flow map \(T_t(\omega,u):=X_t(u,\om
 We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}.
 For \cref{eq:main-sdewi}, it has the following form.
 
-\begin{theorem}[\cite{dorogovtsev_weiss2023}]\label{thm:jacobian-sde}
-    Under \Cref{ass:wellposedness,ass:flow-regularity}, for each \(u\in\R^d\), the Jacobian matrix process
-    \(J_t(u)\) exists and satisfies the linear matrix SDE
+\begin{theorem}[Jacobian equation] \label{thm:jacobian-sde}
+    Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Then the solution admits a
+    modification such that, for almost every \(\omega\) and every \(t\ge0\), the map
+    \begin{equation*}
+        u\longmapsto T_t(\omega,u)
+    \end{equation*}
+    is of class \(C^1\). Its Jacobian
+    \begin{equation*}
+        J_t(u):=D_uT_t(u)
+    \end{equation*}
+    satisfies
     \begin{equation}\label{eq:jacobian-sde}
-        dJ_t(u)= A_t(u)\,J_t(u)\,dt + \sum_{\ell=1}^{r} C_{\ell,t}(u)J_t(u)\,dB_t^\ell,,\qquad J_0(u)=I,
+        dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{\ell=1}^{r} C_{\ell,t}(u)J_t(u)\,dB_t^\ell, \qquad
+        J_0(u)=I,
     \end{equation}
     where
     \begin{equation*}
-        A_t(u):=\partial_x a\big(X_t(u),\mu_t\big),\qquad
-        C_{\ell,t}(u):=\partial_x \sigma^{(k)}\big(X_t(u)\big),
+        A_t(u):=D_xa\bigl(X_t(u),\mu_t\bigr),
+        \qquad
+        C_{\ell,t}(u):=D\sigma_\ell\bigl(X_t(u)\bigr).
     \end{equation*}
-    Here \(A_t(u),C_t^{(k)}(u)\in\R^{d\times d}\), the driving Brownian motion is \(B_t=(B_t^1,\ldots,B_t^d)\) with \(B_t^k\in\R\),
-    and the sum runs over the \(d\) components of the noise. Moreover, the coefficients satisfy the uniform bounds
+    In particular,
     \begin{equation*}
-        \|A_t(u)\|_{\op}\le L,\qquad
-        \|C_t^{(k)}(u)\|_{\op}\le L_\sigma
-        \quad \text{for all }t,u,\omega.
+        \|A_t(u)\|_{\op}\le L_x, \qquad \sum_{\ell=1}^{r} |C_{\ell,t}(u)z|^2 \le L_\sigma^2|z|^2
     \end{equation*}
+    for all \(t,u,z\).
 \end{theorem}
 
 
@@ -246,7 +241,7 @@ Why \(\mathcal{K}_t(\omega;K)\) is finite and relation to global blow-up example
 of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite
 global constant \(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
 In contrast, the quantity \(\mathcal{K}_t(\omega;K)\) is taken over a compact set \(K\);
-under \Cref{ass:wellposedness,ass:flow-regularity}(iii), for each fixed \((t,\omega)\) the map
+under \Cref{ass:wellposedness,ass:flow-differentiability}(iii), for each fixed \((t,\omega)\) the map
 \(u\mapsto J_t(u,\omega)\) is continuous, hence the supremum over \(K\) is finite.
 
 
@@ -275,31 +270,66 @@ hence equality.
 
 
 
-Pointwise estimates control \(\|J_t(u)\|_{\op}\) for fixed \(u\). To control the random Lipschitz constant
-\begin{equation*}
-    \mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\op}
-\end{equation*}
-on a compact set \(K\), we impose the following additional spatial regularity assumption.
-\begin{assumption}\label{ass:spatial-lip-derivatives}
-    There exist constants \(L^{(2)}<\infty\) and \(L_\sigma^{(2)}<\infty\) such that for all \(\mu\in\cP_2(\R^d)\) and all \(x,y\in\R^d\),
-    \begin{align*}
-        \|\partial_x a(x,\mu)-\partial_x a(y,\mu)\|_{\op}                             & \le L^{(2)}\,|x-y|,        \\
-        \max_{1\le k\le d}\|\partial \sigma^{(k)}(x)-\partial \sigma^{(k)}(y)\|_{\op} & \le L_\sigma^{(2)}\,|x-y|.
-    \end{align*}
-\end{assumption}
+% Pointwise estimates control \(\|J_t(u)\|_{\op}\) for fixed \(u\). To control the random Lipschitz constant
+% \begin{equation*}
+%     \mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\op}
+% \end{equation*}
+% on a compact set \(K\), we impose the following additional spatial regularity assumption.
+% \begin{assumption}\label{ass:spatial-lip-derivatives}
+%     There exist constants \(L^{(2)}<\infty\) and \(L_\sigma^{(2)}<\infty\) such that for all \(\mu\in\cP_2(\R^d)\) and all \(x,y\in\R^d\),
+%     \begin{align*}
+%         \|\partial_x a(x,\mu)-\partial_x a(y,\mu)\|_{\op}                             & \le L^{(2)}\,|x-y|,        \\
+%         \max_{1\le k\le d}\|\partial \sigma^{(k)}(x)-\partial \sigma^{(k)}(y)\|_{\op} & \le L_\sigma^{(2)}\,|x-y|.
+%     \end{align*}
+% \end{assumption}
 
-\begin{theorem}[Moment bound for \(\mathcal{K}_t(\cdot;K)\)]\label{thm:kt-moment}
-    Assume \Cref{ass:general-lipschitz,ass:spatial-lip-derivatives}. Then for every compact \(K\subset\R^d\), every \(p\ge 1\), and every \(t\ge0\),
+% \begin{theorem}[Moment bound for \(\mathcal{K}_t(\cdot;K)\)]\label{thm:kt-moment}
+%     Assume \Cref{ass:general-lipschitz,ass:spatial-lip-derivatives}. Then for every compact \(K\subset\R^d\), every \(p\ge 1\), and every \(t\ge0\),
+%     \begin{equation}\label{eq:kt-finite-moment}
+%         \E\,\mathcal{K}_t(\cdot;K)^p<\infty.
+%     \end{equation}
+%     Moreover, there exist constants \(C_{p,K},c_p<\infty\) (depending only on \(p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}\)) such that
+%     \begin{equation}\label{eq:kt-exp-growth}
+%         \E\,\mathcal{K}_t(\cdot;K)^p \le C_{p,K}\,e^{c_p t}, \qquad t\ge0.
+%     \end{equation}
+% \end{theorem}
+Pointwise estimates for \(J_t(u)\) follow from the boundedness of the
+coefficients in the linear equation \eqref{eq:jacobian-sde}. Controlling
+the compact-set maximal Jacobian norm \(\mathcal K_t(K)\), however,
+requires estimates for the spatial increments
+\(J_t(u)-J_t(v)\). The additional regularity needed for this purpose
+is therefore imposed only in the following theorem.
+
+\begin{theorem}[Moments of the compact-set maximal Jacobian norm]\label{thm:kt-moment}
+    Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exist constants
+    \(H_a,H_\sigma<\infty\) such that, for all \(x,y,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\),
+    \begin{align}
+        \big|
+        \big(D_xa(x,\mu)-D_xa(y,\mu)\big)z
+        \big|
+         & \le
+        H_a|x-y|\,|z|,
+        \label{eq:Da-lipschitz-compact}
+        \\
+        \sum_{\ell=1}^{r}
+        \big|
+        \big(D\sigma_\ell(x)-D\sigma_\ell(y)\big)z
+        \big|^2
+         & \le
+        H_\sigma^2|x-y|^2|z|^2.
+        \label{eq:Dsigma-lipschitz-compact}
+    \end{align}
+    Then, for every compact set \(K\subset\mathbb R^d\),
+    every \(p\ge1\), and every \(t\ge0\),
     \begin{equation}\label{eq:kt-finite-moment}
-        \E\,\mathcal{K}_t(\cdot;K)^p<\infty.
+        \mathbb E\big[\mathcal K_t(\cdot;K)^p\big]<\infty.
     \end{equation}
-    Moreover, there exist constants \(C_{p,K},c_p<\infty\) (depending only on \(p,K,d,L,L_\sigma,L^{(2)},L_\sigma^{(2)}\)) such that
+    Moreover, there exist constants \(C_{p,K},c_p<\infty\),
+    depending only on \( p,\ K,\ d,\ r,\ L,\ H_a,\ H_\sigma, \) such that
     \begin{equation}\label{eq:kt-exp-growth}
-        \E\,\mathcal{K}_t(\cdot;K)^p \le C_{p,K}\,e^{c_p t}, \qquad t\ge0.
+        \mathbb E\big[\mathcal K_t(\cdot;K)^p\big] \le C_{p,K}e^{c_pt}, \qquad t\ge0.
     \end{equation}
 \end{theorem}
-
-
 
 The proof is given in \Cref{sec:kt-moment-proof}.
 
@@ -307,7 +337,7 @@ The proof is given in \Cref{sec:kt-moment-proof}.
 
 
 % ============================================================
-% Concentration inequality
+% Transfer of functional inequalities
 % ============================================================
 \subsection{Transfer of functional inequalities}
 
@@ -625,11 +655,12 @@ Although the drift depends on the random measure \( \mu_t \), differentiation wi
 the spatial argument \(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\)
 using Kunita's theorem for the stochastic flows.
 
-Under \Cref{ass:wellposedness,ass:flow-regularity}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986}) yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\)
+Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986}) yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\)
 the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
 
 
 \noindent\emph{Proof of \Cref{thm:kt-moment}.}
+\paragraph{Step 1: Pointwise moments and flow increments.}
 Fix a compact set $K\subset\R^d$, $t\ge0$, and $p\ge1$. Choose an even integer $m>\max\{2p,2d\}$. It is enough to prove \eqref{eq:kt-exp-growth} with $p$ replaced by $m$, because then H\"older's inequality gives
 \begin{equation*}
     \E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
@@ -729,6 +760,7 @@ uniformly in $u\in\R^d$.
 
 
 
+\paragraph{Step 2: Spatial increments of the Jacobian.}
 
 Fix \(u,v\in\R^d\) and define
 \begin{equation*}
@@ -957,6 +989,7 @@ Since \(\|D_t\|_{\op}\le \|D_t\|_{\HS}\), we conclude that
 
 
 
+\paragraph{Step 3: Kolmogorov continuity and the compact supremum.}
 Fix \(\beta\in(0,1-d/m)\).
 Since \(m>d\), the increment estimate \eqref{eq:jacobian-increment} implies, by the Kolmogorov continuity theorem applied in the spatial variable \(u\), that for each fixed \(t\ge0\) there exists a modification of \(u\mapsto J_t(u)\) whose sample paths on \(K\) are \(\beta\)-H\"older continuous.
 Moreover, by a quantitative version of the Kolmogorov theorem, one may choose such a modification, still denoted by \(J_t\), so that
@@ -987,13 +1020,8 @@ Then for every \(u\in K\),
 \end{equation*}
 Therefore,
 \begin{equation*}
-    \mathcal{K}_t(\omega;K)
-    =
-    \sup_{u\in K}\|J_t(u,\omega)\|_{\op}
-    \le
-    \|J_t(u_0,\omega)\|_{\op}
-    +
-    [J_t(\omega)]_{\beta;K}(\operatorname{diam}K)^\beta.
+    \mathcal{K}_t(\omega;K) = \sup_{u\in K}\|J_t(u,\omega)\|_{\op} \le \|J_t(u_0,\omega)\|_{\op}
+    + [J_t(\omega)]_{\beta;K}(\operatorname{diam}K)^\beta.
 \end{equation*}
 Taking \(m\)-th moments and using \eqref{eq:jacobian-moment} and \eqref{eq:holder-bound}, we obtain
 \begin{equation*}
@@ -1125,6 +1153,10 @@ are sufficient.
 % ============================================================
 \section{Internal fluctuations}\label{sec:internal-fluctuations}
 
+% Motivation for this section
+This section concerns a separate kernel-type interacting model. In contrast to \eqref{eq:main-sdewi}, both the drift and diffusion
+may depend on the order parameter \(\Theta_t\). Consequently, the assumptions of Sections~2 and~3 are not imposed here.
+
 \begin{equation}\label{eq:kernel-sdewi}
     \begin{cases}
         dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} K(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
@@ -1139,7 +1171,7 @@ where
 \end{equation*}
 
 % Dissipativity Assumptions on global Lipschitz and growth hypotheses.
-\begin{assumption}[Global Lipschitz and growth hypotheses]\label{ass:global-lipschitz}
+\begin{assumption}[Well-posedness of \Cref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
     The maps \(b,K,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
     More explicitly, there exists \(L<\infty\) such that
     \begin{align*}
@@ -1152,6 +1184,9 @@ where
         \sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
     \end{equation*}
 \end{assumption}
+
+% Well-posedness of the SDEWI
+Under \Cref{ass:kernel-wellposedness}, equation \eqref{eq:kernel-sdewi} admits a unique global continuous solution.
 
 This section studies the pairwise energy
 \begin{equation*}
