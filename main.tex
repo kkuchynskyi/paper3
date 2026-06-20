@@ -175,14 +175,13 @@ measure \( \mu_0 \) to the random pushforward measure \( \mu_t \). The technical
 
 
 By \Cref{ass:wellposedness,ass:flow-differentiability},
-\begin{equation}
-    \label{eq:basic-derivative-bounds}
-    \|D_xa(x,\mu)\|_{\op}\le L_x,
-    \qquad
-    \sum_{\ell=1}^{r}|D\sigma_\ell(x)z|^2
-    \le L_\sigma^2|z|^2
+\begin{equation}\label{eq:basic-derivative-bounds}
+    \|D_xa(x,\mu)\|_{\op}\le L_x, \qquad \sum_{\ell=1}^{r}|D\sigma_\ell(x)z|^2 \le L_\sigma^2|z|^2
 \end{equation}
 for all \(x,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\)
+
+
+
 % ============================================================
 % Pathwise Jacobian Bounds and Functional Inequality Transfer
 % ============================================================
@@ -205,14 +204,12 @@ For \cref{eq:main-sdewi}, it has the following form.
     \begin{equation*}
         u\longmapsto T_t(\omega,u)
     \end{equation*}
-    is of class \(C^1\). Its Jacobian
-    \begin{equation*}
-        J_t(u):=D_uT_t(u)
-    \end{equation*}
-    satisfies
+    is of class \(C^1\). Its Jacobian \( J_t(u) \) satisfies
     \begin{equation}\label{eq:jacobian-sde}
-        dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{\ell=1}^{r} C_{\ell,t}(u)J_t(u)\,dB_t^\ell, \qquad
-        J_0(u)=I,
+        \begin{cases}
+            dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{\ell=1}^{r} C_{\ell,t}(u)J_t(u)\,dB_t^\ell, \\
+            J_0(u)=I,                                                                      \\
+        \end{cases}
     \end{equation}
     where
     \begin{equation*}
@@ -237,12 +234,11 @@ For \cref{eq:main-sdewi}, it has the following form.
     If \(K\) is compact and \(u\mapsto J_t(u,\omega)\) is continuous, then \(\mathcal{K}_t(\omega;K)<\infty\).
 \end{definition}
 
-Why \(\mathcal{K}_t(\omega;K)\) is finite and relation to global blow-up examples? The counterexamples
+% Remark
+If \(K\) is compact, continuity of \(u\mapsto J_t(u)\) implies \(\mathcal K_t(K)<\infty\). This compact-set quantity is used because
+a corresponding supremum over all of \(\mathbb R^d\) need not be finite.  The counterexamples
 of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite
 global constant \(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
-In contrast, the quantity \(\mathcal{K}_t(\omega;K)\) is taken over a compact set \(K\);
-under \Cref{ass:wellposedness,ass:flow-differentiability}(iii), for each fixed \((t,\omega)\) the map
-\(u\mapsto J_t(u,\omega)\) is continuous, hence the supremum over \(K\) is finite.
 
 
 
@@ -253,19 +249,19 @@ under \Cref{ass:wellposedness,ass:flow-differentiability}(iii), for each fixed \
     \end{equation*}
 \end{lemma}
 
-\noindent\emph{Proof.}
-Since \(u\mapsto T_t(\omega,u)\) is \(C^1\), the mean value theorem implies
-\begin{equation*}
-    |T_t(u)-T_t(v)| \le \sup_{\theta\in[0,1]}\|J_t(v+\theta(u-v))\|_{\op}\,|u-v|.
-\end{equation*}
-Taking the supremum over \(u\neq v\) yields \(\Lip(T_t)\le \sup_u\|J_t(u)\|_{\op}\).
-Conversely, for any \(u\) and unit vector \(\xi\), letting \(v=u+\varepsilon\xi\) and sending \(\varepsilon\downarrow 0\) gives
-\begin{equation*}
-    \|J_t(u)\|_{\op} = \sup_{|\xi|=1}\lim_{\varepsilon\downarrow 0}\frac{|T_t(u+\varepsilon\xi)-T_t(u)|}{\varepsilon}
-    \le \Lip(T_t),
-\end{equation*}
-hence equality.
-\hfill\(\Box\)
+\begin{proof}
+    Since \(u\mapsto T_t(\omega,u)\) is \(C^1\), the mean value theorem implies
+    \begin{equation*}
+        |T_t(u)-T_t(v)| \le \sup_{\theta\in[0,1]}\|J_t(v+\theta(u-v))\|_{\op}\,|u-v|.
+    \end{equation*}
+    Taking the supremum over \(u\neq v\) yields \(\Lip(T_t)\le \sup_u\|J_t(u)\|_{\op}\).
+    Conversely, for any \(u\) and unit vector \(\xi\), letting \(v=u+\varepsilon\xi\) and sending \(\varepsilon\downarrow 0\) gives
+    \begin{equation*}
+        \|J_t(u)\|_{\op} = \sup_{|\xi|=1}\lim_{\varepsilon\downarrow 0}\frac{|T_t(u+\varepsilon\xi)-T_t(u)|}{\varepsilon}
+        \le \Lip(T_t),
+    \end{equation*}
+    hence equality.
+\end{proof}
 
 
 
@@ -293,39 +289,19 @@ hence equality.
 %         \E\,\mathcal{K}_t(\cdot;K)^p \le C_{p,K}\,e^{c_p t}, \qquad t\ge0.
 %     \end{equation}
 % \end{theorem}
-Pointwise estimates for \(J_t(u)\) follow from the boundedness of the
-coefficients in the linear equation \eqref{eq:jacobian-sde}. Controlling
-the compact-set maximal Jacobian norm \(\mathcal K_t(K)\), however,
-requires estimates for the spatial increments
-\(J_t(u)-J_t(v)\). The additional regularity needed for this purpose
-is therefore imposed only in the following theorem.
+Pointwise estimates for \(J_t(u)\) follow from the boundedness of the coefficients in the linear equation \eqref{eq:jacobian-sde}. Controlling
+the compact-set maximal Jacobian norm \(\mathcal K_t(K)\), however, requires estimates for the spatial increments
+\(J_t(u)-J_t(v)\). The additional regularity needed for this purpose is therefore imposed only in the following theorem.
 
 \begin{theorem}[Moments of the compact-set maximal Jacobian norm]\label{thm:kt-moment}
-    Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exist constants
-    \(H_a,H_\sigma<\infty\) such that, for all \(x,y,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\),
-    \begin{align}
-        \big|
-        \big(D_xa(x,\mu)-D_xa(y,\mu)\big)z
-        \big|
-         & \le
-        H_a|x-y|\,|z|,
-        \label{eq:Da-lipschitz-compact}
-        \\
-        \sum_{\ell=1}^{r}
-        \big|
-        \big(D\sigma_\ell(x)-D\sigma_\ell(y)\big)z
-        \big|^2
-         & \le
-        H_\sigma^2|x-y|^2|z|^2.
-        \label{eq:Dsigma-lipschitz-compact}
-    \end{align}
-    Then, for every compact set \(K\subset\mathbb R^d\),
-    every \(p\ge1\), and every \(t\ge0\),
-    \begin{equation}\label{eq:kt-finite-moment}
-        \mathbb E\big[\mathcal K_t(\cdot;K)^p\big]<\infty.
+    Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exists a constant
+    \(H<\infty\) such that, for all \(x,y,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\),
+    \begin{equation}\label{eq:spatial-lipschitz-derivatives}
+        \big| \big(D_xa(x,\mu)-D_xa(y,\mu)\big)z \big| + \left( \sum_{\ell=1}^{r} \big| \big(D\sigma_\ell(x)-D\sigma_\ell(y)\big)z \big|^2 \right)^{1/2}
+        \le H|x-y|\,|z|.
     \end{equation}
-    Moreover, there exist constants \(C_{p,K},c_p<\infty\),
-    depending only on \( p,\ K,\ d,\ r,\ L,\ H_a,\ H_\sigma, \) such that
+    Then, for every nonempty compact \(K\subset\mathbb R^d\) and every
+    \(p\ge1\), there exist constants \(C_{p,K},c_p<\infty\) such that
     \begin{equation}\label{eq:kt-exp-growth}
         \mathbb E\big[\mathcal K_t(\cdot;K)^p\big] \le C_{p,K}e^{c_pt}, \qquad t\ge0.
     \end{equation}
@@ -395,41 +371,41 @@ We next record the basic concentration-transfer principle under a random Lipschi
     for every \(1\)-Lipschitz function \(g:\R^d\to\R\).
 \end{proposition}
 
-\noindent\emph{Proof.}
-Fix \(\omega\) such that \(T_t(\omega,\cdot)\) is Lipschitz on \(K\), and write
-\(L:=L_t(\omega;K)\in[0,\infty)\).
-Let \(g:\R^d\to\R\) be \(1\)-Lipschitz.
+\begin{proof}
+    Fix \(\omega\) such that \(T_t(\omega,\cdot)\) is Lipschitz on \(K\), and write
+    \(L:=L_t(\omega;K)\in[0,\infty)\).
+    Let \(g:\R^d\to\R\) be \(1\)-Lipschitz.
 
-If \(L=0\), then \(T_t(\omega,\cdot)\) is constant on \(K\), hence
-\(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\) is a Dirac mass and
-\(\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)=0\) for every \(r>0\).
-Thus \cref{eq:general-concentration-mut} is immediate.
+    If \(L=0\), then \(T_t(\omega,\cdot)\) is constant on \(K\), hence
+    \(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\) is a Dirac mass and
+    \(\mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)=0\) for every \(r>0\).
+    Thus \cref{eq:general-concentration-mut} is immediate.
 
-Assume now \(L>0\) and define on \(K\)
-\begin{equation*}
-    h(u):=\frac{g(T_t(\omega,u))}{L}.
-\end{equation*}
-Then \(h\) is \(1\)-Lipschitz on \(K\).
-By the McShane extension theorem, \(h\) extends to a \(1\)-Lipschitz function
-\(\widetilde h:\R^d\to\R\).
-Applying \cref{eq:general-concentration-mu0} to \(\widetilde h\) (and using that \(\mu_0\) is supported on \(K\)) gives
-\begin{equation*}
-    \mu_0\big(h-\mu_0(h)\ge s\big)\le \Psi(s),\qquad s\ge0.
-\end{equation*}
-Since \(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\),
-\begin{equation*}
-    \mu_t(\omega)(g)=\mu_0(g\circ T_t(\omega,\cdot))=L\mu_0(h).
-\end{equation*}
-Therefore, for \(r\ge0\),
-\begin{align*}
-    \mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
-     & = \mu_0\big(g\circ T_t(\omega,\cdot)-\mu_0(g\circ T_t(\omega,\cdot))\ge r\big) \\
-     & = \mu_0\big(h-\mu_0(h)\ge r/L\big)                                             \\
-     & \le \Psi\Big(\frac{r}{L}\Big)
-    = \Psi\Big(\frac{r}{L_t(\omega;K)}\Big).
-\end{align*}
-This proves \cref{eq:general-concentration-mut}.
-\hfill\(\Box\)
+    Assume now \(L>0\) and define on \(K\)
+    \begin{equation*}
+        h(u):=\frac{g(T_t(\omega,u))}{L}.
+    \end{equation*}
+    Then \(h\) is \(1\)-Lipschitz on \(K\).
+    By the McShane extension theorem, \(h\) extends to a \(1\)-Lipschitz function
+    \(\widetilde h:\R^d\to\R\).
+    Applying \cref{eq:general-concentration-mu0} to \(\widetilde h\) (and using that \(\mu_0\) is supported on \(K\)) gives
+    \begin{equation*}
+        \mu_0\big(h-\mu_0(h)\ge s\big)\le \Psi(s),\qquad s\ge0.
+    \end{equation*}
+    Since \(\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1}\),
+    \begin{equation*}
+        \mu_t(\omega)(g)=\mu_0(g\circ T_t(\omega,\cdot))=L\mu_0(h).
+    \end{equation*}
+    Therefore, for \(r\ge0\),
+    \begin{align*}
+        \mu_t(\omega)(g-\mu_t(\omega)(g)\ge r)
+         & = \mu_0\big(g\circ T_t(\omega,\cdot)-\mu_0(g\circ T_t(\omega,\cdot))\ge r\big) \\
+         & = \mu_0\big(h-\mu_0(h)\ge r/L\big)                                             \\
+         & \le \Psi\Big(\frac{r}{L}\Big)
+        = \Psi\Big(\frac{r}{L_t(\omega;K)}\Big).
+    \end{align*}
+    This proves \cref{eq:general-concentration-mut}.
+\end{proof}
 
 \begin{remark}[Concentration as a corollary of LSI]
     If \(\mu_0\) satisfies a logarithmic Sobolev inequality, then it satisfies Gaussian concentration.
@@ -464,34 +440,34 @@ pushforward.
     \end{equation*}
 \end{proposition}
 
-\noindent\emph{Proof.}
-Let \(g\in \mathcal C_c^1(\R^d)\) and set \(f:=g\circ T\).
-Then
-\begin{equation*}
-    \int_{\R^d} g\,d\nu=\int_{\R^d} g(T(u))\,\mu(du)=\int_{\R^d} f(u)\,\mu(du),
-\end{equation*}
-and similarly
-\begin{equation*}
-    \int_{\R^d} g^2\,d\nu=\int_{\R^d} f^2\,d\mu.
-\end{equation*}
-Hence
-\begin{equation*}
-    \Var_\nu(g)=\Var_\mu(f).
-\end{equation*}
-Applying the Poincar\'e inequality for \(\mu\) gives
-\begin{equation*}
-    \Var_\nu(g) = \Var_\mu(f) \le C_P\int_{\R^d} |\nabla f(u)|^2\,\mu(du).
-\end{equation*}
-Since \(f=g\circ T\) and \(T\) is Lipschitz, we have a.e.
-\begin{equation*}
-    |\nabla f(u)| \le \Lip(T)\,|\nabla g(T(u))|.
-\end{equation*}
-Therefore
-\begin{equation*}
-    \Var_\nu(g) \le C_P\,\Lip(T)^2 \int_{\R^d} |\nabla g(T(u))|^2\,\mu(du) = C_P\,\Lip(T)^2 \int_{\R^d} |\nabla g(x)|^2\,\nu(dx).
-\end{equation*}
-This proves the claim.
-\hfill\(\Box\)
+\begin{proof}
+    Let \(g\in \mathcal C_c^1(\R^d)\) and set \(f:=g\circ T\).
+    Then
+    \begin{equation*}
+        \int_{\R^d} g\,d\nu=\int_{\R^d} g(T(u))\,\mu(du)=\int_{\R^d} f(u)\,\mu(du),
+    \end{equation*}
+    and similarly
+    \begin{equation*}
+        \int_{\R^d} g^2\,d\nu=\int_{\R^d} f^2\,d\mu.
+    \end{equation*}
+    Hence
+    \begin{equation*}
+        \Var_\nu(g)=\Var_\mu(f).
+    \end{equation*}
+    Applying the Poincar\'e inequality for \(\mu\) gives
+    \begin{equation*}
+        \Var_\nu(g) = \Var_\mu(f) \le C_P\int_{\R^d} |\nabla f(u)|^2\,\mu(du).
+    \end{equation*}
+    Since \(f=g\circ T\) and \(T\) is Lipschitz, we have a.e.
+    \begin{equation*}
+        |\nabla f(u)| \le \Lip(T)\,|\nabla g(T(u))|.
+    \end{equation*}
+    Therefore
+    \begin{equation*}
+        \Var_\nu(g) \le C_P\,\Lip(T)^2 \int_{\R^d} |\nabla g(T(u))|^2\,\mu(du) = C_P\,\Lip(T)^2 \int_{\R^d} |\nabla g(x)|^2\,\nu(dx).
+    \end{equation*}
+    This proves the claim.
+\end{proof}
 
 \begin{corollary}[Pathwise Poincar\'e inequality]\label{cor:pathwise-poincare}
     If \(\mu_0\) satisfies \(\mathrm{PI}(C_P)\) and \(\supp(\mu_0)\subset K\) for some compact set \(K\subset \R^d\), then for every \(t\ge0\) and a.s.\ \(\omega\),
@@ -502,14 +478,14 @@ This proves the claim.
     \end{equation*}
 \end{corollary}
 
-\noindent\emph{Proof.}
-By \Cref{prop:poincare-pushforward}, it suffices to bound the Lipschitz constant of \(T_t(\omega,\cdot)\) on \(K\).
-Since \(K\) is compact and \(u\mapsto T_t(\omega,u)\) is of class \(C^1\), the mean value theorem gives
-\begin{equation*}
-    |T_t(\omega,u)-T_t(\omega,v)| \le \sup_{z\in K}\|J_t(z,\omega)\|_{\op}\,|u-v| = \mathcal K_t(\omega;K)\,|u-v|, \qquad u,v\in K.
-\end{equation*}
-Hence \(\Lip(T_t(\omega)|_K)\le \mathcal K_t(\omega;K)\), and the result follows.
-\hfill\(\Box\)
+\begin{proof}
+    By \Cref{prop:poincare-pushforward}, it suffices to bound the Lipschitz constant of \(T_t(\omega,\cdot)\) on \(K\).
+    Since \(K\) is compact and \(u\mapsto T_t(\omega,u)\) is of class \(C^1\), the mean value theorem gives
+    \begin{equation*}
+        |T_t(\omega,u)-T_t(\omega,v)| \le \sup_{z\in K}\|J_t(z,\omega)\|_{\op}\,|u-v| = \mathcal K_t(\omega;K)\,|u-v|, \qquad u,v\in K.
+    \end{equation*}
+    Hence \(\Lip(T_t(\omega)|_K)\le \mathcal K_t(\omega;K)\), and the result follows.
+\end{proof}
 
 
 
@@ -541,76 +517,76 @@ inequalities.
     \end{equation*}
 \end{proposition}
 
-\noindent\emph{Proof.}
-Let \(\lambda\) be any probability measure on \(\R^d\).
-If \(\lambda\not\ll \eta\), then \(\Ent(\lambda\mid\eta)=+\infty\) and the inequality is trivial.
-Assume therefore that \(\lambda\ll \eta\).
+\begin{proof}
+    Let \(\lambda\) be any probability measure on \(\R^d\).
+    If \(\lambda\not\ll \eta\), then \(\Ent(\lambda\mid\eta)=+\infty\) and the inequality is trivial.
+    Assume therefore that \(\lambda\ll \eta\).
 
-Choose a probability measure \(\widetilde\lambda\) on \(\R^d\) such that
-\begin{equation*}
-    \widetilde\lambda\circ T^{-1}=\lambda
-    \qquad\text{and}\qquad
-    \Ent(\widetilde\lambda\mid \mu)=\Ent(\lambda\mid \eta).
-\end{equation*}
-For instance, one may take the measure
-\begin{equation*}
-    \widetilde\lambda(du):=
-    \frac{d\lambda}{d\eta}(T(u))\,\mu(du).
-\end{equation*}
-Indeed,
-\begin{equation*}
-    (\widetilde\lambda\circ T^{-1})(A)
-    =
-    \int_{\R^d}\mathbf 1_{\{T(u)\in A\}}\frac{d\lambda}{d\eta}(T(u))\,\mu(du)
-    =
-    \int_A \frac{d\lambda}{d\eta}(x)\,\eta(dx)
-    =
-    \lambda(A),
-\end{equation*}
-and
-\begin{equation*}
-    \Ent(\widetilde\lambda\mid\mu)
-    =
-    \int_{\R^d}\log\Big(\frac{d\lambda}{d\eta}(T(u))\Big)\,\widetilde\lambda(du)
-    =
-    \int_{\R^d}\log\Big(\frac{d\lambda}{d\eta}(x)\Big)\,\lambda(dx)
-    =
-    \Ent(\lambda\mid\eta).
-\end{equation*}
+    Choose a probability measure \(\widetilde\lambda\) on \(\R^d\) such that
+    \begin{equation*}
+        \widetilde\lambda\circ T^{-1}=\lambda
+        \qquad\text{and}\qquad
+        \Ent(\widetilde\lambda\mid \mu)=\Ent(\lambda\mid \eta).
+    \end{equation*}
+    For instance, one may take the measure
+    \begin{equation*}
+        \widetilde\lambda(du):=
+        \frac{d\lambda}{d\eta}(T(u))\,\mu(du).
+    \end{equation*}
+    Indeed,
+    \begin{equation*}
+        (\widetilde\lambda\circ T^{-1})(A)
+        =
+        \int_{\R^d}\mathbf 1_{\{T(u)\in A\}}\frac{d\lambda}{d\eta}(T(u))\,\mu(du)
+        =
+        \int_A \frac{d\lambda}{d\eta}(x)\,\eta(dx)
+        =
+        \lambda(A),
+    \end{equation*}
+    and
+    \begin{equation*}
+        \Ent(\widetilde\lambda\mid\mu)
+        =
+        \int_{\R^d}\log\Big(\frac{d\lambda}{d\eta}(T(u))\Big)\,\widetilde\lambda(du)
+        =
+        \int_{\R^d}\log\Big(\frac{d\lambda}{d\eta}(x)\Big)\,\lambda(dx)
+        =
+        \Ent(\lambda\mid\eta).
+    \end{equation*}
 
-Now let \(\pi\) be a coupling of \(\widetilde\lambda\) and \(\mu\).
-Then \(\pi\circ (T,T)^{-1}\) is a coupling of \(\lambda\) and \(\eta\), so by Lipschitz continuity of \(T\),
-\begin{align*}
-     & \int_{\R^d\times\R^d}
-    |x-y|^p\,d(\pi\circ (T,T)^{-1})(x,y)          \\
-     & \quad =
-    \int_{\R^d\times\R^d}|T(u)-T(v)|^p\,d\pi(u,v) \\
-     & \quad \le
-    \Lip(T)^p
-    \int |u-v|^p\,d\pi(u,v).
-\end{align*}
-Taking the infimum over all couplings \(\pi\) of \(\widetilde\lambda\) and \(\mu\) yields
-\begin{equation*}
-    W_p(\lambda,\eta)\le \Lip(T)\,W_p(\widetilde\lambda,\mu).
-\end{equation*}
-Since \(\mu\) satisfies \(T_p(C_T)\),
-\begin{equation*}
-    W_p(\widetilde\lambda,\mu)^2
-    \le
-    2C_T\,\Ent(\widetilde\lambda\mid\mu)
-    =
-    2C_T\,\Ent(\lambda\mid\eta).
-\end{equation*}
-Combining the two inequalities, we obtain
-\begin{equation*}
-    W_p(\lambda,\eta)^2
-    \le
-    \Lip(T)^2\,W_p(\widetilde\lambda,\mu)^2
-    \le
-    2C_T\,\Lip(T)^2\,\Ent(\lambda\mid\eta),
-\end{equation*}
-which proves that \(\eta\) satisfies \(T_p(C_T\,\Lip(T)^2)\).
-\hfill\(\Box\)
+    Now let \(\pi\) be a coupling of \(\widetilde\lambda\) and \(\mu\).
+    Then \(\pi\circ (T,T)^{-1}\) is a coupling of \(\lambda\) and \(\eta\), so by Lipschitz continuity of \(T\),
+    \begin{align*}
+         & \int_{\R^d\times\R^d}
+        |x-y|^p\,d(\pi\circ (T,T)^{-1})(x,y)          \\
+         & \quad =
+        \int_{\R^d\times\R^d}|T(u)-T(v)|^p\,d\pi(u,v) \\
+         & \quad \le
+        \Lip(T)^p
+        \int |u-v|^p\,d\pi(u,v).
+    \end{align*}
+    Taking the infimum over all couplings \(\pi\) of \(\widetilde\lambda\) and \(\mu\) yields
+    \begin{equation*}
+        W_p(\lambda,\eta)\le \Lip(T)\,W_p(\widetilde\lambda,\mu).
+    \end{equation*}
+    Since \(\mu\) satisfies \(T_p(C_T)\),
+    \begin{equation*}
+        W_p(\widetilde\lambda,\mu)^2
+        \le
+        2C_T\,\Ent(\widetilde\lambda\mid\mu)
+        =
+        2C_T\,\Ent(\lambda\mid\eta).
+    \end{equation*}
+    Combining the two inequalities, we obtain
+    \begin{equation*}
+        W_p(\lambda,\eta)^2
+        \le
+        \Lip(T)^2\,W_p(\widetilde\lambda,\mu)^2
+        \le
+        2C_T\,\Lip(T)^2\,\Ent(\lambda\mid\eta),
+    \end{equation*}
+    which proves that \(\eta\) satisfies \(T_p(C_T\,\Lip(T)^2)\).
+\end{proof}
 
 
 % ============================================================
@@ -619,12 +595,21 @@ which proves that \(\eta\) satisfies \(T_p(C_T\,\Lip(T)^2)\).
 \subsection{Proof of the compact-set Jacobian estimate}\label{sec:kt-moment-proof}
 
 
-We begin with a standard moment estimate for linear stochastic equations.
-\begin{lemma}[Moment estimate for linear stochastic equations]\label{cor:moment-bound}
+The proof of \Cref{thm:kt-moment} relies on two elementary estimates for
+linear stochastic equations. The first controls moments of a homogeneous
+linear equation and will be applied both to differences of flow trajectories
+and to the columns of the Jacobian matrix. The second treats an
+inhomogeneous equation and will be used to estimate spatial increments of
+the Jacobian. We state these estimates separately in order to keep the proof
+of the theorem focused on the spatial structure of the flow.
+
+\begin{lemma}[Moment estimate for linear stochastic equations]\label{lem:linear-sde-moment}
     Let \(Y_t\) solve
     \begin{equation*}
-        dY_t = A_tY_t\,dt + \sum_{\ell=1}^{r} C_{\ell,t}Y_t\,dB_t^\ell, \qquad
-        Y_0=y.
+        \begin{cases}
+            dY_t = A_tY_t\,dt + \sum_{\ell=1}^{r} C_{\ell,t}Y_t\,dB_t^\ell, \\
+            Y_0=y.                                                          \\
+        \end{cases}
     \end{equation*}
 
     Assume that, for every \(z\in\R^d\),
@@ -645,10 +630,89 @@ We begin with a standard moment estimate for linear stochastic equations.
 \end{lemma}
 
 \noindent\emph{Proof.}
-Apply It\^o's formula to \(|Y_t|^2\), use the bounds on \(A_t\) and
-\(C_t^{(k)}\), and then apply the exponential martingale estimate. The matrix
-estimate follows by applying the vector estimate to the columns of \(J_t(u)\)
-and using \(\|J_t(u)\|_{\op}\le \|J_t(u)\|_{\HS}\).
+Applying It\^o's formula to \(|Y_t|^{2q}\), after a standard
+localization, gives
+\begin{align*}
+    d|Y_t|^{2q} & = 2q|Y_t|^{2q-2}\langle Y_t,A_tY_t\rangle\,dt                                              \\
+                & \quad+q|Y_t|^{2q-2} \sum_{\ell=1}^{r}|C_{\ell,t}Y_t|^2\,dt                                 \\
+                & \quad +2q(q-1)|Y_t|^{2q-4} \sum_{\ell=1}^{r} \langle Y_t,C_{\ell,t}Y_t\rangle^2\,dt +dM_t,
+\end{align*}
+where \(M_t\) is a local martingale. Since
+\begin{equation*}
+    \langle Y_t,C_{\ell,t}Y_t\rangle^2 \le |Y_t|^2|C_{\ell,t}Y_t|^2,
+\end{equation*}
+the assumptions imply
+\begin{equation*}
+    d|Y_t|^{2q} \le q\bigl(2L_x+(2q-1)L_\sigma^2\bigr) |Y_t|^{2q}\,dt+dM_t.
+\end{equation*}
+Taking expectations in the localized equation and applying Gronwall's
+lemma yields
+\begin{equation*}
+    \E|Y_t|^{2q} \le |y|^{2q} \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
+\end{equation*}
+
+For the matrix estimate, apply the vector estimate to
+\(J_t(u)e_j\), \(j=1,\dots,d\), and use
+\begin{equation*}
+    \|J_t(u)\|_{\op}^{2q} \le \|J_t(u)\|_{\HS}^{2q} = \left(\sum_{j=1}^{d}|J_t(u)e_j|^2\right)^q
+    \le d^{q-1}\sum_{j=1}^{d}|J_t(u)e_j|^{2q}.
+\end{equation*}
+This gives
+\begin{equation*}
+    \E\|J_t(u)\|_{\op}^{2q} \le d^q \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
+\end{equation*}
+\hfill\(\Box\)
+
+The preceding lemma applies directly to \(X_t(u)-X_t(v)\), because the difference of two trajectories driven by the same Brownian motion satisfies
+a homogeneous linear equation with random coefficients. The difference \(J_t(u)-J_t(v)\), however, satisfies an inhomogeneous linear equation: the
+additional terms arise from evaluating the derivative coefficients along the two different trajectories. We therefore record the corresponding
+moment estimate.
+
+\begin{lemma}[Inhomogeneous linear moment estimate]
+    \label{lem:inhomogeneous-linear-moment}
+    Let \(m\ge2\) be an even integer, and suppose that the
+    matrix-valued process \(D_t\) satisfies
+    \begin{equation*}
+        dD_t = A_tD_t\,dt +\sum_{\ell=1}^{r}C_{\ell,t}D_t\,dB_t^\ell
+        +F_t\,dt +\sum_{\ell=1}^{r}G_{\ell,t}\,dB_t^\ell.
+    \end{equation*}
+    Assume that, for every \(M\in\mathbb R^{d\times d}\),
+    \begin{equation*}
+        \langle M,A_tM\rangle_{\HS} \le L_x\|M\|_{\HS}^2, \qquad
+        \sum_{\ell=1}^{r}\|C_{\ell,t}M\|_{\HS}^2 \le L_\sigma^2\|M\|_{\HS}^2.
+    \end{equation*}
+    Then there exist constants \(C_m,c_m<\infty\), depending only on
+    \(m,L_x,L_\sigma\), such that
+    \begin{align*}
+        \E\|D_t\|_{\HS}^m & \le e^{c_mt}\E\|D_0\|_{\HS}^m                            \\
+                          & \quad +C_m\int_0^t e^{c_m(t-s)} \left[ \E\|F_s\|_{\HS}^m
+        + \E\left( \sum_{\ell=1}^{r}\|G_{\ell,s}\|_{\HS}^2 \right)^{m/2} \right]ds.
+    \end{align*}
+\end{lemma}
+
+\noindent\emph{Proof.}
+Apply It\^o's formula to \(\|D_t\|_{\HS}^m\), after localization.
+Using
+\begin{equation*}
+    \sum_{\ell=1}^{r}
+    \|C_{\ell,t}D_t+G_{\ell,t}\|_{\HS}^2
+    \le
+    2L_\sigma^2\|D_t\|_{\HS}^2
+    +
+    2\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+\end{equation*}
+and Young's inequality gives
+\begin{align*}
+    \frac{d}{dt}\E\|D_t\|_{\HS}^m
+     & \le
+    c_m\E\|D_t\|_{\HS}^m
+    +C_m\E\|F_t\|_{\HS}^m \\
+     & \quad
+    +C_m\E\left(
+    \sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+    \right)^{m/2}.
+\end{align*}
+The result follows from Gronwall's lemma.
 \hfill\(\Box\)
 
 Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on
@@ -659,386 +723,240 @@ Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on s
 the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
 
 
-\noindent\emph{Proof of \Cref{thm:kt-moment}.}
-\paragraph{Step 1: Pointwise moments and flow increments.}
-Fix a compact set $K\subset\R^d$, $t\ge0$, and $p\ge1$. Choose an even integer $m>\max\{2p,2d\}$. It is enough to prove \eqref{eq:kt-exp-growth} with $p$ replaced by $m$, because then H\"older's inequality gives
-\begin{equation*}
-    \E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
-\end{equation*}
-Fix \(u,v\in\R^d\) and set
-\begin{equation*}
-    \Delta X_t:=X_t(u)-X_t(v).
-\end{equation*}
-Since the same random measure \(\mu_t\) appears in both equations, subtraction yields
-\begin{equation*}
-    d\Delta X_t = \big(a(X_t(u),\mu_t)-a(X_t(v),\mu_t)\big)\,dt + \big(\sigma(X_t(u))-\sigma(X_t(v))\big)\,dB_t.
-\end{equation*}
-For \(u\neq v\), define matrix-valued processes
-\begin{equation*}
-    \widetilde A_t(u,v)
-    :=
-    \int_0^1
-    \partial_x a\big(X_t(v)+\theta(X_t(u)-X_t(v)),\mu_t\big)\,d\theta
-\end{equation*}
-and, for \(k=1,\dots,d\),
-\begin{equation*}
-    \widetilde C_t^{(k)}(u,v) := \int_0^1  \partial_x \sigma^{(k)}\big(X_t(v)+\theta(X_t(u)-X_t(v))\big)\,d\theta,
-\end{equation*}
-where \(\sigma^{(k)}\) denotes the \(k\)-th column of \(\sigma\).
-By the fundamental theorem of calculus,
-\begin{equation*}
-    a(X_t(u),\mu_t)-a(X_t(v),\mu_t) = \widetilde A_t(u,v)\,\Delta X_t,
-\end{equation*}
-and
-\begin{equation*}
-    \sigma^{(k)}(X_t(u))-\sigma^{(k)}(X_t(v))
-    =
-    \widetilde C_t^{(k)}(u,v)\,\Delta X_t.
-\end{equation*}
-Hence \(\Delta X_t\) satisfies the linear SDE
-\begin{equation*}
-    d\Delta X_t
-    =
-    \widetilde A_t(u,v)\,\Delta X_t\,dt
-    +
-    \sum_{k=1}^d \widetilde C_t^{(k)}(u,v)\,\Delta X_t\,dB_t^k,
-    \qquad
-    \Delta X_0=u-v.
-\end{equation*}
-Moreover, by Assumption~\ref{ass:general-lipschitz},
-\begin{equation*}
-    \|\widetilde A_t(u,v)\|_{\op}\le L,
-    \qquad
-    \|\widetilde C_t^{(k)}(u,v)\|_{\op}\le L_\sigma.
-\end{equation*}
-If \(u=v\), then \(\Delta X_t\equiv0\), so the desired estimate is trivial. Assume therefore that \(u\neq v\), and set
-\begin{equation*}
-    Z_t:=\frac{\Delta X_t}{|u-v|},
-    \qquad
-    \xi:=\frac{u-v}{|u-v|}.
-\end{equation*}
-Then \(|\xi|=1\), \(Z_0=\xi\), and \(Z_t\) solves
-\begin{equation*}
-    dZ_t
-    =
-    \widetilde A_t(u,v)\,Z_t\,dt
-    +
-    \sum_{k=1}^d \widetilde C_t^{(k)}(u,v)\,Z_t\,dB_t^k.
-\end{equation*}
-Applying Corollary~\ref{cor:moment-bound} to this linear equation with exponent \(q=m/2\), we obtain
-\begin{equation*}
-    \E|Z_t|^m
-    \le
-    C_m e^{c_m t},
-\end{equation*}
-for constants \(C_m,c_m<\infty\) depending only on \(m,d,L,L_\sigma\).
-Multiplying by \(|u-v|^m\) yields
-\begin{equation}\label{eq:flow-increment-moment}
-    \E\,|X_t(u)-X_t(v)|^m
-    \le
-    C_m e^{c_m t}|u-v|^m,
-    \qquad u,v\in\R^d.
-\end{equation}
+\begin{proof}[Proof of \Cref{thm:kt-moment}]
+
+    % fix initial conditions
+    Fix a compact set \(K\subset\R^d\), \(t\ge0\), and \(p\ge1\). Choose an even integer \(m>\max\{2p,2d\}\). It is enough to prove \eqref{eq:kt-exp-growth} with \(p\) replaced by \(m\), because then H\"older's inequality gives
+    \begin{equation*}
+        \E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
+    \end{equation*}
+
+    % define the difference \Delta X_t
+    Fix \(u,v\in\R^d\) and set
+    \begin{equation*}
+        \Delta X_t:=X_t(u)-X_t(v).
+    \end{equation*}
+
+    % explicit d\Delta X_t
+    Since the same random measure \(\mu_t\) appears in both equations, subtraction yields
+    \begin{equation*}
+        d\Delta X_t = \bigl( a(X_t(u),\mu_t)-a(X_t(v),\mu_t) \bigr)\,dt + \sum_{\ell=1}^{r} \bigl(\sigma_\ell(X_t(u))-\sigma_\ell(X_t(v)) \bigr)\,dB_t^\ell.
+    \end{equation*}
+
+    % the average coefficients \widetilde A_t(u,v) and \widetilde C_{\ell,t}(u,v)
+    Define
+    \begin{equation*}
+        \widetilde A_t(u,v) := \int_0^1 D_xa\bigl( X_t(v)+\theta\Delta X_t,\mu_t \bigr)\,d\theta
+    \end{equation*}
+    and, for \(\ell=1,\dots,r\),
+    \begin{equation*}
+        \widetilde C_{\ell,t}(u,v) := \int_0^1 D\sigma_\ell\bigl( X_t(v)+\theta\Delta X_t \bigr)\,d\theta.
+    \end{equation*}
+
+    % the sde via fundamental theorem of calculus
+    By the fundamental theorem of calculus,
+    \begin{equation*}
+        \begin{cases}
+            d\Delta X_t = \widetilde A_t(u,v)\Delta X_t\,dt + \sum_{\ell=1}^{r} \widetilde C_{\ell,t}(u,v)\Delta X_t\,dB_t^\ell, \\[2mm]
+            \Delta X_0=u-v.                                                                                                      \\[2mm]
+        \end{cases}
+    \end{equation*}
+
+    % making sure the condition of lemma hold true
+    Moreover, by \eqref{eq:basic-derivative-bounds},
+    \begin{equation*}
+        \|\widetilde A_t(u,v)\|_{\op}\le L_x.
+    \end{equation*}
+    Jensen's inequality also gives, for every \(z\in\mathbb R^d\),
+    \begin{equation*}
+        \sum_{\ell=1}^{r} |\widetilde C_{\ell,t}(u,v)z|^2
+        \le \int_0^1 \sum_{\ell=1}^{r} \left| D\sigma_\ell\bigl( X_t(v)+\theta\Delta X_t \bigr)z \right|^2\,d\theta
+        \le L_\sigma^2|z|^2.
+    \end{equation*}
+
+    % Applying lemma for the liner sde moments
+    Applying \Cref{lem:linear-sde-moment} with \(q=m/2\) and with
+    \(q=m\), respectively, yields
+    \begin{align}
+        \E|X_t(u)-X_t(v)|^m    & \le C_me^{c_mt}|u-v|^m, \label{eq:flow-increment-moment}       \\
+        \E|X_t(u)-X_t(v)|^{2m} & \le C_me^{c_mt}|u-v|^{2m}. \label{eq:flow-increment-moment-2m}
+    \end{align}
+
+
+    % If \(u=v\), then \(\Delta X_t\equiv0\), so the desired estimate is trivial. Assume therefore that \(u\neq v\), and set
+    % \begin{equation*}
+    %     Z_t:=\frac{\Delta X_t}{|u-v|},
+    %     \qquad
+    %     \xi:=\frac{u-v}{|u-v|}.
+    % \end{equation*}
+    % Then \(|\xi|=1\), \(Z_0=\xi\), and \(Z_t\) solves
+    % \begin{equation*}
+    %     \begin{cases}
+    %         dZ_t = \widetilde A_t(u,v)\,Z_t\,dt + \sum_{k=1}^d \widetilde C_t^{(k)}(u,v)\,Z_t\,dB_t^k, \\[2mm]
+    %         Z_0 = \frac{u-v}{|u-v|}.                                                                   \\[2mm]
+    %     \end{cases}
+    % \end{equation*}
+    % Applying Lemma~\ref{lem:linear-sde-moment} to this linear equation with exponent \(q=m/2\), we obtain
+    % \begin{equation*}
+    %     \E|Z_t|^m
+    %     \le
+    %     C_m e^{c_m t},
+    % \end{equation*}
+    % for constants \(C_m,c_m<\infty\) depending only on \(m,d,L,L_\sigma\).
+    % Multiplying by \(|u-v|^m\) yields
+    % \begin{equation}\label{eq:flow-increment-moment}
+    %     \E\,|X_t(u)-X_t(v)|^m
+    %     \le
+    %     C_m e^{c_m t}|u-v|^m,
+    %     \qquad u,v\in\R^d.
+    % \end{equation}
 
 
 
 
-By Corollary~\ref{cor:moment-bound}, for every $q\ge1$ and every $u\in\R^d$,
-\begin{equation*}
-    \E\,\|J_t(u)\|_{\op}^{2q}
-    \le d^q \exp\Big(q(2L+dL_\sigma^2)t+2q^2 dL_\sigma^2 t\Big).
-\end{equation*}
-In particular, taking $q=m/2$ and $q=m$, we obtain
-\begin{equation}\label{eq:jacobian-moment}
-    \E\,\|J_t(u)\|_{\op}^m
-    \le C_m e^{c_m t},
-    \qquad
-    \E\,\|J_t(u)\|_{\op}^{2m}
-    \le C_m e^{c_m t},
-\end{equation}
-uniformly in $u\in\R^d$.
+    By Lemma~\ref{lem:linear-sde-moment}, for every \(q\ge1\) and every \(u\in\R^d\),
+    \begin{equation*}
+        \E\,\|J_t(u)\|_{\op}^{2q}
+        \le d^q \exp\Big(q(2L+dL_\sigma^2)t+2q^2 dL_\sigma^2 t\Big).
+    \end{equation*}
+    In particular, taking \(q=m/2\) and \(q=m\), we obtain
+    \begin{equation}\label{eq:jacobian-moment}
+        \E\,\|J_t(u)\|_{\op}^m \le C_m e^{c_m t}, \qquad
+        \E\,\|J_t(u)\|_{\op}^{2m}
+        \le C_m e^{c_m t},
+    \end{equation}
+    uniformly in \(u\in\R^d\).
 
 
 
-\paragraph{Step 2: Spatial increments of the Jacobian.}
+    \paragraph{Step 2: Spatial increments of the Jacobian.}
 
-Fix \(u,v\in\R^d\) and define
-\begin{equation*}
-    D_t:=J_t(u)-J_t(v).
-\end{equation*}
-Subtracting the Jacobian equations \eqref{eq:jacobian-sde} at \(u\) and \(v\), we obtain
-\begin{equation}\label{eq:jacobian-difference-sde}
-    \begin{aligned}
-        dD_t
-         & =
-        A_t(u)D_t\,dt+\sum_{k=1}^d C_t^{(k)}(u)D_t\,dB_t^k \\
-         & \quad
-        +\big(A_t(u)-A_t(v)\big)J_t(v)\,dt
-        +\sum_{k=1}^d \big(C_t^{(k)}(u)-C_t^{(k)}(v)\big)J_t(v)\,dB_t^k,
-        \qquad D_0=0,
-    \end{aligned}
-\end{equation}
-where
-\begin{equation*}
-    A_t(w):=\partial_x a(X_t(w),\mu_t),
-    \qquad
-    C_t^{(k)}(w):=\partial_x \sigma^{(k)}(X_t(w)).
-\end{equation*}
-By Assumptions~\ref{ass:general-lipschitz} and \ref{ass:spatial-lip-derivatives},
-\begin{equation*}
-    \|A_t(w)\|_{\op}\le L,
-    \qquad
-    \|C_t^{(k)}(w)\|_{\op}\le L_\sigma,
-\end{equation*}
-and
-\begin{equation}\label{eq:coefficient-difference}
-    \|A_t(u)-A_t(v)\|_{\op}
-    \le L^{(2)}|X_t(u)-X_t(v)|,
-    \qquad
-    \|C_t^{(k)}(u)-C_t^{(k)}(v)\|_{\op}
-    \le L_\sigma^{(2)}|X_t(u)-X_t(v)|.
-\end{equation}
+    % define the difference D_t
+    Fix \(u,v\in\mathbb R^d\), and write
+    \begin{equation*}
+        D_t:=J_t(u)-J_t(v).
+    \end{equation*}
+    % define the difference D_t
+    Set
+    \begin{equation*}
+        A_t(w):=D_x a(X_t(w),\mu_t), \qquad
+        C_{\ell,t}(w):=D\sigma_\ell(X_t(w)), \qquad \ell=1,\dots,r.
+    \end{equation*}
+    % set the sde for D_t equation
+    Subtracting the Jacobian equations at \(u\) and \(v\), we obtain
+    \begin{equation}\label{eq:jacobian-difference-sde}
+        \begin{cases}
+            dD_t = A_t(u)D_t\,dt + \sum_{\ell=1}^{r}C_{\ell,t}(u)D_t\,dB_t^\ell + F_t\,dt +
+            \sum_{\ell=1}^{r}G_{\ell,t}\,dB_t^\ell, \\[1mm]
+            D_0=0,                                  \\[1mm]
+        \end{cases}
+    \end{equation}
+    where
+    \begin{equation*}
+        F_t := \bigl(A_t(u)-A_t(v)\bigr)J_t(v)
+    \end{equation*}
+    and
+    \begin{equation*}
+        G_{\ell,t} := \bigl(C_{\ell,t}(u)-C_{\ell,t}(v)\bigr)J_t(v), \qquad \ell=1,\dots,r.
+    \end{equation*}
 
+    % using the assumptions
+    For every \(M\in\mathbb R^{d\times d}\),
+    \begin{equation*}
+        \langle M,A_t(u)M\rangle_{\HS} \le L_x\|M\|_{\HS}^2,
+    \end{equation*}
+    and
+    \begin{equation*}
+        \sum_{\ell=1}^{r} \|C_{\ell,t}(u)M\|_{\HS}^2 \le L_\sigma^2\|M\|_{\HS}^2.
+    \end{equation*}
+    Indeed, both inequalities follow by applying \eqref{eq:basic-derivative-bounds} to the columns of \(M\).
 
+    Similarly, applying
+    \eqref{eq:spatial-lipschitz-derivatives} columnwise gives
+    \begin{equation}\label{eq:forcing-coefficient-bounds}
+        \|F_t\|_{\HS} \le H|\Delta X_t|\,\|J_t(v)\|_{\HS}
+    \end{equation}
+    and
+    \begin{equation*}
+        \left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2 \right)^{1/2} \le H|\Delta X_t|\,\|J_t(v)\|_{\HS}.
+    \end{equation*}
+    Consequently, H\"older's inequality, \eqref{eq:flow-increment-moment-2m}, and \eqref{eq:jacobian-moment} imply
+    \begin{align*}
+         & \E\|F_t\|_{\HS}^m + \E\left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2 \right)^{m/2}                 \\
+         & \quad\le C_m \left( \E|\Delta X_t|^{2m} \right)^{1/2} \left( \E\|J_t(v)\|_{\HS}^{2m} \right)^{1/2} \\
+         & \quad\le C_me^{c_mt}|u-v|^m.
+    \end{align*}
+    Here we also used
+    \(\|M\|_{\HS}\le\sqrt d\,\|M\|_{\op}\).
 
-
-We estimate
-\begin{equation*}
-    \Phi(t):=\E\sup_{s\le t}\|D_s\|_{\HS}^m.
-\end{equation*}
-Set
-\begin{equation*}
-    F_s:=\big(A_s(u)-A_s(v)\big)J_s(v),
-    \qquad
-    G_s^{(k)}:=\big(C_s^{(k)}(u)-C_s^{(k)}(v)\big)J_s(v).
-\end{equation*}
-Then
-\begin{equation*}
-    dD_t
-    =
-    A_t(u)D_t\,dt+\sum_{k=1}^d C_t^{(k)}(u)D_t\,dB_t^k
-    +
-    F_t\,dt+\sum_{k=1}^d G_t^{(k)}\,dB_t^k,
-    \qquad D_0=0.
-\end{equation*}
-Hence, for \(s\le t\),
-\begin{equation*}
-    D_s
-    =
-    \int_0^s A_r(u)D_r\,dr
-    +\sum_{k=1}^d \int_0^s C_r^{(k)}(u)D_r\,dB_r^k
-    +\int_0^s F_r\,dr
-    +\sum_{k=1}^d \int_0^s G_r^{(k)}\,dB_r^k.
-\end{equation*}
-Using \((a_1+\cdots+a_4)^m\le C_m(a_1^m+\cdots+a_4^m)\), we obtain
-\begin{align*}
-    \sup_{s\le t}\|D_s\|_{\HS}^m
-     & \le
-    C_m\Bigg[
-    \sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\HS}^m
-    +
-    \sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s C_r^{(k)}(u)D_r\,dB_r^k\Big\|_{\HS}^m \\
-     & \hspace{2cm}
-    +
-    \sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\HS}^m
-    +
-    \sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s G_r^{(k)}\,dB_r^k\Big\|_{\HS}^m
-    \Bigg].
-\end{align*}
-Taking expectations, we estimate the four terms separately.
-
-For the drift term involving $A_r(u)D_r$,
-\begin{equation*}
-    \sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\HS}
-    \le
-    L\int_0^t \|D_r\|_{\HS}\,dr,
-\end{equation*}
-hence by Jensen's inequality,
-\begin{equation*}
-    \E\sup_{s\le t}\Big\|\int_0^s A_r(u)D_r\,dr\Big\|_{\HS}^m
-    \le
-    L^m t^{m-1}\int_0^t \E\sup_{\rho\le r}\|D_\rho\|_{\HS}^m\,dr.
-\end{equation*}
-For the stochastic term involving \(C_r^{(k)}(u)D_r\), the BDG inequality yields
-\begin{align*}
-    \E\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s C_r^{(k)}(u)D_r\,dB_r^k\Big\|_{\HS}^m
-     & \le
-    C_m\,
-    \E\Big(\int_0^t \sum_{k=1}^d \|C_r^{(k)}(u)D_r\|_{\HS}^2\,dr\Big)^{m/2} \\
-     & \le
-    C_m\,
-    \E\Big(\int_0^t dL_\sigma^2\,\|D_r\|_{\HS}^2\,dr\Big)^{m/2}.
-\end{align*}
-Since \(m\ge2\), Jensen's inequality gives
-\begin{equation*}
-    \Big(\int_0^t \|D_r\|_{\HS}^2\,dr\Big)^{m/2}
-    \le
-    t^{\frac m2-1}\int_0^t \sup_{\rho\le r}\|D_\rho\|_{\HS}^m\,dr,
-\end{equation*}
-and therefore
-\begin{equation*}
-    \E\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s C_r^{(k)}(u)D_r\,dB_r^k\Big\|_{\HS}^m
-    \le
-    C_m t^{\frac m2-1}\int_0^t \Phi(r)\,dr.
-\end{equation*}
-Next,
-\begin{equation*}
-    \sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\HS}^m
-    \le
-    t^{m-1}\int_0^t \|F_r\|_{\HS}^m\,dr,
-\end{equation*}
-hence
-\begin{equation*}
-    \E\sup_{s\le t}\Big\|\int_0^s F_r\,dr\Big\|_{\HS}^m
-    \le
-    t^{m-1}\int_0^t \E\|F_r\|_{\HS}^m\,dr.
-\end{equation*}
-Finally, applying the BDG inequality to the martingale term involving \(G_r^{(k)}\), we obtain
-\begin{align*}
-    \E\sup_{s\le t}\Big\|\sum_{k=1}^d \int_0^s G_r^{(k)}\,dB_r^k\Big\|_{\HS}^m
-     & \le
-    C_m\,
-    \E\Big(\int_0^t \sum_{k=1}^d \|G_r^{(k)}\|_{\HS}^2\,dr\Big)^{m/2} \\
-     & \le
-    C_m t^{\frac m2-1}\int_0^t \sum_{k=1}^d \E\|G_r^{(k)}\|_{\HS}^m\,dr.
-\end{align*}
-
-Combining the four estimates, we obtain
-\begin{align}
-    \Phi(t)
-     & \le
-    C_m(1+t^{m-1}+t^{\frac m2-1})\int_0^t \Phi(r)\,dr \notag \\
-     & \quad+
-    C_m(1+t^{m-1}+t^{\frac m2-1})\int_0^t
-    \Big(
-    \E\|F_r\|_{\HS}^m
-    +
-    \sum_{k=1}^d \E\|G_r^{(k)}\|_{\HS}^m
-    \Big)\,dr.
-    \label{eq:jacobian-gronwall}
-\end{align}
-
-We now estimate the forcing terms. By \eqref{eq:coefficient-difference},
-\begin{equation*}
-    \|F_r\|_{\HS}
-    \le
-    L^{(2)}|X_r(u)-X_r(v)|\,\|J_r(v)\|_{\HS},
-\end{equation*}
-and
-\begin{equation*}
-    \|G_r^{(k)}\|_{\HS}
-    \le
-    L_\sigma^{(2)}|X_r(u)-X_r(v)|\,\|J_r(v)\|_{\HS}.
-\end{equation*}
-Hence, by H\"older's inequality,
-\begin{align*}
-    \E\|F_r\|_{\HS}^m
-     & \le
-    C\,
-    \Big(\E|X_r(u)-X_r(v)|^{2m}\Big)^{1/2}
-    \Big(\E\|J_r(v)\|_{\HS}^{2m}\Big)^{1/2}, \\
-    \E\|G_r^{(k)}\|_{\HS}^m
-     & \le
-    C\,
-    \Big(\E|X_r(u)-X_r(v)|^{2m}\Big)^{1/2}
-    \Big(\E\|J_r(v)\|_{\HS}^{2m}\Big)^{1/2}.
-\end{align*}
-Since \(\|M\|_{\HS}\le \sqrt d\,\|M\|_{\op}\), \eqref{eq:flow-increment-moment} and \eqref{eq:jacobian-moment} yield
-\begin{equation*}
-    \E\|F_r\|_{\HS}^m
-    +
-    \sum_{k=1}^d \E\|G_r^{(k)}\|_{\HS}^m
-    \le
-    C_m e^{c_m r}|u-v|^m.
-\end{equation*}
-Substituting this into \eqref{eq:jacobian-gronwall}, we obtain
-\begin{equation*}
-    \Phi(t)
-    \le
-    C_m(1+t^{m-1}+t^{\frac m2-1})\int_0^t \Phi(r)\,dr
-    +
-    C_m(1+t^{m-1}+t^{\frac m2-1})e^{c_m t}|u-v|^m.
-\end{equation*}
-By Gronwall's lemma,
-\begin{equation*}
-    \Phi(t)
-    \le
-    C_m(1+t^{m-1}+t^{\frac m2-1})e^{c_m t}|u-v|^m.
-\end{equation*}
-Absorbing the polynomial factor into the exponential by enlarging \(c_m\), we get
-\begin{equation*}
-    \Phi(t)\le C_m e^{c_m t}|u-v|^m.
-\end{equation*}
-In particular,
-\begin{equation*}
-    \E\,\|D_t\|_{\HS}^m
-    \le
-    \E\sup_{s\le t}\|D_s\|_{\HS}^m
-    \le
-    C_m e^{c_m t}|u-v|^m.
-\end{equation*}
-Since \(\|D_t\|_{\op}\le \|D_t\|_{\HS}\), we conclude that
-\begin{equation}\label{eq:jacobian-increment}
-    \E\,\|J_t(u)-J_t(v)\|_{\op}^m
-    \le
-    C_m e^{c_m t}|u-v|^m,
-    \qquad u,v\in\R^d.
-\end{equation}
+    Applying \Cref{lem:inhomogeneous-linear-moment} to
+    \eqref{eq:jacobian-difference-sde}, and using \(D_0=0\), gives
+    \begin{align*}
+        \E\|D_t\|_{\HS}^m
+         & \le
+        C_m|u-v|^m
+        \int_0^t
+        e^{c_m(t-s)}e^{c_ms}\,ds \\
+         & \le
+        C_me^{c_mt}|u-v|^m,
+    \end{align*}
+    after enlarging \(c_m\). Therefore,
+    \begin{equation}\label{eq:jacobian-increment}
+        \E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\mathbb R^d.
+    \end{equation}
+    In particular, the same estimate holds with the operator norm in place of the Hilbert--Schmidt norm.
 
 
+    \paragraph{Step 3: Kolmogorov--Totoki and the compact supremum.}
 
+    % define the cube???
+    Let \(Q\subset\mathbb R^d\) be a compact cube containing \(K\), and
+    choose \(u_0\in K\). By \eqref{eq:jacobian-increment}, \( u,v\in Q \)
+    \begin{equation*}
+        \E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m.
+    \end{equation*}
+    Since \(m>d\), this may be written as
+    \begin{equation*}
+        \E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^{d+(m-d)}.
+    \end{equation*}
 
+    % application of Kolmogorov--Totoki theorem
+    Hence the quantitative Kolmogorov--Totoki theorem, applied to the \(\mathbb R^{d\times d}\)-valued
+    random field
+    \begin{equation*}
+        u\longmapsto J_t(u)-J_t(u_0),
+    \end{equation*}
+    gives
+    \begin{equation}\label{eq:kolmogorov-totoki-bound}
+        \E\left[\sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}^m \right] \le C_{m,Q}e^{c_mt}.
+    \end{equation}
+    Here we identify \(\mathbb R^{d\times d}\) with \(\mathbb R^{d^2}\).
 
-\paragraph{Step 3: Kolmogorov continuity and the compact supremum.}
-Fix \(\beta\in(0,1-d/m)\).
-Since \(m>d\), the increment estimate \eqref{eq:jacobian-increment} implies, by the Kolmogorov continuity theorem applied in the spatial variable \(u\), that for each fixed \(t\ge0\) there exists a modification of \(u\mapsto J_t(u)\) whose sample paths on \(K\) are \(\beta\)-H\"older continuous.
-Moreover, by a quantitative version of the Kolmogorov theorem, one may choose such a modification, still denoted by \(J_t\), so that
-\begin{equation}\label{eq:holder-bound}
-    \E\,[J_t]_{\beta;K}^m
-    \le
-    C_{m,\beta,K}e^{c_m t},
-\end{equation}
-where
-\begin{equation*}
-    [J_t]_{\beta;K}
-    :=
-    \sup_{\substack{u,v\in K\\u\neq v}}
-    \frac{\|J_t(u)-J_t(v)\|_{\op}}{|u-v|^\beta}.
-\end{equation*}
-Choose any point \(u_0\in K\).
-Then for every \(u\in K\),
-\begin{equation*}
-    \|J_t(u)\|_{\op}
-    \le
-    \|J_t(u_0)\|_{\op}
-    +
-    [J_t]_{\beta;K}|u-u_0|^\beta
-    \le
-    \|J_t(u_0)\|_{\op}
-    +
-    [J_t]_{\beta;K}(\operatorname{diam}K)^\beta.
-\end{equation*}
-Therefore,
-\begin{equation*}
-    \mathcal{K}_t(\omega;K) = \sup_{u\in K}\|J_t(u,\omega)\|_{\op} \le \|J_t(u_0,\omega)\|_{\op}
-    + [J_t(\omega)]_{\beta;K}(\operatorname{diam}K)^\beta.
-\end{equation*}
-Taking \(m\)-th moments and using \eqref{eq:jacobian-moment} and \eqref{eq:holder-bound}, we obtain
-\begin{equation*}
-    \E\,\mathcal{K}_t(\cdot;K)^m
-    \le
-    C_{m,K}e^{c_m t}.
-\end{equation*}
-As explained at the beginning, this implies
-\begin{equation*}
-    \E\,\mathcal{K}_t(\cdot;K)^p
-    \le
-    C_{p,K}e^{c_p t},
-    \qquad t\ge0,
-\end{equation*}
-for every \(p\ge1\).
-In particular, \eqref{eq:kt-finite-moment} holds.
-\hfill\(\Box\)
+    % strange paragraph
+    Since \Cref{thm:jacobian-sde} already provides a spatially continuous version of \(J_t\),
+    the continuous modification furnished by the Kolmogorov--Totoki theorem agrees with
+    this version on \(Q\) almost surely.
+
+    % final triangle inequality
+    For every \(u\in K\),
+    \begin{align*}
+        \|J_t(u)\|_{\op} & \le \|J_t(u_0)\|_{\op} + \|J_t(u)-J_t(u_0)\|_{\HS}.
+    \end{align*}
+    % the finishing proof
+    Consequently,
+    \begin{equation*}
+        \mathcal K_t(\cdot;K) \le \|J_t(u_0)\|_{\op} + \sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}.
+    \end{equation*}
+    Using \eqref{eq:jacobian-moment}, \eqref{eq:kolmogorov-totoki-bound}, and \((a+b)^m\le 2^{m-1}(a^m+b^m)\), we obtain
+    \begin{equation*}
+        \E\mathcal K_t(\cdot;K)^m \le C_{m,K}e^{c_mt}.
+    \end{equation*}
+    Finally,
+    \begin{equation*}
+        \E\mathcal K_t(\cdot;K)^p\le \left( \E\mathcal K_t(\cdot;K)^m \right)^{p/m} \le C_{p,K}e^{c_pt}.
+    \end{equation*}
+    This proves \eqref{eq:kt-exp-growth}.
+\end{proof}
 
 \clearpage
 
@@ -1100,42 +1018,42 @@ the maximal deformation on the whole support.
     \end{equation}
 \end{proposition}
 
-\noindent\emph{Proof.}
-Recall that
-\begin{equation*}
-    dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)J_t(u)\,dB_t^k,
-\end{equation*}
-where
-\begin{equation*}
-    A_t(u)=\partial_xa(X_t(u),\mu_t), \qquad C_t^{(k)}(u)=\partial_x\sigma^{(k)}(X_t(u)).
-\end{equation*}
-Applying It\^o's formula to \(\|J_t(u)\|_{\HS}^2\) gives
-\begin{align*}
-    d\|J_t(u)\|_{\HS}^2 & =
-    \bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle_{\HS} +
-    \sum_{k=1}^d\|C_t^{(k)}(u)J_t(u)\|_{\HS}^2 \bigg]dt                                                 \\
-                        & \quad + 2\sum_{k=1}^d \langle J_t(u),C_t^{(k)}(u)J_t(u)\rangle_{\HS}\,dB_t^k.
-\end{align*}
-Since
-\begin{equation*}
-    \langle J,A_tJ\rangle_{\HS} = \sum_{i=1}^d\langle Je_i,A_tJe_i\rangle,
-\end{equation*}
-condition \cref{eq:one-sided-drift-jacobian} gives
-\begin{equation*}
-    2\langle J,A_tJ\rangle_{\HS} \le 2L_{\mathrm{sym}}\|J\|_{\HS}^2.
-\end{equation*}
-Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
-\begin{equation*}
-    \sum_{k=1}^d\|C_t^{(k)}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
-\end{equation*}
-Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
-martingale term, hence
-\begin{equation*}
-    \frac{d}{dt}\E\mathcal E_t \le (2L_{\mathrm{sym}}+\Gamma^2)\E\mathcal E_t.
-\end{equation*}
-Since \(J_0(u)=I\), we have \(\mathcal E_0=\|I\|_{\HS}^2=d\). Gronwall's
-lemma proves \cref{eq:averaged-jacobian-bound}.
-\hfill\(\Box\)
+\begin{proof}
+    Recall that
+    \begin{equation*}
+        dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)J_t(u)\,dB_t^k,
+    \end{equation*}
+    where
+    \begin{equation*}
+        A_t(u)=\partial_xa(X_t(u),\mu_t), \qquad C_t^{(k)}(u)=\partial_x\sigma^{(k)}(X_t(u)).
+    \end{equation*}
+    Applying It\^o's formula to \(\|J_t(u)\|_{\HS}^2\) gives
+    \begin{align*}
+        d\|J_t(u)\|_{\HS}^2 & =
+        \bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle_{\HS} +
+        \sum_{k=1}^d\|C_t^{(k)}(u)J_t(u)\|_{\HS}^2 \bigg]dt                                                 \\
+                            & \quad + 2\sum_{k=1}^d \langle J_t(u),C_t^{(k)}(u)J_t(u)\rangle_{\HS}\,dB_t^k.
+    \end{align*}
+    Since
+    \begin{equation*}
+        \langle J,A_tJ\rangle_{\HS} = \sum_{i=1}^d\langle Je_i,A_tJe_i\rangle,
+    \end{equation*}
+    condition \cref{eq:one-sided-drift-jacobian} gives
+    \begin{equation*}
+        2\langle J,A_tJ\rangle_{\HS} \le 2L_{\mathrm{sym}}\|J\|_{\HS}^2.
+    \end{equation*}
+    Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
+    \begin{equation*}
+        \sum_{k=1}^d\|C_t^{(k)}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
+    \end{equation*}
+    Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
+    martingale term, hence
+    \begin{equation*}
+        \frac{d}{dt}\E\mathcal E_t \le (2L_{\mathrm{sym}}+\Gamma^2)\E\mathcal E_t.
+    \end{equation*}
+    Since \(J_0(u)=I\), we have \(\mathcal E_0=\|I\|_{\HS}^2=d\). Gronwall's
+    lemma proves \cref{eq:averaged-jacobian-bound}.
+\end{proof}
 
 
 To estimate \(\E\sup_{u\in K}\|J_t(u)\|^p\), one must control increments \(J_t(u)-J_t(v)\), which requires assumptions on the spatial
@@ -1297,135 +1215,134 @@ The dissipativity condition covers several basic models.
 
 % Proof idea:
 % 1. Differentiate the stochastic flow.
-\noindent\emph{Proof.}
-% Proof roadmap: first prove pairwise contraction, then integrate over labels.
-Fix two labels \(u,v\in\R^d\). Define the difference
-\begin{equation*}
-    Z_t^{u,v}:=X_t(u)-X_t(v).
-\end{equation*}
-We first prove that under \Cref{ass:pairwise-dissipativity}
-\begin{equation*}
-    \E|Z_t^{u,v}|^2 \le e^{-\lambda t}|u-v|^2,
-\end{equation*}
-then we integrate this estimate with respect to \(\mu_0(du)\mu_0(dv)\).
+\begin{proof}
+    % Proof roadmap: first prove pairwise contraction, then integrate over labels.
+    Fix two labels \(u,v\in\R^d\). Define the difference
+    \begin{equation*}
+        Z_t^{u,v}:=X_t(u)-X_t(v).
+    \end{equation*}
+    We first prove that under \Cref{ass:pairwise-dissipativity}
+    \begin{equation*}
+        \E|Z_t^{u,v}|^2 \le e^{-\lambda t}|u-v|^2,
+    \end{equation*}
+    then we integrate this estimate with respect to \(\mu_0(du)\mu_0(dv)\).
 
-Writing \cref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
-\begin{equation*}
-    dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^m H_{\ell,t}^{u,v}\,dB_t^\ell,
-\end{equation*}
-where the drift coefficient
-\begin{align*}
-    G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                                         \\
-              & \quad+  \int_{\R^d} \big[ K(X_t(u),X_t(w),\Theta_t) - K(X_t(v),X_t(w),\Theta_t)\big]\,\mu_0(dw),
-\end{align*}
-and the diffusion coefficient is
-\begin{equation*}
-    H_{\ell,t}^{u,v} := \sigma_\ell(X_t(u),\Theta_t) - \sigma_\ell(X_t(v),\Theta_t).
-\end{equation*}
+    Writing \cref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
+    \begin{equation*}
+        dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^m H_{\ell,t}^{u,v}\,dB_t^\ell,
+    \end{equation*}
+    where the drift coefficient
+    \begin{align*}
+        G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                                         \\
+                  & \quad+  \int_{\R^d} \big[ K(X_t(u),X_t(w),\Theta_t) - K(X_t(v),X_t(w),\Theta_t)\big]\,\mu_0(dw),
+    \end{align*}
+    and the diffusion coefficient is
+    \begin{equation*}
+        H_{\ell,t}^{u,v} := \sigma_\ell(X_t(u),\Theta_t) - \sigma_\ell(X_t(v),\Theta_t).
+    \end{equation*}
 
-Since \(\mu_t =\mu_0\circ X_t^{-1}\), we may rewrite the interaction term as
-\begin{equation*}
-    \int_{\R^d}K(X_t(u),X_t(w),\Theta_t)\,\mu_0(dw) = \int_{\R^d}K(X_t(u),z,\Theta_t)\,\mu_t(dz).
-\end{equation*}
-Thus
-\begin{align*}
-    G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                               \\
-              & \quad+ \int_{\R^d} \big[ K(X_t(u),z,\Theta_t) - K(X_t(v),z,\Theta_t) \big]\,\mu_t(dz).
-\end{align*}
+    Since \(\mu_t =\mu_0\circ X_t^{-1}\), we may rewrite the interaction term as
+    \begin{equation*}
+        \int_{\R^d}K(X_t(u),X_t(w),\Theta_t)\,\mu_0(dw) = \int_{\R^d}K(X_t(u),z,\Theta_t)\,\mu_t(dz).
+    \end{equation*}
+    Thus
+    \begin{align*}
+        G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                               \\
+                  & \quad+ \int_{\R^d} \big[ K(X_t(u),z,\Theta_t) - K(X_t(v),z,\Theta_t) \big]\,\mu_t(dz).
+    \end{align*}
 
-Applying It\^o's formula to \(|Z_t^{u,v}|^2\), we obtain
-\begin{align*}
-    d|Z_t^{u,v}|^2 & = 2\langle Z_t^{u,v},G_t^{u,v}\rangle\,dt + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2\,dt \\
-                   & \quad+ 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
-\end{align*}
-Apply \Cref{ass:pairwise-dissipativity} with
-\(x=X_t(u)\), \(y=X_t(v)\), \(\theta=\Theta_t\), and \(\nu=\mu_t\). Then
-\begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
-\end{equation*}
-Therefore
-\begin{equation}\label{eq:pairwise-contraction-differential}
-    d|Z_t^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2\,dt + 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
-\end{equation}
+    Applying It\^o's formula to \(|Z_t^{u,v}|^2\), we obtain
+    \begin{equation*}
+        d|Z_t^{u,v}|^2 = 2\langle Z_t^{u,v},G_t^{u,v}\rangle\,dt + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2\,dt + 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+    \end{equation*}
+    Apply \Cref{ass:pairwise-dissipativity} with
+    \(x=X_t(u)\), \(y=X_t(v)\), \(\theta=\Theta_t\), and \(\nu=\mu_t\). Then
+    \begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
+    \end{equation*}
+    Therefore
+    \begin{equation}\label{eq:pairwise-contraction-differential}
+        d|Z_t^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2\,dt + 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+    \end{equation}
 
-Set the new variable
-\begin{equation*}
-    Y_t^{u,v}:=e^{\lambda t}|Z_t^{u,v}|^2.
-\end{equation*}
-By It\^o's formula,
-\begin{align*}
-    dY_t^{u,v} & = e^{\lambda t} \left[ \lambda |Z_t^{u,v}|^2 + 2\langle Z_t^{u,v},G_t^{u,v}\rangle + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \right]dt \\
-               & \quad+ 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
-\end{align*}
-By the drift bound \cref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
-\begin{equation*}
-    dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
-\end{equation*}
-% Thus \(Y_t^{u,v}\) is a nonnegative local supermartingale.
+    Set the new variable
+    \begin{equation*}
+        Y_t^{u,v}:=e^{\lambda t}|Z_t^{u,v}|^2.
+    \end{equation*}
+    By It\^o's formula,
+    \begin{align*}
+        dY_t^{u,v} & = e^{\lambda t} \left[ \lambda |Z_t^{u,v}|^2 + 2\langle Z_t^{u,v},G_t^{u,v}\rangle + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \right]dt \\
+                   & \quad+ 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+    \end{align*}
+    By the drift bound \cref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
+    \begin{equation*}
+        dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+    \end{equation*}
+    % Thus \(Y_t^{u,v}\) is a nonnegative local supermartingale.
 
-To make this completely rigorous, introduce the localization sequence
-\begin{equation*}
-    \tau_R := \inf\{t\ge0: |X_t(u)|+|X_t(v)|+|\Theta_t|\ge R\}.
-\end{equation*}
-Since the solution is global and continuous, \(\tau_R\uparrow\infty\) almost surely as \(R\to\infty\). Stopping this inequality at \(\tau_R\), we get
-\begin{equation*}
-    Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v} + 2\sum_{\ell=1}^m \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
-\end{equation*}
-The stopped stochastic integral is a true martingale. Therefore, taking
-expectations gives
-\begin{equation*}
-    \E Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v}.
-\end{equation*}
-Since \(Y_0^{u,v}=|u-v|^2\), we have
-\begin{equation*}
-    \E\left[ e^{\lambda(t\wedge\tau_R)} |Z_{t\wedge\tau_R}^{u,v}|^2 \right] \le |u-v|^2.
-\end{equation*}
-Letting \(R\to\infty\) and using Fatou's lemma yields
-\begin{equation*}
-    \E\left[e^{\lambda t}|Z_t^{u,v}|^2\right] \le |u-v|^2.
-\end{equation*}
-Therefore
-\begin{equation*}
-    \E|X_t(u)-X_t(v)|^2 \le  e^{-\lambda t}|u-v|^2.
-\end{equation*}
-This proves the pairwise synchronization estimate.
+    To make this completely rigorous, introduce the localization sequence
+    \begin{equation*}
+        \tau_R := \inf\{t\ge0: |X_t(u)|+|X_t(v)|+|\Theta_t|\ge R\}.
+    \end{equation*}
+    Since the solution is global and continuous, \(\tau_R\uparrow\infty\) almost surely as \(R\to\infty\). Stopping this inequality at \(\tau_R\), we get
+    \begin{equation*}
+        Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v} + 2\sum_{\ell=1}^m \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
+    \end{equation*}
+    The stopped stochastic integral is a true martingale. Therefore, taking
+    expectations gives
+    \begin{equation*}
+        \E Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v}.
+    \end{equation*}
+    Since \(Y_0^{u,v}=|u-v|^2\), we have
+    \begin{equation*}
+        \E\left[ e^{\lambda(t\wedge\tau_R)} |Z_{t\wedge\tau_R}^{u,v}|^2 \right] \le |u-v|^2.
+    \end{equation*}
+    Letting \(R\to\infty\) and using Fatou's lemma yields
+    \begin{equation*}
+        \E\left[e^{\lambda t}|Z_t^{u,v}|^2\right] \le |u-v|^2.
+    \end{equation*}
+    Therefore
+    \begin{equation*}
+        \E|X_t(u)-X_t(v)|^2 \le  e^{-\lambda t}|u-v|^2.
+    \end{equation*}
+    This proves the pairwise synchronization estimate.
 
-Now integrate the pairwise synchronization estimate with respect to
-\(\mu_0(du)\mu_0(dv)\). Since \(\mu_0\in\cP_2(\R^d)\),
-\begin{equation*}
-    \mathcal D_0 = \iint |u-v|^2\,\mu_0(du)\mu_0(dv)<\infty.
-\end{equation*}
-By Fubini's theorem,
-\begin{align*}
-    \E\mathcal D_t & = \E \iint |X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv)      \\
-                   & = \iint \E|X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv)       \\
-                   & \le e^{-\lambda t} \iint |u-v|^2\,\mu_0(du)\mu_0(dv).
-\end{align*}
-Hence \(\E\mathcal D_t\le e^{-\lambda t}\mathcal D_0\), proving
-the first estimate in the theorem.
+    Now integrate the pairwise synchronization estimate with respect to
+    \(\mu_0(du)\mu_0(dv)\). Since \(\mu_0\in\cP_2(\R^d)\),
+    \begin{equation*}
+        \mathcal D_0 = \iint |u-v|^2\,\mu_0(du)\mu_0(dv)<\infty.
+    \end{equation*}
+    By Fubini's theorem,
+    \begin{align*}
+        \E\mathcal D_t & = \E \iint |X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv)      \\
+                       & = \iint \E|X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv)       \\
+                       & \le e^{-\lambda t} \iint |u-v|^2\,\mu_0(du)\mu_0(dv).
+    \end{align*}
+    Hence \(\E\mathcal D_t\le e^{-\lambda t}\mathcal D_0\), proving
+    the first estimate in the theorem.
 
-Therefore
-\begin{equation*}
-    \E\mathcal V_t = \frac12\E\mathcal D_t \le \frac12 e^{-\lambda t}\mathcal D_0 = e^{-\lambda t}\mathcal V_0.
-\end{equation*}
-This proves the internal fluctuation decay estimate.
+    Therefore
+    \begin{equation*}
+        \E\mathcal V_t = \frac12\E\mathcal D_t \le \frac12 e^{-\lambda t}\mathcal D_0 = e^{-\lambda t}\mathcal V_0.
+    \end{equation*}
+    This proves the internal fluctuation decay estimate.
 
-Finally, since \(\mu_t =\mu_0\circ X_t^{-1}\),
-\begin{equation*}
-    \int_{\R^d}|x-\bar X_t|^2\,\mu_t(dx) = \int_{\R^d}|X_t(u)-\bar X_t|^2\,\mu_0(du) = \mathcal V_t.
-\end{equation*}
-For the Dirac measure \(\delta_{\bar X_t}\),
-\begin{equation*}
-    W_2^2(\mu_t,\delta_{\bar X_t}) = \int_{\R^d}|x-\bar X_t|^2\,\mu_t(dx).
-\end{equation*}
-Therefore
-\begin{equation*}
-    W_2^2(\mu_t,\delta_{\bar X_t})=\mathcal V_t.
-\end{equation*}
-Taking expectations and using the previous estimate gives
-\begin{equation*}
-    \E W_2^2(\mu_t,\delta_{\bar X_t}) \le e^{-\lambda t}W_2^2(\mu_0,\delta_{\bar X_0}).
-\end{equation*}
-\hfill\(\Box\)
+    Finally, since \(\mu_t =\mu_0\circ X_t^{-1}\),
+    \begin{equation*}
+        \int_{\R^d}|x-\bar X_t|^2\,\mu_t(dx) = \int_{\R^d}|X_t(u)-\bar X_t|^2\,\mu_0(du) = \mathcal V_t.
+    \end{equation*}
+    For the Dirac measure \(\delta_{\bar X_t}\),
+    \begin{equation*}
+        W_2^2(\mu_t,\delta_{\bar X_t}) = \int_{\R^d}|x-\bar X_t|^2\,\mu_t(dx).
+    \end{equation*}
+    Therefore
+    \begin{equation*}
+        W_2^2(\mu_t,\delta_{\bar X_t})=\mathcal V_t.
+    \end{equation*}
+    Taking expectations and using the previous estimate gives
+    \begin{equation*}
+        \E W_2^2(\mu_t,\delta_{\bar X_t}) \le e^{-\lambda t}W_2^2(\mu_0,\delta_{\bar X_0}).
+    \end{equation*}
+\end{proof}
 
 
 
