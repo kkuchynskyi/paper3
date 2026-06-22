@@ -46,12 +46,11 @@ Interaction}
 % TODO: Rewrite abstract
 \begin{abstract}
 	We study the measure-valued solution to the stochastic differential equations with interaction.
-	Under global spatial regularity assumptions,
-	we obtain moment estimates for the maximal Jacobian norm on compact sets.
+	Under regularity assumptions,  we obtain moment estimates for
+	the maximal Jacobian norm on compact sets, which imply the functional inequalities.
 	We also establish an averaged Jacobian-energy bound under one-sided derivative assumptions.
 	Finally, for a kernel-type interacting model satisfying a pairwise dissipativity condition,
-	we prove exponential decay of the expected pairwise variance, yielding mean-square synchronization around
-	the random center of mass.
+	we prove exponential decay of the expected pairwise variance, yielding convergence to the center of mass.
 \end{abstract}
 
 \maketitle
@@ -78,11 +77,10 @@ We consider stochastic differential equations with interaction that were propose
 Here \(\mu_0\) is a deterministic initial probability measure, where \(\cP_2(\R^d)\) denotes the space of probability measures
 on \(\R^d\) with finite second moment. \(a:\R^d\times\cP_2(\R^d)\to\R^d\) is the drift and the diffusion coefficient
 \(\sigma_\ell:\R^d\to\R^d, \quad \ell=1,\ldots,r,\) is state-dependent and non-constant. Let
-\( (\Omega,\mathcal F,(\mathcal F_t)_{t\ge0},\mathbb P) \) be a filtered probability space satisfying the usual
+\( (\Omega,(\mathcal F_t)_{t\ge0},\mathbb P) \) be a filtered probability space satisfying the usual
 conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) \).
 
 % Assumption on the coefficients
-Fix \(\mu_0\in\mathcal P_2(\mathbb R^d)\).
 \begin{assumption}[Well-posedness]\label{ass:wellposedness}
 	There exists \(L<\infty\) such that, for all
 	\(x,y\in\mathbb R^d\) and
@@ -94,8 +92,9 @@ Fix \(\mu_0\in\mathcal P_2(\mathbb R^d)\).
 
 % The remarks on the solution
 Under \Cref{ass:wellposedness}, the SDEWI~\eqref{eq:main-sdewi} admits a unique global solution; see
-\cite[Theorem~2.3.1]{dorogovtsev2023}. This assumption remains in force throughout \Cref{sec:jacobian-bound,sec:averaged-jacobian}.
-\Cref{sec:internal-fluctuations} concerns a different kernel model and is treated under separate assumptions.
+\cite[Theorem~2.3.1]{dorogovtsev2023}.
+% This assumption remains in force throughout \Cref{sec:jacobian-bound,sec:averaged-jacobian}.
+% \Cref{sec:internal-fluctuations} concerns a different kernel model and is treated under separate assumptions.
 
 % The map of SDEWI as a random transport. The central question of this paper
 Unlike a classical stochastic differential equation, the drift depends on the push-forward of the entire system through the random measure
@@ -116,10 +115,9 @@ differentiable with respect to the initial label, we write
 and consider the three quantities described below.
 
 % The maximal Jacobian norm
-Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\) measures the worst-case infinitesimal stretching of the transport
-on the compact set \(K\),
+Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\) on the compact set \(K\),
 \begin{equation*}
-	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op},
+	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op}.
 \end{equation*}
 
 % The Jacobian energy 
@@ -136,11 +134,10 @@ The pairwise energy \(\mathcal D_t\)
 	\mathcal D_t :=	\iint_{\mathbb R^d\times\mathbb R^d} |T_t(u)-T_t(v)|^2\,\mu_0(du)\mu_0(dv).
 \end{equation*}
 measures deformation at finite scale by averaging the squared distance between two transported labels.
-Pairwise energy can be controlled directly through dissipativity of the dynamics, without first obtaining
-a uniform Jacobian estimate
+Pairwise energy can be controlled directly through dissipativity of the dynamics, without obtaining a uniform Jacobian estimate
 
 % Section 2 motivation 
-In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\). We prove moment estimates for this random distortion constant on compact sets and
+In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\). We prove moment estimates for this random constant on compact sets and
 show that it governs the pathwise transfer of logarithmic Sobolev, concentration, and transport inequalities from \(\mu_0\) to
 \(\mu_t\).
 
@@ -194,8 +191,7 @@ center of mass.
 \section{Pathwise Jacobian Bounds and Functional Inequality Transfer}\label{sec:jacobian-bound}
 
 % Roadmap to the section
-This section has two purposes. First, we quantify the spatial distortion of the stochastic flow \( T_t \) through its Jacobian \(J_t \). Second,
-we use this distortion to transfer functional inequalities from the initial measure \( \mu_0 \) to the random pushforward measure \( \mu_t \). The
+Firstly, we establish \( \mathcal{K}_t(\omega;K) \), then use it to transfer functional inequalities from the initial measure \( \mu_0 \) to the random pushforward measure \( \mu_t \). The
 technical proof of the compact-set Jacobian estimate is postponed to the final subsection.
 
 % The assumptions for this section on the Jacobian
@@ -214,9 +210,9 @@ By \Cref{ass:wellposedness,ass:flow-differentiability},
 for all \(x,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\)
 
 % ============================================================
-% The Jacobian flow and distortion constants
+% The Jacobian flow
 % ============================================================
-\subsection{The Jacobian flow and distortion constants}\label{subsec:jacobian-flow-distortion-constants}
+\subsection{The Jacobian flow}\label{subsec:jacobian-flow-distortion-constants}
 
 % Roadmap to the subsection
 We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sdewi}, it has the following form.
@@ -254,7 +250,7 @@ corresponding supremum over all of \(\mathbb R^d\) need not be finite. The count
 Lipschitz coefficients one may fail to have a finite global constant \(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
 
 % Intro for the theorem
-Controlling the compact-set maximal Jacobian norm \(\mathcal K_t(K)\) requires estimates for the spatial increments \(J_t(u)-J_t(v)\).
+% Controlling the compact-set maximal Jacobian norm \(\mathcal K_t(K)\) requires estimates for the spatial increments \(J_t(u)-J_t(v)\).
 
 \begin{theorem}[Moments of the compact-set maximal Jacobian norm]\label{thm:kt-moment}
 	Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exists a constant
@@ -525,12 +521,9 @@ We next record the analogous stability property for Talagrand transport inequali
 % ============================================================
 \subsection{Proof of the compact-set Jacobian estimate}\label{subsec:kt-moment-proof}
 
-The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear stochastic equations. The first controls moments of a homogeneous
-linear equation and will be applied both to differences of flow trajectories and to the columns of the Jacobian matrix. The second treats an
-inhomogeneous equation and will be used to estimate spatial increments of the Jacobian. We state these estimates separately in order to keep the
-proof of the theorem focused on the spatial structure of the flow.
+The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear stochastic equations.
 
-\begin{lemma}[Moment estimate for linear stochastic equations]\label{lem:linear-sde-moment}
+\begin{lemma}\label{lem:linear-sde-moment}
 	Let \(Y_t\) solve
 	\begin{equation*}
 		\begin{cases}
@@ -560,8 +553,7 @@ proof of the theorem focused on the spatial structure of the flow.
 	Applying It\^o's formula to \(|Y_t|^{2q}\), after a standard
 	localization, gives
 	\begin{align*}
-		d|Y_t|^{2q} & = 2q|Y_t|^{2q-2}\langle Y_t,A_tY_t\rangle\,dt                                              \\
-		            & \quad+q|Y_t|^{2q-2} \sum_{\ell=1}^{r}|C_{\ell,t}Y_t|^2\,dt                                 \\
+		d|Y_t|^{2q} & = 2q|Y_t|^{2q-2}\langle Y_t,A_tY_t\rangle\,dt  + q|Y_t|^{2q-2} \sum_{\ell=1}^{r}|C_{\ell,t}Y_t|^2\,dt \\
 		            & \quad +2q(q-1)|Y_t|^{2q-4} \sum_{\ell=1}^{r} \langle Y_t,C_{\ell,t}Y_t\rangle^2\,dt +dM_t,
 	\end{align*}
 	where \(M_t\) is a local martingale. Since
@@ -589,12 +581,12 @@ proof of the theorem focused on the spatial structure of the flow.
 	\end{equation*}
 \end{proof}
 
-The preceding lemma applies directly to \(X_t(u)-X_t(v)\), because the difference of two trajectories driven by the same Brownian motion satisfies
-a homogeneous linear equation with random coefficients. The difference \(J_t(u)-J_t(v)\), however, satisfies an inhomogeneous linear equation: the
-additional terms arise from evaluating the derivative coefficients along the two different trajectories. We therefore record the corresponding
-moment estimate.
+% The preceding lemma applies directly to \(X_t(u)-X_t(v)\), because the difference of two trajectories driven by the same Brownian motion satisfies
+% a homogeneous linear equation with random coefficients. The difference \(J_t(u)-J_t(v)\), however, satisfies an inhomogeneous linear equation: the
+% additional terms arise from evaluating the derivative coefficients along the two different trajectories. We therefore record the corresponding
+% moment estimate.
 
-\begin{lemma}[Inhomogeneous linear moment estimate]\label{lem:inhomogeneous-linear-moment}
+\begin{lemma}\label{lem:inhomogeneous-linear-moment}
 	Let \(m\ge2\) be an even integer, and suppose that the
 	matrix-valued process \(D_t\) satisfies
 	\begin{equation*}
@@ -615,45 +607,46 @@ moment estimate.
 	\end{align*}
 \end{lemma}
 
-\begin{proof}
-	Apply It\^o's formula to \(\|D_t\|_{\HS}^m\), after localization.
-	Using
-	\begin{equation*}
-		\sum_{\ell=1}^{r}
-		\|C_{\ell,t}D_t+G_{\ell,t}\|_{\HS}^2
-		\le
-		2L_\sigma^2\|D_t\|_{\HS}^2
-		+
-		2\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
-	\end{equation*}
-	and Young's inequality gives
-	\begin{align*}
-		\frac{d}{dt}\E\|D_t\|_{\HS}^m
-		 & \le
-		c_m\E\|D_t\|_{\HS}^m
-		+C_m\E\|F_t\|_{\HS}^m \\
-		 & \quad
-		+C_m\E\left(
-		\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
-		\right)^{m/2}.
-	\end{align*}
-	The result follows from Gronwall's lemma.
-\end{proof}
+% \begin{proof}
+% 	Apply It\^o's formula to \(\|D_t\|_{\HS}^m\), after localization.
+% 	Using
+% 	\begin{equation*}
+% 		\sum_{\ell=1}^{r}
+% 		\|C_{\ell,t}D_t+G_{\ell,t}\|_{\HS}^2
+% 		\le
+% 		2L_\sigma^2\|D_t\|_{\HS}^2
+% 		+
+% 		2\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+% 	\end{equation*}
+% 	and Young's inequality gives
+% 	\begin{align*}
+% 		\frac{d}{dt}\E\|D_t\|_{\HS}^m
+% 		 & \le
+% 		c_m\E\|D_t\|_{\HS}^m
+% 		+C_m\E\|F_t\|_{\HS}^m \\
+% 		 & \quad
+% 		+C_m\E\left(
+% 		\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+% 		\right)^{m/2}.
+% 	\end{align*}
+% 	The result follows from Gronwall's lemma.
+% \end{proof}
 
-Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on the spatial argument
-\(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
+% Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on the spatial argument
+% \(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
 
-Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986})
-yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
+% Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986})
+% yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
 
 \begin{proof}[Proof of \Cref{thm:kt-moment}]
 
 	% fix initial conditions
-	Fix a compact set \(K\subset\R^d\), \(t\ge0\), and \(p\ge1\). Choose an even integer \(m>\max\{2p,2d\}\). It is enough to prove
-	\eqref{eq:kt-exp-growth} with \(p\) replaced by \(m\), because then H\"older's inequality gives
-	\begin{equation*}
-		\E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
-	\end{equation*}
+	Fix a compact set \(K\subset\R^d\), \(t\ge0\), and \(p\ge1\). Choose an even integer \(m>\max\{2p,2d\}\).
+	% It is enough to prove
+	% \eqref{eq:kt-exp-growth} with \(p\) replaced by \(m\), because then H\"older's inequality gives
+	% \begin{equation*}
+	% 	\E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
+	% \end{equation*}
 
 	% define the difference \Delta X_t
 	Fix \(u,v\in\R^d\) and set
@@ -747,8 +740,6 @@ yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \
 	\end{equation}
 	uniformly in \(u\in\R^d\).
 
-	\paragraph{Step 2: Spatial increments of the Jacobian.}
-
 	% define the difference D_t
 	Fix \(u,v\in\mathbb R^d\), and write
 	\begin{equation*}
@@ -820,9 +811,7 @@ yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \
 	\begin{equation}\label{eq:jacobian-increment}
 		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\mathbb R^d.
 	\end{equation}
-	In particular, the same estimate holds with the operator norm in place of the Hilbert--Schmidt norm.
-
-	\paragraph{Step 3: Kolmogorov--Totoki and the compact supremum.}
+	% In particular, the same estimate holds with the operator norm in place of the Hilbert--Schmidt norm.
 
 	% define the cube???
 	Let \(Q\subset\mathbb R^d\) be a compact cube containing \(K\), and choose \(u_0\in K\). By \eqref{eq:jacobian-increment}, \( u,v\in Q \)
@@ -845,9 +834,9 @@ yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \
 	\end{equation}
 	Here we identify \(\mathbb R^{d\times d}\) with \(\mathbb R^{d^2}\).
 
-	% strange paragraph
-	Since \Cref{thm:jacobian-sde} already provides a spatially continuous version of \(J_t\), the continuous modification furnished by the
-	Kolmogorov--Totoki theorem agrees with this version on \(Q\) almost surely.
+	% % strange paragraph
+	% Since \Cref{thm:jacobian-sde} already provides a spatially continuous version of \(J_t\), the continuous modification furnished by the
+	% Kolmogorov--Totoki theorem agrees with this version on \(Q\) almost surely.
 
 	% final triangle inequality
 	For every \(u\in K\),
@@ -1232,13 +1221,6 @@ The dissipativity condition covers several basic models.
 		\E W_2^2(\mu_t,\delta_{\bar X_t}) \le e^{-\lambda t}W_2^2(\mu_0,\delta_{\bar X_0}).
 	\end{equation*}
 \end{proof}
-
-% The final result of the section
-This result is the contractive counterpart of the distortion estimates in the preceding sections.
-\Cref{sec:jacobian-bound,sec:averaged-jacobian} control the growth of infinitesimal perturbations, either uniformly or on average.
-Here the pairwise dissipativity assumption controls finite separations
-directly and forces their average to decay. Since \(\mathcal D_t=2\mathcal V_t\), this finite-scale contraction is
-exactly the collapse of the transported measure around its random center of mass.
 
 \bibliographystyle{apalike}
 \bibliography{reference}
