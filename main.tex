@@ -15,15 +15,16 @@
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
 
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\cP}{\mathcal{P}}
-\newcommand{\E}{\mathbb E}
-\newcommand{\supp}{\mathrm{supp}}
-\newcommand{\op}{\mathrm{op}}
-\newcommand{\HS}{\mathrm{HS}}
-\DeclareMathOperator{\Ent}{Ent}
-\DeclareMathOperator{\Var}{Var}
-\DeclareMathOperator{\Lip}{Lip}
+\newcommand{\R}{\mathbb{R}} % real space
+\newcommand{\cP}{\mathcal{P}} % probability measure
+\newcommand{\cC}{\mathcal{C}} % function classes
+\newcommand{\E}{\mathbb E} % expectation
+\newcommand{\supp}{\mathrm{supp}} % support
+\newcommand{\op}{\mathrm{op}} % operator norm
+\newcommand{\HS}{\mathrm{HS}} % Hilbert--Schmidt norm
+\DeclareMathOperator{\Ent}{Ent} % entropy
+\DeclareMathOperator{\Var}{Var} % variance
+\DeclareMathOperator{\Lip}{Lip} % Lipschitz constant
 
 \usepackage[unicode,hidelinks]{hyperref}
 \usepackage[nameinlink,noabbrev]{cleveref} % for cref
@@ -83,8 +84,8 @@ conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) 
 % Assumption on the coefficients
 \begin{assumption}[Well-posedness]\label{ass:wellposedness}
 	There exists \(L<\infty\) such that, for all
-	\(x,y\in\mathbb R^d\) and
-	\(\mu,\nu\in\mathcal P_2(\mathbb R^d)\),
+	\(x,y\in\R^d\) and
+	\(\mu,\nu\in\cP_2(\R^d)\),
 	\begin{equation*}
 		|a(x,\mu)-a(y,\nu)| + \left( \sum_{\ell=1}^{r} |\sigma_\ell(x)-\sigma_\ell(y)|^2 \right)^{1/2}  \le L\bigl(|x-y|+W_2(\mu,\nu)\bigr)
 	\end{equation*}
@@ -123,7 +124,7 @@ Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\) on the compac
 % The Jacobian energy 
 The Jacobian energy \(\mathcal E_t\)
 \begin{equation*}
-	\mathcal E_t := \int_{\mathbb R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du),
+	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du),
 \end{equation*}
 over the initial mass \( \mu_0 \). Averaged Jacobian energy can be estimated under weaker one-sided
 derivative conditions.
@@ -131,7 +132,7 @@ derivative conditions.
 % The pairwise energy
 The pairwise energy \(\mathcal D_t\)
 \begin{equation*}
-	\mathcal D_t :=	\iint_{\mathbb R^d\times\mathbb R^d} |T_t(u)-T_t(v)|^2\,\mu_0(du)\mu_0(dv).
+	\mathcal D_t :=	\iint_{\R^d\times\R^d} |T_t(u)-T_t(v)|^2\,\mu_0(du)\mu_0(dv).
 \end{equation*}
 measures deformation at finite scale by averaging the squared distance between two transported labels.
 Pairwise energy can be controlled directly through dissipativity of the dynamics, without obtaining a uniform Jacobian estimate
@@ -143,15 +144,15 @@ show that it governs the pathwise transfer of logarithmic Sobolev, concentration
 
 % Logarithmic Sobolev inequality
 \begin{definition}[Logarithmic Sobolev inequality]
-	Denoting by \(\mathcal{C}^1_c(\R^d)\) the set of continuously differentiable compactly supported functions from \(\R^d\) to \(\R\), for
+	Denoting by \(\cC_c^1(\R^d)\) the set of continuously differentiable compactly supported functions from \(\R^d\) to \(\R\), for
 	\(g\ge 0\) with \(\int g\,d\mu=1\) we define the entropy
 	\begin{equation*}
 		\Ent_\mu(g):=\int g\log g\,d\mu.
 	\end{equation*}
 	A probability measure \(\mu\) on \(\R^d\) is said to satisfy a logarithmic Sobolev inequality with constant \(C>0\) if for every
-	\(h\in\mathcal{C}^1_c(\R^d)\) with \(\int h^2\,d\mu=1\) one has
+	\(h\in\cC_c^1(\R^d)\) with \(\int h^2\,d\mu=1\) one has
 	\begin{equation}\label{eq:lsi-def}
-		\Ent_\mu(h^2)\le C\int_{\R^d}|\nabla h|^2\,d\mu.
+		\Ent_\mu(h^2)\le C\int_{\R^d}|\partial h|^2\,d\mu.
 	\end{equation}
 \end{definition}
 
@@ -179,7 +180,7 @@ under weaker one-sided assumptions on the derivative coefficients.
 
 % Section 4 summary
 Finally, in \Cref{sec:internal-fluctuations}, we exploit the specific kernel-type interacting model,
-we impose a pairwise dissipativity condition and prove exponential decay of \(\mathbb E\mathcal D_t\).
+we impose a pairwise dissipativity condition and prove exponential decay of \(\E\mathcal D_t\).
 This decay means that the transported labels approach one another in mean square and that the random measure synchronizes around its random
 center of mass.
 
@@ -191,15 +192,15 @@ center of mass.
 \section{Pathwise Jacobian Bounds and Functional Inequality Transfer}\label{sec:jacobian-bound}
 
 % Roadmap to the section
-Firstly, we establish \( \mathcal{K}_t(\omega;K) \), then use it to transfer functional inequalities from the initial measure \( \mu_0 \) to the random pushforward measure \( \mu_t \). The
-technical proof of the compact-set Jacobian estimate is postponed to the final subsection.
+Firstly, we establish \(\mathcal K_t(K)\), then use it to transfer functional inequalities from the initial measure \( \mu_0 \) to the
+random pushforward measure \( \mu_t \). The technical proof of the compact-set Jacobian estimate is postponed to the final subsection.
 
 % The assumptions for this section on the Jacobian
 \begin{assumption}[Spatial differentiability]\label{ass:flow-differentiability}
-	For every \(\mu\in\mathcal P_2(\mathbb R^d)\), the map \(x\mapsto a(x,\mu)\) belongs to
-	\(C^1(\mathbb R^d;\mathbb R^d)\), and
+	For every \(\mu\in\cP_2(\R^d)\), the map \(x\mapsto a(x,\mu)\) belongs to
+	\(\cC^1(\R^d;\R^d)\), and
 	\begin{equation*}
-		\sigma_\ell\in C^1(\mathbb R^d;\mathbb R^d), \qquad \ell=1,\dots,r.
+		\sigma_\ell\in \cC^1(\R^d;\R^d), \qquad \ell=1,\dots,r.
 	\end{equation*}
 \end{assumption}
 
@@ -207,7 +208,7 @@ By \Cref{ass:wellposedness,ass:flow-differentiability},
 \begin{equation}\label{eq:basic-derivative-bounds}
 	\|\partial_x a(x,\mu)\|_{\op}\le L_x, \qquad \sum_{\ell=1}^{r}|\partial_x\sigma_\ell(x)z|^2 \le L_\sigma^2|z|^2
 \end{equation}
-for all \(x,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\)
+for all \(x,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\)
 
 % ============================================================
 % The Jacobian flow
@@ -240,30 +241,31 @@ We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sde
 \begin{definition}[Random Jacobian constant]\label{def:jacobian-constant}
 	For a nonempty set \(K\subset\R^d\), define
 	\begin{equation*}
-		\mathcal{K}_t(\omega;K):=\sup_{u\in K}\|J_t(u,\omega)\|_{\op}.
+		\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op}.
 	\end{equation*}
 \end{definition}
 
 % Remark
-If \(K\) is compact, continuity of \(u\mapsto J_t(u)\) implies \(\mathcal K_t(K)<\infty\). This compact-set quantity is used because a
-corresponding supremum over all of \(\mathbb R^d\) need not be finite. The counterexamples of Mohammed--Scheutzow show that even for globally
-Lipschitz coefficients one may fail to have a finite global constant \(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
+If \(K\) is compact, continuity of \(u\mapsto J_t(u)\) implies \(\mathcal K_t(K)<\infty\).
+This compact-set quantity is used because a corresponding supremum over all of \(\R^d\) need not be finite.
+The counterexamples of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite global constant
+\(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
 
 % Intro for the theorem
 % Controlling the compact-set maximal Jacobian norm \(\mathcal K_t(K)\) requires estimates for the spatial increments \(J_t(u)-J_t(v)\).
 
 \begin{theorem}[Moments of the compact-set maximal Jacobian norm]\label{thm:kt-moment}
 	Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exists a constant
-	\(H<\infty\) such that, for all \(x,y,z\in\mathbb R^d\) and \(\mu\in\mathcal P_2(\mathbb R^d)\),
+	\(H<\infty\) such that, for all \(x,y,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\),
 	\begin{equation}\label{eq:spatial-lipschitz-derivatives}
 		\big| \big(\partial_x a(x,\mu)-\partial_x a(y,\mu)\big)z \big| + \left( \sum_{\ell=1}^{r}
 		\big| \big(\partial_x\sigma_\ell(x)-\partial_x\sigma_\ell(y)\big)z \big|^2 \right)^{1/2}
 		\le H|x-y|\,|z|.
 	\end{equation}
-	Then, for every nonempty compact \(K\subset\mathbb R^d\) and every
+	Then, for every nonempty compact \(K\subset\R^d\) and every
 	\(p\ge1\), there exist constants \(C_{p,K},c_p<\infty\) such that
 	\begin{equation}\label{eq:kt-exp-growth}
-		\mathbb E\big[\mathcal K_t(\cdot;K)^p\big] \le C_{p,K}e^{c_pt}, \qquad t\ge0.
+		\E\big[\mathcal K_t(K)^p\big] \le C_{p,K}e^{c_pt}, \qquad t\ge0.
 	\end{equation}
 \end{theorem}
 
@@ -278,7 +280,7 @@ Throughout this subsection, assume that \(\supp(\mu_0)\) is compact and set
 \begin{equation}\label{eq:initial-convex-hull}
 	K_0:=\operatorname{co}\bigl(\supp(\mu_0)\bigr),
 	\qquad
-	\kappa_t(\omega):=\mathcal K_t(\omega;K_0).
+	\kappa_t(\omega):=\mathcal K_t(K_0).
 \end{equation}
 Since \(K_0\) is compact and convex, for every fixed \(t\ge0\) and almost every \(\omega\),
 \begin{equation}\label{eq:flow-lipschitz-kappa}
@@ -309,7 +311,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 
 \begin{proof}
 	Fix \(t\ge0\) and \(\omega\) such that
-	\(u\mapsto T_t(\omega,u)\) is of class \(C^1\), and write
+	\(u\mapsto T_t(\omega,u)\) is of class \(\cC^1\), and write
 	\begin{equation*}
 		T:=T_t(\omega,\cdot),
 		\qquad
@@ -318,11 +320,11 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 		\kappa:=\kappa_t(\omega).
 	\end{equation*}
 
-	Let \(g\in\mathcal C_c^1(\R^d)\) satisfy
+	Let \(g\in\cC_c^1(\R^d)\) satisfy
 	\begin{equation*}
 		\int_{\R^d}g^2\,d\mu_t(\omega)=1.
 	\end{equation*}
-	Choose \(\chi\in\mathcal C_c^1(\R^d)\) such that
+	Choose \(\chi\in\cC_c^1(\R^d)\) such that
 	\(\chi=1\) on a neighborhood of \(K_0\), and set
 	\begin{equation*}
 		h(u):=\chi(u)g(T(u)).
@@ -331,30 +333,30 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	\begin{equation*}
 		h(u)=g(T(u)),
 		\qquad
-		\nabla h(u)
+		\partial h(u)
 		=
-		J(u)^{\mathsf T}\nabla g(T(u)),
+		J(u)^{\mathsf T}\partial g(T(u)),
 		\qquad u\in K_0.
 	\end{equation*}
 	Consequently,
 	\begin{align*}
 		\Ent_{\mu_t(\omega)}(g^2)
 		 & =
-		\Ent_{\mu_0}(h^2)             \\
+		\Ent_{\mu_0}(h^2)               \\
 		 & \le
 		C_0\int_{K_0}
 		\left|
-		J(u)^{\mathsf T}\nabla g(T(u))
+		J(u)^{\mathsf T}\partial g(T(u))
 		\right|^2
-		\,\mu_0(du)                   \\
+		\,\mu_0(du)                     \\
 		 & \le
 		C_0\kappa^2
 		\int_{K_0}
-		|\nabla g(T(u))|^2\,\mu_0(du) \\
+		|\partial g(T(u))|^2\,\mu_0(du) \\
 		 & =
 		C_0\kappa^2
 		\int_{\R^d}
-		|\nabla g(x)|^2\,\mu_t(\omega,dx).
+		|\partial g(x)|^2\,\mu_t(\omega,dx).
 	\end{align*}
 \end{proof}
 
@@ -439,7 +441,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	\begin{equation*}
 		\kappa_t(\omega)^2
 		=
-		\mathcal K_t(\omega;K_0)^2.
+		\mathcal K_t(K_0)^2.
 	\end{equation*}
 \end{remark}
 
@@ -593,7 +595,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 		dD_t = A_tD_t\,dt +\sum_{\ell=1}^{r}C_{\ell,t}D_t\,dB_t^\ell
 		+F_t\,dt +\sum_{\ell=1}^{r}G_{\ell,t}\,dB_t^\ell.
 	\end{equation*}
-	Assume that, for every \(M\in\mathbb R^{d\times d}\),
+	Assume that, for every \(M\in\R^{d\times d}\),
 	\begin{equation*}
 		\langle M,A_tM\rangle_{\HS} \le L_x\|M\|_{\HS}^2, \qquad
 		\sum_{\ell=1}^{r}\|C_{\ell,t}M\|_{\HS}^2 \le L_\sigma^2\|M\|_{\HS}^2.
@@ -636,7 +638,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 % \(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
 
 % Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986})
-% yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\mathcal{C}^1\).
+% yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\cC^1\).
 
 \begin{proof}[Proof of \Cref{thm:kt-moment}]
 
@@ -645,7 +647,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% It is enough to prove
 	% \eqref{eq:kt-exp-growth} with \(p\) replaced by \(m\), because then H\"older's inequality gives
 	% \begin{equation*}
-	% 	\E\,\mathcal{K}_t(\cdot;K)^p \le \big(\E\,\mathcal{K}_t(\cdot;K)^m\big)^{p/m}.
+	% 	\E\,\mathcal K_t(K)^p \le \big(\E\,\mathcal K_t(K)^m\big)^{p/m}.
 	% \end{equation*}
 
 	% define the difference \Delta X_t
@@ -685,7 +687,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\begin{equation*}
 		\|\widetilde A_t(u,v)\|_{\op}\le L_x.
 	\end{equation*}
-	Jensen's inequality also gives, for every \(z\in\mathbb R^d\),
+	Jensen's inequality also gives, for every \(z\in\R^d\),
 	\begin{equation*}
 		\sum_{\ell=1}^{r} |\widetilde C_{\ell,t}(u,v)z|^2
 		\le \int_0^1 \sum_{\ell=1}^{r} \left| \partial_x\sigma_\ell\bigl( X_t(v)+\theta\Delta X_t \bigr)z \right|^2\,d\theta
@@ -741,7 +743,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	uniformly in \(u\in\R^d\).
 
 	% define the difference D_t
-	Fix \(u,v\in\mathbb R^d\), and write
+	Fix \(u,v\in\R^d\), and write
 	\begin{equation*}
 		D_t:=J_t(u)-J_t(v).
 	\end{equation*}
@@ -770,7 +772,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{equation*}
 
 	% using the assumptions
-	For every \(M\in\mathbb R^{d\times d}\),
+	For every \(M\in\R^{d\times d}\),
 	\begin{equation*}
 		\langle M,A_t(u)M\rangle_{\HS} \le L_x\|M\|_{\HS}^2,
 	\end{equation*}
@@ -809,12 +811,12 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{align*}
 	after enlarging \(c_m\). Therefore,
 	\begin{equation}\label{eq:jacobian-increment}
-		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\mathbb R^d.
+		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\R^d.
 	\end{equation}
 	% In particular, the same estimate holds with the operator norm in place of the Hilbert--Schmidt norm.
 
 	% define the cube???
-	Let \(Q\subset\mathbb R^d\) be a compact cube containing \(K\), and choose \(u_0\in K\). By \eqref{eq:jacobian-increment}, \( u,v\in Q \)
+	Let \(Q\subset\R^d\) be a compact cube containing \(K\), and choose \(u_0\in K\). By \eqref{eq:jacobian-increment}, \( u,v\in Q \)
 	\begin{equation*}
 		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m.
 	\end{equation*}
@@ -824,7 +826,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{equation*}
 
 	% application of Kolmogorov--Totoki theorem
-	Hence the quantitative Kolmogorov--Totoki theorem, applied to the \(\mathbb R^{d\times d}\)-valued random field
+	Hence the quantitative Kolmogorov--Totoki theorem, applied to the \(\R^{d\times d}\)-valued random field
 	\begin{equation*}
 		u\longmapsto J_t(u)-J_t(u_0),
 	\end{equation*}
@@ -832,7 +834,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\begin{equation}\label{eq:kolmogorov-totoki-bound}
 		\E\left[\sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}^m \right] \le C_{m,Q}e^{c_mt}.
 	\end{equation}
-	Here we identify \(\mathbb R^{d\times d}\) with \(\mathbb R^{d^2}\).
+	Here we identify \(\R^{d\times d}\) with \(\R^{d^2}\).
 
 	% % strange paragraph
 	% Since \Cref{thm:jacobian-sde} already provides a spatially continuous version of \(J_t\), the continuous modification furnished by the
@@ -846,15 +848,15 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% the finishing proof
 	Consequently,
 	\begin{equation*}
-		\mathcal K_t(\cdot;K) \le \|J_t(u_0)\|_{\op} + \sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}.
+		\mathcal K_t(K) \le \|J_t(u_0)\|_{\op} + \sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}.
 	\end{equation*}
 	Using \eqref{eq:jacobian-moment}, \eqref{eq:kolmogorov-totoki-bound}, and \((a+b)^m\le 2^{m-1}(a^m+b^m)\), we obtain
 	\begin{equation*}
-		\E\mathcal K_t(\cdot;K)^m \le C_{m,K}e^{c_mt}.
+		\E\mathcal K_t(K)^m \le C_{m,K}e^{c_mt}.
 	\end{equation*}
 	Finally,
 	\begin{equation*}
-		\E\mathcal K_t(\cdot;K)^p\le \left( \E\mathcal K_t(\cdot;K)^m \right)^{p/m} \le C_{p,K}e^{c_pt}.
+		\E\mathcal K_t(K)^p\le \left( \E\mathcal K_t(K)^m \right)^{p/m} \le C_{p,K}e^{c_pt}.
 	\end{equation*}
 	This proves \eqref{eq:kt-exp-growth}.
 \end{proof}
@@ -866,7 +868,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 % ============================================================
 \section{The averaged Jacobian}\label{sec:averaged-jacobian}
 
-The preceding pathwise estimates use the quantity \(\mathcal K_t(\omega;K)\) which controls the worst possible stretching of the flow on the
+The preceding pathwise estimates use the quantity \(\mathcal K_t(K)\) which controls the worst possible stretching of the flow on the
 compact set \(K\). Consider instead the averaged Jacobian for the transported measure \(\mu_t=\mu_0\circ T_t^{-1}\),
 \begin{equation*}
 	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du).
@@ -948,6 +950,15 @@ and integrates in \(u\), so the one-sided bounds \cref{eq:one-sided-drift-jacobi
 This section concerns a separate kernel-type interacting model. In contrast to \eqref{eq:main-sdewi}, both the drift and diffusion may depend on
 the order parameter \(\Theta_t\). Consequently, the assumptions of \cref{sec:jacobian-bound,sec:averaged-jacobian} are not imposed here.
 
+Let \(q\ge1\), and let
+\begin{equation*}
+	\Phi:\R^d\to\R^q,\qquad b:\R^d\times\R^q\to\R^d,\qquad K:\R^d\times\R^d\times\R^q\to\R^d,
+\end{equation*}
+with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,m\). Define
+\begin{equation*}
+	\theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx), \qquad \Theta_t:=\theta(\mu_t)=\int_{\R^d}\Phi(X_t(v))\,\mu_0(dv).
+\end{equation*}
+
 \begin{equation}\label{eq:kernel-sdewi}
 	\begin{cases}
 		dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} K(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
@@ -956,10 +967,6 @@ the order parameter \(\Theta_t\). Consequently, the assumptions of \cref{sec:jac
 		\mu_t   & =\mu_0\circ X_t^{-1}.
 	\end{cases}
 \end{equation}
-where
-\begin{equation*}
-	\theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx),
-\end{equation*}
 
 % Dissipativity Assumptions on global Lipschitz and growth hypotheses.
 \begin{assumption}[Well-posedness of \Cref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
@@ -1038,11 +1045,11 @@ The dissipativity condition covers several basic models.
 \begin{example}[Gradient systems]
 	Take
 	\begin{equation*}
-		b(x,\theta)=-\nabla V(x), \qquad K(x,y,\theta)=-\nabla W(x-y).
+		b(x,\theta)=-\partial V(x), \qquad K(x,y,\theta)=-\partial W(x-y).
 	\end{equation*}
 	Then
 	\begin{equation*}
-		dX_t(u) =  \left[ -\nabla V(X_t(u)) - \int_{\R^d} \nabla W(X_t(u)-X_t(v))\,\mu_0(dv) \right]dt + \sigma(X_t(u))\,dB_t.
+		dX_t(u) =  \left[ -\partial V(X_t(u)) - \int_{\R^d} \partial W(X_t(u)-X_t(v))\,\mu_0(dv) \right]dt + \sigma(X_t(u))\,dB_t.
 	\end{equation*}
 	If
 	\begin{equation*}
