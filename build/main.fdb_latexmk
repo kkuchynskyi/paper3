@@ -1,14 +1,13 @@
 # Fdb version 4
-["bibtex build/main"] 1782351791.5216 "build/main.aux" "build/main.bbl" "build/main" 1782352288.37513 0
+["bibtex build/main"] 1782354415.37625 "build/main.aux" "build/main.bbl" "build/main" 1782354416.08566 0
   "./reference.bib" 1781826875.81096 5096 2e3e56444b329004506f6f4dade0091d ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/apalike.bst" 1292289607 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "build/main.aux" 1782352288.19625 10076 b21cdfacff03164d3aedc68aecdd2fdb "pdflatex"
+  "build/main.aux" 1782354415.88768 10076 b21cdfacff03164d3aedc68aecdd2fdb "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1782352287.74466 "/Users/kyrylopc/Research/paper3/main.tex" "build/main.pdf" "main" 1782352288.37525 0
-  "/Users/kyrylopc/Research/paper3/main.tex" 1782352287.68195 47865 2e015c59303d2b3e248d21b9ef6e5943 ""
+["pdflatex"] 1782354415.45733 "main.tex" "build/main.pdf" "main" 1782354416.08577 0
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -101,11 +100,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1765769020 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1765768940 3345737 3d355201aa145444b0458da3b857bf63 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "build/main.aux" 1782352288.19625 10076 b21cdfacff03164d3aedc68aecdd2fdb "pdflatex"
-  "build/main.bbl" 1782351791.59964 798 794517219735ecc727204714a11f63d1 "bibtex build/main"
-  "build/main.out" 1782352288.19747 2009 e2d2f167452335c73c84dd9dc8e9b81b "pdflatex"
-  "build/main.toc" 1782352288.19761 977 e5fe5328cfd4c0c7319d455af15b1aa5 "pdflatex"
-  "main.tex" 1782352287.68195 47865 2e015c59303d2b3e248d21b9ef6e5943 ""
+  "build/main.aux" 1782354415.88768 10076 b21cdfacff03164d3aedc68aecdd2fdb "pdflatex"
+  "build/main.bbl" 1782354415.4545 798 794517219735ecc727204714a11f63d1 "bibtex build/main"
+  "build/main.out" 1782354415.88906 2009 e2d2f167452335c73c84dd9dc8e9b81b "pdflatex"
+  "build/main.toc" 1782354415.88922 977 e5fe5328cfd4c0c7319d455af15b1aa5 "pdflatex"
+  "main.tex" 1782354371.95175 47867 972a96bab12532a7d53ea77e18c338c0 ""
   "tsp-short.cls" 1768194894.49649 774 2d7ac40af820613b8d5b6878be04c28f ""
   (generated)
   "build/main.aux"

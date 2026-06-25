@@ -952,17 +952,17 @@ the order parameter \(\Theta_t\). Consequently, the assumptions of \cref{sec:jac
 
 Let \(q\ge1\), and let
 \begin{equation*}
-	\Phi:\R^d\to\R^q,\qquad b:\R^d\times\R^q\to\R^d,\qquad K:\R^d\times\R^d\times\R^q\to\R^d,
+	\Phi:\R^d\to\R^q,\qquad b:\R^d\times\R^q\to\R^d,\qquad F:\R^d\times\R^d\times\R^q\to\R^d,
 \end{equation*}
-with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,m\). Define
+with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
 \begin{equation*}
 	\theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx), \qquad \Theta_t:=\theta(\mu_t)=\int_{\R^d}\Phi(X_t(v))\,\mu_0(dv).
 \end{equation*}
 
 \begin{equation}\label{eq:kernel-sdewi}
 	\begin{cases}
-		dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} K(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
-		        & \quad+ \sum_{\ell=1}^m \sigma_\ell(X_t(u),\Theta_t)\,dB_t^\ell,                         \\[1mm]
+		dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} F(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
+		        & \quad+ \sum_{\ell=1}^r \sigma_\ell(X_t(u),\Theta_t)\,dB_t^\ell,                         \\[1mm]
 		X_0(u)  & =u,\qquad u\in\R^d,                                                                     \\[1mm]
 		\mu_t   & =\mu_0\circ X_t^{-1}.
 	\end{cases}
@@ -970,16 +970,16 @@ with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,m\). Define
 
 % Dissipativity Assumptions on global Lipschitz and growth hypotheses.
 \begin{assumption}[Well-posedness of \Cref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
-	The maps \(b,K,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
+	The maps \(b,F,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
 	More explicitly, there exists \(L<\infty\) such that
 	\begin{align*}
 		|\Phi(x)-\Phi(y)|           & \le L|x-y|,                               \\
 		|b(x,\theta)-b(y,\eta)|     & \le L\big(|x-y|+|\theta-\eta|\big),       \\
-		|K(x,z,\theta)-K(y,w,\eta)| & \le L\big(|x-y|+|z-w|+|\theta-\eta|\big),
+		|F(x,z,\theta)-F(y,w,\eta)| & \le L\big(|x-y|+|z-w|+|\theta-\eta|\big),
 	\end{align*}
 	and
 	\begin{equation*}
-		\sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
+		\sum_{\ell=1}^r |\sigma_\ell(x,\theta)-\sigma_\ell(y,\eta)|^2 \le L^2\big(|x-y|^2+|\theta-\eta|^2\big).
 	\end{equation*}
 \end{assumption}
 
@@ -1019,8 +1019,8 @@ We assume the following dissipativity condition.
 	There exists \(\lambda>0\) such that for every \(x,y\in\R^d\), every \(\theta\in\R^q\), and every
 	\(\nu\in\cP_2(\R^d)\),
 	\begin{align*}
-		 & 2\left\langle x-y, b(x,\theta)-b(y,\theta) + \int_{\R^d} \big[K(x,z,\theta)-K(y,z,\theta)\big] \nu(dz) \right\rangle \\
-		 & \qquad + \sum_{\ell=1}^m |\sigma_\ell(x,\theta)-\sigma_\ell(y,\theta)|^2 \le -\lambda |x-y|^2.
+		 & 2\left\langle x-y, b(x,\theta)-b(y,\theta) + \int_{\R^d} \big[F(x,z,\theta)-F(y,z,\theta)\big] \nu(dz) \right\rangle \\
+		 & \qquad + \sum_{\ell=1}^r |\sigma_\ell(x,\theta)-\sigma_\ell(y,\theta)|^2 \le -\lambda |x-y|^2.
 	\end{align*}
 \end{assumption}
 
@@ -1045,7 +1045,7 @@ The dissipativity condition covers several basic models.
 \begin{example}[Gradient systems]
 	Take
 	\begin{equation*}
-		b(x,\theta)=-\partial V(x), \qquad K(x,y,\theta)=-\partial W(x-y).
+		b(x,\theta)=-\partial V(x), \qquad F(x,y,\theta)=-\partial W(x-y).
 	\end{equation*}
 	Then
 	\begin{equation*}
@@ -1053,11 +1053,11 @@ The dissipativity condition covers several basic models.
 	\end{equation*}
 	If
 	\begin{equation*}
-		\partial_x^2 V\ge \rho I, \qquad \partial_x^2 W\ge \kappa I, \qquad \|\sigma(x)-\sigma(y)\| \le L_\sigma |x-y|,
+		\partial_x^2 V\ge \rho I, \qquad \partial_x^2 W\ge \rho_W I, \qquad \|\sigma(x)-\sigma(y)\| \le L_\sigma |x-y|,
 	\end{equation*}
 	then
 	\begin{equation*}
-		\E\mathcal D_t \le e^{-(2\rho+2\kappa-L_\sigma^2)t}\mathcal D_0.
+		\E\mathcal D_t \le e^{-(2\rho+2\rho_W-L_\sigma^2)t}\mathcal D_0.
 	\end{equation*}
 \end{example}
 
@@ -1111,12 +1111,12 @@ The dissipativity condition covers several basic models.
 
 	Writing \cref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
 	\begin{equation*}
-		dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^m H_{\ell,t}^{u,v}\,dB_t^\ell,
+		dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^r H_{\ell,t}^{u,v}\,dB_t^\ell,
 	\end{equation*}
 	where the drift coefficient
 	\begin{align*}
-		G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                                   \\
-		          & +  \int_{\R^d} \big[ K(X_t(u),X_t(w),\Theta_t) -K(X_t(v),X_t(w),\Theta_t)\big]\,\mu_0(dw),
+		G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                                    \\
+		          & +  \int_{\R^d} \big[ F(X_t(u),X_t(w),\Theta_t) - F(X_t(v),X_t(w),\Theta_t)\big]\,\mu_0(dw),
 	\end{align*}
 	and the diffusion coefficient is
 	\begin{equation*}
@@ -1125,26 +1125,26 @@ The dissipativity condition covers several basic models.
 
 	Since \(\mu_t =\mu_0\circ X_t^{-1}\), we may rewrite the interaction term as
 	\begin{equation*}
-		\int_{\R^d}K(X_t(u),X_t(w),\Theta_t)\,\mu_0(dw) = \int_{\R^d}K(X_t(u),z,\Theta_t)\,\mu_t(dz).
+		\int_{\R^d}F(X_t(u),X_t(w),\Theta_t)\,\mu_0(dw) = \int_{\R^d}F(X_t(u),z,\Theta_t)\,\mu_t(dz).
 	\end{equation*}
 	Thus
 	\begin{align*}
 		G_t^{u,v} & := b(X_t(u),\Theta_t)-b(X_t(v),\Theta_t)                                          \\
-		          & + \int_{\R^d} \big[ K(X_t(u),z,\Theta_t) - K(X_t(v),z,\Theta_t) \big]\,\mu_t(dz).
+		          & + \int_{\R^d} \big[ F(X_t(u),z,\Theta_t) - F(X_t(v),z,\Theta_t) \big]\,\mu_t(dz).
 	\end{align*}
 
 	Applying It\^o's formula to \(|Z_t^{u,v}|^2\), we obtain
 	\begin{align*}
-		d|Z_t^{u,v}|^2 & = 2\langle Z_t^{u,v},G_t^{u,v}\rangle\,dt + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2\,dt \\
-		               & \quad + 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+		d|Z_t^{u,v}|^2 & = 2\langle Z_t^{u,v},G_t^{u,v}\rangle\,dt + \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2\,dt \\
+		               & \quad + 2\sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{align*}
 	Apply \Cref{ass:pairwise-dissipativity} with
 	\(x=X_t(u)\), \(y=X_t(v)\), \(\theta=\Theta_t\), and \(\nu=\mu_t\). Then
-	\begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
+	\begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
 	\end{equation*}
 	Therefore
 	\begin{equation}\label{eq:pairwise-contraction-differential}
-		d|Z_t^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2\,dt + 2\sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+		d|Z_t^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2\,dt + 2\sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{equation}
 
 	Set the new variable
@@ -1154,12 +1154,12 @@ The dissipativity condition covers several basic models.
 	By It\^o's formula,
 	\begin{align*}
 		dY_t^{u,v} & = e^{\lambda t} \left[ \lambda |Z_t^{u,v}|^2 + 2\langle Z_t^{u,v},G_t^{u,v}\rangle \right.  \\
-		           & \quad \left. + \sum_{\ell=1}^m |H_{\ell,t}^{u,v}|^2 \right]dt                               \\
-		           & \quad+ 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+		           & \quad \left. + \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2 \right]dt                               \\
+		           & \quad+ 2e^{\lambda t} \sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{align*}
 	By the drift bound \cref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
 	\begin{equation*}
-		dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^m \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
+		dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{equation*}
 	% Thus \(Y_t^{u,v}\) is a nonnegative local supermartingale.
 
@@ -1171,7 +1171,7 @@ The dissipativity condition covers several basic models.
 	\(\tau_R\), we get
 	\begin{equation*}
 		Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v}
-		+ 2\sum_{\ell=1}^m \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
+		+ 2\sum_{\ell=1}^r \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
 	\end{equation*}
 	The stopped stochastic integral is a true martingale. Therefore, taking
 	expectations gives
