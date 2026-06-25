@@ -1,14 +1,14 @@
 # Fdb version 4
-["bibtex build/main"] 1782364733.07831 "build/main.aux" "build/main.bbl" "build/main" 1782364939.59508 0
-  "./reference.bib" 1781826875.81096 5096 2e3e56444b329004506f6f4dade0091d ""
+["bibtex build/main"] 1782369935.4247 "build/main.aux" "build/main.bbl" "build/main" 1782370068.90195 0
+  "./reference.bib" 1782369774.35629 5768 c82de5aca4d4767660f590b14e9ef4e9 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/base/apalike.bst" 1292289607 24635 604dafcc79f521a11ea73e506e1fbd98 ""
-  "build/main.aux" 1782364939.41872 8676 8a7f8e56c41cef662f280944544389fb "pdflatex"
+  "build/main.aux" 1782370068.72586 9042 d0ecbf8e6642913ed7661d56b8dc2ad1 "pdflatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["pdflatex"] 1782364938.99036 "/Users/kyrylopc/Research/paper3/main.tex" "build/main.pdf" "main" 1782364939.59518 0
-  "/Users/kyrylopc/Research/paper3/main.tex" 1782364938.92934 46910 2d2393b566a18f45b943287177b5ad5d ""
+["pdflatex"] 1782370068.26624 "/Users/kyrylopc/Research/paper3/main.tex" "build/main.pdf" "main" 1782370068.90208 0
+  "/Users/kyrylopc/Research/paper3/main.tex" 1782370068.20449 46877 8624d56e2d0b4d32348e6c1e49702af5 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -101,11 +101,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1765769020 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1765768940 3345737 3d355201aa145444b0458da3b857bf63 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "build/main.aux" 1782364939.41872 8676 8a7f8e56c41cef662f280944544389fb "pdflatex"
-  "build/main.bbl" 1782364733.15573 798 794517219735ecc727204714a11f63d1 "bibtex build/main"
-  "build/main.out" 1782364939.42006 2009 e2d2f167452335c73c84dd9dc8e9b81b "pdflatex"
-  "build/main.toc" 1782364939.42022 977 88680e973c7b5bad4866d94ac43f221f "pdflatex"
-  "main.tex" 1782364938.92934 46910 2d2393b566a18f45b943287177b5ad5d ""
+  "build/main.aux" 1782370068.72586 9042 d0ecbf8e6642913ed7661d56b8dc2ad1 "pdflatex"
+  "build/main.bbl" 1782369935.49624 1672 488ba3c7ba9ecc6bc69eba200ad3a0bc "bibtex build/main"
+  "build/main.out" 1782370068.72704 2009 e2d2f167452335c73c84dd9dc8e9b81b "pdflatex"
+  "build/main.toc" 1782370068.72718 977 88680e973c7b5bad4866d94ac43f221f "pdflatex"
+  "main.tex" 1782370068.20449 46877 8624d56e2d0b4d32348e6c1e49702af5 ""
   "tsp-short.cls" 1768194894.49649 774 2d7ac40af820613b8d5b6878be04c28f ""
   (generated)
   "build/main.aux"

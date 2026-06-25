@@ -30,8 +30,8 @@
 \crefname{assumption}{Assumption}{Assumptions}
 \Crefname{assumption}{Assumption}{Assumptions}
 
-\title[Interacting SDEs]{Functional Inequalities and Synchronization for the measure-valued solutions of Stochastic Differential Equations with
-Interaction}
+\title[Interacting SDEs]{Functional Inequalities and asymptotic properties for the measure-valued solutions to Stochastic Differential Equations
+with Interaction}
 
 \author{Kyrylo Kuchynskyi}
 \address{Ukraine, Kyiv-4, 3, Tereschenkivska st.}
@@ -107,21 +107,20 @@ acts on the initial measure by pushforward,
 \begin{equation*}
 	\mu_t(\omega)=\mu_0\circ T_t(\omega)^{-1},
 \end{equation*}
-so the evolution is can be viewed as a random transport of measures by a stochastic flow \eqref{eq:main-sdewi}. Whenever the flow is
-differentiable with respect to the initial label, we write
+so the evolution can be viewed as a random transport of measures by a stochastic flow of the interacting particles \eqref{eq:main-sdewi}.
+Whenever the flow is differentiable with respect to the initial label, we write
 \begin{equation*}
 	J_t(u):=\partial_u T_t(u),
 \end{equation*}
 and consider the three quantities described below. Throughout the paper, \(|\cdot|\) denotes the Euclidean norm and
 inner product on finite-dimensional vector spaces. For matrices \(M,N\) of the same size, we write
 \begin{equation*}
-	\|M\| := \bigl(\operatorname{Tr}(M^{\mathsf T}M)\bigr)^{1/2}, \qquad \langle M,N\rangle := \operatorname{Tr}(M^{\mathsf T}N).
+	\|M\| := \bigl(\operatorname{Tr}(M^{\mathsf T}M)\bigr)^{1/2}.
 \end{equation*}
 Thus \(\|\cdot\|\) is always the Hilbert--Schmidt norm when its argument is a matrix.
 
 % Section 2 motivation 
-In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\)  on the compact set \(K\),
-Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\)
+In \Cref{sec:jacobian-bound}, we study the maximal Jacobian norm \(\mathcal K_t(K)\) on the compact set \(K\)
 \begin{equation*}
 	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|.
 \end{equation*}
@@ -135,8 +134,8 @@ show that it governs the pathwise transfer of logarithmic Sobolev, concentration
 	\begin{equation*}
 		\Ent_\mu(g):=\int g\log g\,d\mu.
 	\end{equation*}
-	A probability measure \(\mu\) on \(\R^d\) is said to satisfy a logarithmic Sobolev inequality with constant \(C>0\) if for every
-	\(h\in\cC_c^1(\R^d)\) with \(\int h^2\,d\mu=1\) one has
+	Following \cite[Chapter~5]{ledoux2001concentration}, a probability measure \(\mu\) on \(\R^d\) is said to satisfy a logarithmic Sobolev
+	inequality with constant \(C>0\) if for every \(h\in\cC_c^1(\R^d)\) with \(\int h^2\,d\mu=1\) one has
 	\begin{equation*}
 		\Ent_\mu(h^2)\le C\int_{\R^d}|\partial h|^2\,d\mu.
 	\end{equation*}
@@ -144,8 +143,9 @@ show that it governs the pathwise transfer of logarithmic Sobolev, concentration
 
 % Talagrand transport inequality
 \begin{definition}[Talagrand transport inequality]
-	Let \(p\ge1\). A probability measure \(\mu\) on \(\R^d\) is said to satisfy the Talagrand transport inequality \(T_p(C_T)\) with constant
-	\(C_T>0\) if for every probability measure \(\nu\) on \(\R^d\) with finite \(p\)-th moment,
+	Let \(p\ge1\). Following Talagrand \cite{talagrand1996transportation}, a probability measure \(\mu\) on \(\R^d\) is said to satisfy
+	the Talagrand transport inequality \(T_p(C_T)\) with constant \(C_T>0\) if for every probability measure \(\nu\) on \(\R^d\)
+	with finite \(p\)-th moment,
 	\begin{equation*}
 		W_p(\nu,\mu)^2 \le 2C_T\,\Ent(\nu\mid \mu),
 	\end{equation*}
@@ -246,11 +246,9 @@ We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \eqref{eq:main-sd
 % Remark
 If \(K\) is compact, continuity of \(u\mapsto J_t(u)\) implies \(\mathcal K_t(K)<\infty\).
 This compact-set quantity is used because a corresponding supremum over all of \(\R^d\) need not be finite.
-The counterexamples of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite global constant
+The counterexamples of Mohammed--Scheutzow \cite{mohammed_scheutzow1998} show that even for globally Lipschitz coefficients one may fail
+to have a finite global constant
 \( \sup_{\substack{u\in\R^d\\ z\in\R^d,\ |z|=1}} |J_t(u,\omega)z| \) for a fixed \((t,\omega)\).
-
-% Intro for the theorem
-% Controlling the compact-set maximal Jacobian norm \(\mathcal K_t(K)\) requires estimates for the spatial increments \(J_t(u)-J_t(v)\).
 
 \begin{theorem}[Moments of the compact-set maximal Jacobian norm]\label{thm:kt-moment}
 	Assume \Cref{ass:wellposedness,ass:flow-differentiability}. Suppose in addition that there exists a constant
@@ -289,31 +287,21 @@ Indeed, for \(u,v\in K_0\),
 \end{align*}
 because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 
-\begin{corollary}[Pathwise logarithmic Sobolev inequality]\label{cor:pathwise-lsi}
-	Suppose that \(\mu_0\) satisfies \(\mathrm{LSI}(C_0)\).
-	Then, for every fixed \(t\ge0\) and almost every \(\omega\),
-	\begin{equation*}
-		\mu_t(\omega)=\mu_0\circ T_t(\omega,\cdot)^{-1}
-	\end{equation*}
-	satisfies
+% Logarithmic Sobolev inequality
+\begin{proposition}[Logarithmic Sobolev inequality]\label{prop:pathwise-lsi}
+	Suppose that \(\mu_0\) satisfies \(\mathrm{LSI}(C_0)\). Then, for every fixed \(t\ge0\) and almost every \(\omega\) satisfies
 	\begin{equation*}
 		\mathrm{LSI}\bigl(C_0\kappa_t(\omega)^2\bigr).
 	\end{equation*}
-\end{corollary}
+\end{proposition}
 
+% Proof of Logarithmic Sobolev inequality
 \begin{proof}
-	Fix \(t\ge0\) and \(\omega\) such that
-	\(u\mapsto T_t(\omega,u)\) is of class \(\cC^1\), and write
-	\begin{equation*}
-		T:=T_t(\omega,\cdot), \qquad J(u):=J_t(u,\omega), \qquad \kappa:=\kappa_t(\omega).
-	\end{equation*}
-
-	Let \(g\in\cC_c^1(\R^d)\) satisfy
+	Fix \(t\ge0\) and let \(g\in\cC_c^1(\R^d)\) satisfy
 	\begin{equation*}
 		\int_{\R^d}g^2\,d\mu_t(\omega)=1.
 	\end{equation*}
-	Choose \(\chi\in\cC_c^1(\R^d)\) such that
-	\(\chi=1\) on a neighborhood of \(K_0\), and set
+	Choose \(\chi\in\cC_c^1(\R^d)\) such that \(\chi=1\) on a neighborhood of \(K_0\), and set
 	\begin{equation*}
 		h(u):=\chi(u)g(T(u)).
 	\end{equation*}
@@ -330,26 +318,24 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	\end{align*}
 \end{proof}
 
+% Concentration inequality
 \begin{proposition}[Pathwise concentration transfer]\label{prop:concentration-transfer}
 	Suppose that \(\mu_0\) satisfies
 	\begin{equation*}
 		\mu_0\bigl(f-\mu_0(f)\ge r\bigr) \le \Psi(r), \qquad r\ge0,
 	\end{equation*}
-	for every \(1\)-Lipschitz function
-	\(f:\R^d\to\R\), where
-	\(\Psi:[0,\infty)\to[0,1]\) is nonincreasing.
+	for every \(1\)-Lipschitz function \(f:\R^d\to\R\), where \(\Psi:[0,\infty)\to[0,1]\) is nonincreasing.
 
-	Then, for every fixed \(t\ge0\), almost every \(\omega\), every
-	\(1\)-Lipschitz function \(g:\R^d\to\R\), and every \(r>0\),
+	Then, for every fixed \(t\ge0\), almost every \(\omega\), every \(1\)-Lipschitz function \(g:\R^d\to\R\), and every \(r>0\),
 	\begin{equation*}
 		\mu_t(\omega)\bigl(g-\mu_t(\omega)(g)\ge r\bigr) \le \Psi\left(\frac{r}{\kappa_t(\omega)}\right),
 	\end{equation*}
 	whenever \(\kappa_t(\omega)>0\).
 
-	If \(\kappa_t(\omega)=0\), then \(\mu_t(\omega)\) is a Dirac
-	mass and the probability on the left-hand side is zero.
+	If \(\kappa_t(\omega)=0\), then \(\mu_t(\omega)\) is a Dirac mass and the probability on the left-hand side is zero.
 \end{proposition}
 
+% Proof of Concentration inequality
 \begin{proof}
 	Fix \(t\ge0\) and \(\omega\) for which
 	\eqref{eq:flow-lipschitz-kappa} holds, and write
@@ -357,21 +343,15 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 		T:=T_t(\omega,\cdot), \qquad \kappa:=\kappa_t(\omega).
 	\end{equation*}
 
-	If \(\kappa=0\), then
-	\eqref{eq:flow-lipschitz-kappa} shows that \(T\) is constant
-	on \(K_0\). Since \(\mu_0\) is supported on \(K_0\),
-	\(\mu_t(\omega)\) is a Dirac mass.
+	If \(\kappa=0\), then \eqref{eq:flow-lipschitz-kappa} shows that \(T\) is constant
+	on \(K_0\). Since \(\mu_0\) is supported on \(K_0\), \(\mu_t(\omega)\) is a Dirac mass.
 
-	Suppose that \(\kappa>0\), let \(g:\R^d\to\R\) be
-	\(1\)-Lipschitz, and define on \(K_0\)
+	Suppose that \(\kappa>0\), let \(g:\R^d\to\R\) be \(1\)-Lipschitz, and define on \(K_0\)
 	\begin{equation*}
 		h(u):=\frac{g(T(u))}{\kappa}.
 	\end{equation*}
-	By \eqref{eq:flow-lipschitz-kappa}, \(h\) is \(1\)-Lipschitz
-	on \(K_0\). By the McShane extension theorem, there exists a
-	\(1\)-Lipschitz function
-	\(\widetilde h:\R^d\to\R\) such that
-	\(\widetilde h=h\) on \(K_0\).
+	By \eqref{eq:flow-lipschitz-kappa}, \(h\) is \(1\)-Lipschitz on \(K_0\). By the McShane extension theorem, there exists a
+	\(1\)-Lipschitz function \(\widetilde h:\R^d\to\R\) such that \(\widetilde h=h\) on \(K_0\).
 
 	Since \(\mu_0(K_0)=1\),
 	\begin{equation*}
@@ -385,10 +365,9 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 \end{proof}
 
 \begin{remark}[Concentration as a consequence of LSI]
-	If \(\mu_0\) satisfies a logarithmic Sobolev inequality, then
-	it satisfies a Gaussian concentration inequality. Therefore,
-	\Cref{cor:pathwise-lsi} yields a pathwise Gaussian concentration
-	inequality for \(\mu_t(\omega)\), with random concentration
+	If \(\mu_0\) satisfies a logarithmic Sobolev inequality, then it satisfies a Gaussian concentration inequality; see
+	\cite[Chapter~5]{ledoux2001concentration}. Therefore, \Cref{prop:pathwise-lsi} yields a pathwise Gaussian concentration inequality for
+	\(\mu_t(\omega)\), with random concentration
 	constant controlled by
 	\begin{equation*}
 		\kappa_t(\omega)^2=\mathcal K_t(K_0)^2.
@@ -396,25 +375,22 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 \end{remark}
 
 We next record the analogous stability property for Talagrand transport inequalities.
-
+% Transport inequality
 \begin{proposition}[Transport inequality under a localized Lipschitz pushforward]\label{prop:talagrand-pushforward}
-	Let \(\mu\) be a probability measure satisfying \(T_p(C_T)\)
-	for some \(p\ge1\), and suppose that
-	\(\supp(\mu)\subset K\) for some compact set
-	\(K\subset\R^d\).
+	Let \(\mu\) be a probability measure satisfying \(T_p(C_T)\) for some \(p\ge1\), and suppose that
+	\(\supp(\mu)\subset K\) for some compact set \(K\subset\R^d\).
 
-	Let \(T:\R^d\to\R^d\) be a Borel map whose restriction to \(K\)
-	is Lipschitz, and set
+	Let \(T:\R^d\to\R^d\) be a Borel map whose restriction to \(K\) is Lipschitz, and set
 	\begin{equation*}
 		L_K(T):=\sup_{\substack{u,v\in K\\u\neq v}}\frac{|T(u)-T(v)|}{|u-v|}.
 	\end{equation*}
-	Then the pushforward measure
-	\(\eta:=\mu\circ T^{-1}\) satisfies
+	Then the pushforward measure \(\eta:=\mu\circ T^{-1}\) satisfies
 	\begin{equation*}
 		T_p\bigl(C_T L_K(T)^2\bigr).
 	\end{equation*}
 \end{proposition}
 
+% Proof of Transport inequality
 \begin{proof}
 	Let \(\lambda\) be a probability measure on \(\R^d\).
 	If \(\lambda\not\ll\eta\), then
@@ -454,8 +430,10 @@ We next record the analogous stability property for Talagrand transport inequali
 % ============================================================
 \subsection{Proof of the compact-set Jacobian estimate}\label{subsec:kt-moment-proof}
 
+% Intro for two lemmas and subsection
 The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear stochastic equations.
 
+% First SDE lemma
 \begin{lemma}\label{lem:linear-sde-moment}
 	Let \(Y_t\) solve
 	\begin{equation*}
@@ -481,12 +459,14 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{equation*}
 \end{lemma}
 
+% Proof of the lemma
 \begin{proof}
-	Applying It\^o's formula to \(|Y_t|^{2q}\), after a standard
-	localization, gives
+	% It\^o's formula
+	Applying It\^o's formula to \(|Y_t|^{2q}\) gives
 	\begin{align*}
-		d|Y_t|^{2q} & = 2q|Y_t|^{2q-2}\langle Y_t,A_tY_t\rangle\,dt  + q|Y_t|^{2q-2} \sum_{\ell=1}^{r}|C_{\ell,t}Y_t|^2\,dt \\
-		            & \quad +2q(q-1)|Y_t|^{2q-4} \sum_{\ell=1}^{r} \langle Y_t,C_{\ell,t}Y_t\rangle^2\,dt +dM_t,
+		d|Y_t|^{2q} & = 2q|Y_t|^{2q-2}\langle Y_t,A_tY_t\rangle\,dt                                         \\
+		            & + q|Y_t|^{2q-2} \sum_{\ell=1}^{r}|C_{\ell,t}Y_t|^2\,dt                                \\
+		            & + 2q(q-1)|Y_t|^{2q-4} \sum_{\ell=1}^{r} \langle Y_t,C_{\ell,t}Y_t\rangle^2\,dt +dM_t,
 	\end{align*}
 	where \(M_t\) is a local martingale. Since
 	\begin{equation*}
@@ -502,8 +482,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 		\E|Y_t|^{2q} \le |y|^{2q} \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
 	\end{equation*}
 
-	For the matrix estimate, apply the vector estimate to
-	\(J_t(u)e_j\), \(j=1,\dots,d\), and use
+	For the matrix estimate, apply the vector estimate to \(J_t(u)e_j\), \(j=1,\dots,d\), and use
 	\begin{equation*}
 		\|J_t(u)\|^{2q} = \left(\sum_{j=1}^{d}|J_t(u)e_j|^2\right)^q \le d^{q-1}\sum_{j=1}^{d}|J_t(u)e_j|^{2q}.
 	\end{equation*}
@@ -561,11 +540,11 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 % 	The result follows from Gronwall's lemma.
 % \end{proof}
 
-% Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on the spatial argument
-% \(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
+Although the drift depends on the random measure \( \mu_t \), differentiation with respect to the initial label acts only on the spatial argument
+\(X_t(u) \). Because of that fact we can evaluate \(\|J_t(u)\|\) using Kunita's theorem for the stochastic flows.
 
-% Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986})
-% yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\cC^1\).
+Under \Cref{ass:wellposedness,ass:flow-differentiability}, standard results on stochastic flows (see, e.g., \cite[Theorem~1.4.1]{Kunita1986})
+yield a modification such that for a.s.\ \(\omega\) and each \(t\ge0\) the map \(u\mapsto T_t(\omega,u)\) is \(\cC^1\).
 
 \begin{proof}[Proof of \Cref{thm:kt-moment}]
 

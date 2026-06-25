@@ -18,4 +18,25 @@ Dorogovtsev, A.~A. and Wei{\ss}, A. (2023).
   with interaction.
 \newblock {\em Stochastics and Dynamics}, 23(7):2350056.
 
+\bibitem[Kunita, 1986]{Kunita1986}
+Kunita, H. (1986).
+\newblock {\em Lectures on Stochastic Flows and Applications}.
+\newblock Tata Institute of Fundamental Research, Bombay.
+
+\bibitem[Ledoux, 2001]{ledoux2001concentration}
+Ledoux, M. (2001).
+\newblock {\em The Concentration of Measure Phenomenon}, volume~89 of {\em
+  Mathematical Surveys and Monographs}.
+\newblock American Mathematical Society, Providence, RI.
+
+\bibitem[Mohammed and Scheutzow, 1998]{mohammed_scheutzow1998}
+Mohammed, S.-E.~A. and Scheutzow, M. K.~R. (1998).
+\newblock Spatial estimates for stochastic flows in euclidean space.
+\newblock {\em The Annals of Probability}, 26(1):56--77.
+
+\bibitem[Talagrand, 1996]{talagrand1996transportation}
+Talagrand, M. (1996).
+\newblock Transportation cost for {Gaussian} and other product measures.
+\newblock {\em Geometric and Functional Analysis}, 6(3):587--600.
+
 \end{thebibliography}
