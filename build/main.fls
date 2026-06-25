@@ -2,7 +2,7 @@ PWD /Users/kyrylopc/Research/paper3
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT main.tex
+INPUT /Users/kyrylopc/Research/paper3/main.tex
 OUTPUT build/main.log
 INPUT ./tsp-short.cls
 INPUT tsp-short.cls

@@ -115,33 +115,15 @@ differentiable with respect to the initial label, we write
 \end{equation*}
 and consider the three quantities described below.
 
-% The maximal Jacobian norm
-Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\) on the compact set \(K\),
+% Section 2 motivation 
+In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\)  on the compact set \(K\),
+Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\)
 \begin{equation*}
 	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op}.
 \end{equation*}
-
-% The Jacobian energy 
-The Jacobian energy \(\mathcal E_t\)
-\begin{equation*}
-	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du),
-\end{equation*}
-over the initial mass \( \mu_0 \). Averaged Jacobian energy can be estimated under weaker one-sided
-derivative conditions.
-
-% The pairwise energy
-The pairwise energy \(\mathcal D_t\)
-\begin{equation*}
-	\mathcal D_t :=	\iint_{\R^d\times\R^d} |T_t(u)-T_t(v)|^2\,\mu_0(du)\mu_0(dv).
-\end{equation*}
-measures deformation at finite scale by averaging the squared distance between two transported labels.
-Pairwise energy can be controlled directly through dissipativity of the dynamics, without obtaining a uniform Jacobian estimate
-
-% Section 2 motivation 
-In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\). We prove moment estimates for this random constant on compact sets and
+We prove moment estimates for this random constant on compact sets and
 show that it governs the pathwise transfer of logarithmic Sobolev, concentration, and transport inequalities from \(\mu_0\) to
 \(\mu_t\).
-
 % Logarithmic Sobolev inequality
 \begin{definition}[Logarithmic Sobolev inequality]
 	Denoting by \(\cC_c^1(\R^d)\) the set of continuously differentiable compactly supported functions from \(\R^d\) to \(\R\), for
@@ -174,15 +156,28 @@ show that it governs the pathwise transfer of logarithmic Sobolev, concentration
 \end{definition}
 
 % Section 3 motivation
-In \Cref{sec:averaged-jacobian}, we replace the supremum over labels by the averaged
-Jacobian energy \(\mathcal E_t\). This quantity does not provide the same uniform pathwise information, but it admits a direct estimate
-under weaker one-sided assumptions on the derivative coefficients.
+In \Cref{sec:averaged-jacobian}, we replace the supremum over labels by the averaged Jacobian energy \(\mathcal E_t\). T
+% The Jacobian energy 
+The Jacobian energy \(\mathcal E_t\)
+\begin{equation*}
+	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du),
+\end{equation*}
+over the initial mass \( \mu_0 \). Averaged Jacobian energy can be estimated under weaker one-sided
+derivative conditions.
 
 % Section 4 summary
 Finally, in \Cref{sec:internal-fluctuations}, we exploit the specific kernel-type interacting model,
 we impose a pairwise dissipativity condition and prove exponential decay of \(\E\mathcal D_t\).
 This decay means that the transported labels approach one another in mean square and that the random measure synchronizes around its random
 center of mass.
+
+% The pairwise energy
+The pairwise energy \(\mathcal D_t\)
+\begin{equation*}
+	\mathcal D_t :=	\iint_{\R^d\times\R^d} |T_t(u)-T_t(v)|^2\,\mu_0(du)\mu_0(dv).
+\end{equation*}
+measures deformation at finite scale by averaging the squared distance between two transported labels.
+Pairwise energy can be controlled directly through dissipativity of the dynamics, without obtaining a uniform Jacobian estimate
 
 \clearpage
 
@@ -710,7 +705,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% Then \(|\xi|=1\), \(Z_0=\xi\), and \(Z_t\) solves
 	% \begin{equation*}
 	%     \begin{cases}
-	%         dZ_t = \widetilde A_t(u,v)\,Z_t\,dt + \sum_{k=1}^d \widetilde C_t^{(k)}(u,v)\,Z_t\,dB_t^k, \\[2mm]
+	%         dZ_t = \widetilde A_t(u,v)\,Z_t\,dt + \sum_{\ell=1}^{r} \widetilde C_{\ell,t}(u,v)\,Z_t\,dB_t^\ell, \\[2mm]
 	%         Z_0 = \frac{u-v}{|u-v|}.                                                                   \\[2mm]
 	%     \end{cases}
 	% \end{equation*}
@@ -887,7 +882,7 @@ the maximal deformation on the whole support.
 	\end{equation}
 	and
 	\begin{equation}\label{eq:quadratic-diffusion-jacobian}
-		\sum_{k=1}^d|\partial_x\sigma^{(k)}(x)z|^2
+		\sum_{\ell=1}^{r}|\partial_x\sigma_\ell(x)z|^2
 		\le
 		\Gamma^2|z|^2,
 		\qquad x,z\in\R^d.
@@ -903,18 +898,18 @@ the maximal deformation on the whole support.
 \begin{proof}
 	Recall that
 	\begin{equation*}
-		dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{k=1}^d C_t^{(k)}(u)J_t(u)\,dB_t^k,
+		dJ_t(u) = A_t(u)J_t(u)\,dt + \sum_{\ell=1}^{r} C_{\ell,t}(u)J_t(u)\,dB_t^\ell,
 	\end{equation*}
 	where
 	\begin{equation*}
-		A_t(u)=\partial_x a(X_t(u),\mu_t), \qquad C_t^{(k)}(u)=\partial_x\sigma^{(k)}(X_t(u)).
+		A_t(u)=\partial_x a(X_t(u),\mu_t), \qquad C_{\ell,t}(u)=\partial_x\sigma_\ell(X_t(u)).
 	\end{equation*}
 	Applying It\^o's formula to \(\|J_t(u)\|_{\HS}^2\) gives
 	\begin{align*}
 		d\|J_t(u)\|_{\HS}^2 & =
 		\bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle_{\HS} +
-		\sum_{k=1}^d\|C_t^{(k)}(u)J_t(u)\|_{\HS}^2 \bigg]dt                                                 \\
-		                    & \quad + 2\sum_{k=1}^d \langle J_t(u),C_t^{(k)}(u)J_t(u)\rangle_{\HS}\,dB_t^k.
+		\sum_{\ell=1}^{r}\|C_{\ell,t}(u)J_t(u)\|_{\HS}^2 \bigg]dt                                                    \\
+		                    & \quad + 2\sum_{\ell=1}^{r} \langle J_t(u),C_{\ell,t}(u)J_t(u)\rangle_{\HS}\,dB_t^\ell.
 	\end{align*}
 	Since
 	\begin{equation*}
@@ -926,7 +921,7 @@ the maximal deformation on the whole support.
 	\end{equation*}
 	Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
 	\begin{equation*}
-		\sum_{k=1}^d\|C_t^{(k)}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{k=1}^d|C_t^{(k)}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
+		\sum_{\ell=1}^{r}\|C_{\ell,t}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{\ell=1}^{r}|C_{\ell,t}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
 	\end{equation*}
 	Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
 	martingale term, hence
