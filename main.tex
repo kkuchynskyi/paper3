@@ -75,8 +75,8 @@ We consider stochastic differential equations with interaction that were propose
 	\end{cases}
 \end{equation}
 % The details of the SDEWI
-Here \(\mu_0\) is a deterministic initial probability measure, where \(\cP_2(\R^d)\) denotes the space of probability measures
-on \(\R^d\) with finite second moment. \(a:\R^d\times\cP_2(\R^d)\to\R^d\) is the drift and the diffusion coefficient
+Here \( \mu_0\in\mathcal P_2(\mathbb R^d).\) is a deterministic initial probability measure, where \(\cP_2(\R^d)\) denotes
+the space of probability measures on \(\R^d\) with finite second moment. \(a:\R^d\times\cP_2(\R^d)\to\R^d\) is the drift and the diffusion coefficient
 \(\sigma_\ell:\R^d\to\R^d, \quad \ell=1,\ldots,r,\) is state-dependent and non-constant. Let
 \( (\Omega,(\mathcal F_t)_{t\ge0},\mathbb P) \) be a filtered probability space satisfying the usual
 conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) \).
@@ -945,15 +945,7 @@ and integrates in \(u\), so the one-sided bounds \cref{eq:one-sided-drift-jacobi
 This section concerns a separate kernel-type interacting model. In contrast to \eqref{eq:main-sdewi}, both the drift and diffusion may depend on
 the order parameter \(\Theta_t\). Consequently, the assumptions of \cref{sec:jacobian-bound,sec:averaged-jacobian} are not imposed here.
 
-Let \(q\ge1\), and let
-\begin{equation*}
-	\Phi:\R^d\to\R^q,\qquad b:\R^d\times\R^q\to\R^d,\qquad F:\R^d\times\R^d\times\R^q\to\R^d,
-\end{equation*}
-with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
-\begin{equation*}
-	\theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx), \qquad \Theta_t:=\theta(\mu_t)=\int_{\R^d}\Phi(X_t(v))\,\mu_0(dv).
-\end{equation*}
-
+% kernel-type interacting model
 \begin{equation}\label{eq:kernel-sdewi}
 	\begin{cases}
 		dX_t(u) & = \bigg[ b(X_t(u),\Theta_t) + \int_{\R^d} F(X_t(u),X_t(v),\Theta_t)\,\mu_0(dv) \bigg]dt \\
@@ -962,6 +954,16 @@ with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
 		\mu_t   & =\mu_0\circ X_t^{-1}.
 	\end{cases}
 \end{equation}
+
+% the parameters of the kernel-type interacting model
+Let \(q\ge1\), and let
+\begin{equation*}
+	\Phi:\R^d\to\R^q,\qquad b:\R^d\times\R^q\to\R^d,\qquad F:\R^d\times\R^d\times\R^q\to\R^d,
+\end{equation*}
+with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
+\begin{equation*}
+	\theta(\mu):=\int_{\R^d}\Phi(x)\,\mu(dx), \qquad \Theta_t:=\theta(\mu_t)=\int_{\R^d}\Phi(X_t(v))\,\mu_0(dv).
+\end{equation*}
 
 % Dissipativity Assumptions on global Lipschitz and growth hypotheses.
 \begin{assumption}[Well-posedness of \Cref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
@@ -981,7 +983,7 @@ with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
 % Well-posedness of the SDEWI
 Under \Cref{ass:kernel-wellposedness}, equation \eqref{eq:kernel-sdewi} admits a unique global continuous solution.
 
-This section studies the pairwise energy
+This section studies the pairwise energy for \eqref{eq:kernel-sdewi}
 \begin{equation*}
 	\mathcal D_t := \iint_{\R^d\times\R^d} |X_t(u)-X_t(v)|^2\,\mu_0(du)\mu_0(dv).
 \end{equation*}
@@ -1077,7 +1079,7 @@ The dissipativity condition covers several basic models.
 % Proof
 % ============================================================
 \subsection{Proof}\label{subsec:synchronization-proof}
-\begin{theorem}[Synchronization under dissipativity assumptions]\label{thm:synchronization-dissipativity}
+\begin{theorem}\label{thm:synchronization-dissipativity}
 	Assume that \(\mu_0\in\cP_2(\R^d)\) and that \Cref{ass:pairwise-dissipativity} holds. Then
 	\begin{equation*}
 		\E\mathcal D_t \le e^{-\lambda t}\mathcal D_0.
