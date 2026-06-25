@@ -20,8 +20,6 @@
 \newcommand{\cC}{\mathcal{C}} % function classes
 \newcommand{\E}{\mathbb E} % expectation
 \newcommand{\supp}{\mathrm{supp}} % support
-\newcommand{\op}{\mathrm{op}} % operator norm
-\newcommand{\HS}{\mathrm{HS}} % Hilbert--Schmidt norm
 \DeclareMathOperator{\Ent}{Ent} % entropy
 \DeclareMathOperator{\Var}{Var} % variance
 \DeclareMathOperator{\Lip}{Lip} % Lipschitz constant
@@ -76,8 +74,8 @@ We consider stochastic differential equations with interaction that were propose
 \end{equation}
 % The details of the SDEWI
 Here \( \mu_0\in\mathcal P_2(\mathbb R^d).\) is a deterministic initial probability measure, where \(\cP_2(\R^d)\) denotes
-the space of probability measures on \(\R^d\) with finite second moment. \(a:\R^d\times\cP_2(\R^d)\to\R^d\) is the drift and the diffusion coefficient
-\(\sigma_\ell:\R^d\to\R^d, \quad \ell=1,\ldots,r,\) is state-dependent and non-constant. Let
+the space of probability measures on \(\R^d\) with finite second moment. The drift is \(a:\R^d\times\cP_2(\R^d)\to\R^d\), and the diffusion
+coefficients \(\sigma_\ell:\R^d\to\R^d\), \(\ell=1,\ldots,r\), are state-dependent and non-constant. Let
 \( (\Omega,(\mathcal F_t)_{t\ge0},\mathbb P) \) be a filtered probability space satisfying the usual
 conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) \).
 
@@ -94,8 +92,6 @@ conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) 
 % The remarks on the solution
 Under \Cref{ass:wellposedness}, the SDEWI~\eqref{eq:main-sdewi} admits a unique global solution; see
 \cite[Theorem~2.3.1]{dorogovtsev2023}.
-% This assumption remains in force throughout \Cref{sec:jacobian-bound,sec:averaged-jacobian}.
-% \Cref{sec:internal-fluctuations} concerns a different kernel model and is treated under separate assumptions.
 
 % The map of SDEWI as a random transport. The central question of this paper
 Unlike a classical stochastic differential equation, the drift depends on the push-forward of the entire system through the random measure
@@ -115,11 +111,25 @@ differentiable with respect to the initial label, we write
 \end{equation*}
 and consider the three quantities described below.
 
+Throughout the paper, \(|\cdot|\) denotes the Euclidean norm and
+inner product on finite-dimensional vector spaces. For matrices
+\(M,N\) of the same size, we write
+\begin{equation*}
+	\|M\| := \bigl(\operatorname{Tr}(M^{\mathsf T}M)\bigr)^{1/2}, \qquad \langle M,N\rangle := \operatorname{Tr}(M^{\mathsf T}N).
+\end{equation*}
+Thus \(\|\cdot\|\) is always the Hilbert--Schmidt norm when its
+argument is a matrix. In particular,
+\begin{equation*}
+	|Mz|\le \|M\|\,|z|.
+\end{equation*}
+When the operator action of a matrix is needed, it will be written
+explicitly as \(\sup_{|z|=1}|Mz|\).
+
 % Section 2 motivation 
 In \Cref{sec:jacobian-bound}, we study \(\mathcal K_t(K)\)  on the compact set \(K\),
 Firstly, we consider the maximal Jacobian norm \(\mathcal K_t(K)\)
 \begin{equation*}
-	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op}.
+	\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|.
 \end{equation*}
 We prove moment estimates for this random constant on compact sets and
 show that it governs the pathwise transfer of logarithmic Sobolev, concentration, and transport inequalities from \(\mu_0\) to
@@ -160,7 +170,7 @@ In \Cref{sec:averaged-jacobian}, we replace the supremum over labels by the aver
 % The Jacobian energy 
 The Jacobian energy \(\mathcal E_t\)
 \begin{equation*}
-	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du),
+	\mathcal E_t := \int_{\R^d}\|J_t(u)\|^2\,\mu_0(du),
 \end{equation*}
 over the initial mass \( \mu_0 \). Averaged Jacobian energy can be estimated under weaker one-sided
 derivative conditions.
@@ -199,11 +209,12 @@ random pushforward measure \( \mu_t \). The technical proof of the compact-set J
 	\end{equation*}
 \end{assumption}
 
-By \Cref{ass:wellposedness,ass:flow-differentiability},
+By \Cref{ass:wellposedness,ass:flow-differentiability}, for all
+\(x,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\),
 \begin{equation}\label{eq:basic-derivative-bounds}
-	\|\partial_x a(x,\mu)\|_{\op}\le L_x, \qquad \sum_{\ell=1}^{r}|\partial_x\sigma_\ell(x)z|^2 \le L_\sigma^2|z|^2
+	|\partial_x a(x,\mu)z| \le L_x|z|, \qquad \sum_{\ell=1}^{r} |\partial_x\sigma_\ell(x)z|^2 \le L_\sigma^2|z|^2.
 \end{equation}
-for all \(x,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\)
+for all \(x,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\). Here one may take \(L_x=L_\sigma=L\).
 
 % ============================================================
 % The Jacobian flow
@@ -211,7 +222,7 @@ for all \(x,z\in\R^d\) and \(\mu\in\cP_2(\R^d)\)
 \subsection{The Jacobian flow}\label{subsec:jacobian-flow-distortion-constants}
 
 % Roadmap to the subsection
-We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sdewi}, it has the following form.
+We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \eqref{eq:main-sdewi}, it has the following form.
 
 % Jacobian SDE
 \begin{theorem}[Jacobian equation] \label{thm:jacobian-sde}
@@ -226,9 +237,7 @@ We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sde
 	\end{equation}
 	where
 	\begin{equation*}
-		A_t(u):=\partial_x a\bigl(X_t(u),\mu_t\bigr),
-		\qquad
-		C_{\ell,t}(u):=\partial_x\sigma_\ell\bigl(X_t(u)\bigr).
+		A_t(u):=\partial_x a\bigl(X_t(u),\mu_t\bigr), \qquad C_{\ell,t}(u):=\partial_x\sigma_\ell\bigl(X_t(u)\bigr).
 	\end{equation*}
 \end{theorem}
 
@@ -236,7 +245,7 @@ We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sde
 \begin{definition}[Random Jacobian constant]\label{def:jacobian-constant}
 	For a nonempty set \(K\subset\R^d\), define
 	\begin{equation*}
-		\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|_{\op}.
+		\mathcal K_t(K):=\sup_{u\in K}\|J_t(u)\|.
 	\end{equation*}
 \end{definition}
 
@@ -244,7 +253,7 @@ We use the Jacobian SDE from \cite{dorogovtsev_weiss2023}. For \cref{eq:main-sde
 If \(K\) is compact, continuity of \(u\mapsto J_t(u)\) implies \(\mathcal K_t(K)<\infty\).
 This compact-set quantity is used because a corresponding supremum over all of \(\R^d\) need not be finite.
 The counterexamples of Mohammed--Scheutzow show that even for globally Lipschitz coefficients one may fail to have a finite global constant
-\(\sup_{u\in\R^d}\|J_t(u,\omega)\|_{\op}\) for a fixed \((t,\omega)\).
+\( \sup_{\substack{u\in\R^d\\ z\in\R^d,\ |z|=1}} |J_t(u,\omega)z| \) for a fixed \((t,\omega)\).
 
 % Intro for the theorem
 % Controlling the compact-set maximal Jacobian norm \(\mathcal K_t(K)\) requires estimates for the spatial increments \(J_t(u)-J_t(v)\).
@@ -273,9 +282,7 @@ The proof is given in \Cref{subsec:kt-moment-proof}.
 
 Throughout this subsection, assume that \(\supp(\mu_0)\) is compact and set
 \begin{equation}\label{eq:initial-convex-hull}
-	K_0:=\operatorname{co}\bigl(\supp(\mu_0)\bigr),
-	\qquad
-	\kappa_t(\omega):=\mathcal K_t(K_0).
+	K_0:=\operatorname{co}\bigl(\supp(\mu_0)\bigr), \qquad \kappa_t(\omega):=\mathcal K_t(K_0).
 \end{equation}
 Since \(K_0\) is compact and convex, for every fixed \(t\ge0\) and almost every \(\omega\),
 \begin{equation}\label{eq:flow-lipschitz-kappa}
@@ -283,8 +290,8 @@ Since \(K_0\) is compact and convex, for every fixed \(t\ge0\) and almost every 
 \end{equation}
 Indeed, for \(u,v\in K_0\),
 \begin{align*}
-	|T_t(\omega,u)-T_t(\omega,v)| & \le \int_0^1 \left\| J_t\bigl(v+s(u-v),\omega\bigr) \right\|_{\op} |u-v|\,ds \\
-	                              & \le \kappa_t(\omega)|u-v|,
+	|T_t(\omega,u)-T_t(\omega,v)| & \le \int_0^1\left| J_t\bigl(v+s(u-v),\omega\bigr)(u-v) \right|\,ds \\
+	                              & \le \kappa_t(\omega)|u-v|.
 \end{align*}
 because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 
@@ -292,15 +299,11 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	Suppose that \(\mu_0\) satisfies \(\mathrm{LSI}(C_0)\).
 	Then, for every fixed \(t\ge0\) and almost every \(\omega\),
 	\begin{equation*}
-		\mu_t(\omega)
-		=
-		\mu_0\circ T_t(\omega,\cdot)^{-1}
+		\mu_t(\omega)=\mu_0\circ T_t(\omega,\cdot)^{-1}
 	\end{equation*}
 	satisfies
 	\begin{equation*}
-		\mathrm{LSI}\bigl(
-		C_0\kappa_t(\omega)^2
-		\bigr).
+		\mathrm{LSI}\bigl(C_0\kappa_t(\omega)^2\bigr).
 	\end{equation*}
 \end{corollary}
 
@@ -308,11 +311,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	Fix \(t\ge0\) and \(\omega\) such that
 	\(u\mapsto T_t(\omega,u)\) is of class \(\cC^1\), and write
 	\begin{equation*}
-		T:=T_t(\omega,\cdot),
-		\qquad
-		J(u):=J_t(u,\omega),
-		\qquad
-		\kappa:=\kappa_t(\omega).
+		T:=T_t(\omega,\cdot), \qquad J(u):=J_t(u,\omega), \qquad \kappa:=\kappa_t(\omega).
 	\end{equation*}
 
 	Let \(g\in\cC_c^1(\R^d)\) satisfy
@@ -326,41 +325,21 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	\end{equation*}
 	Since \(\mu_0\) is supported on \(K_0\),
 	\begin{equation*}
-		h(u)=g(T(u)),
-		\qquad
-		\partial h(u)
-		=
-		J(u)^{\mathsf T}\partial g(T(u)),
-		\qquad u\in K_0.
+		h(u)=g(T(u)), \qquad \partial h(u)=J(u)^{\mathsf T}\partial g(T(u)), \qquad u\in K_0.
 	\end{equation*}
 	Consequently,
 	\begin{align*}
-		\Ent_{\mu_t(\omega)}(g^2)
-		 & =
-		\Ent_{\mu_0}(h^2)               \\
-		 & \le
-		C_0\int_{K_0}
-		\left|
-		J(u)^{\mathsf T}\partial g(T(u))
-		\right|^2
-		\,\mu_0(du)                     \\
-		 & \le
-		C_0\kappa^2
-		\int_{K_0}
-		|\partial g(T(u))|^2\,\mu_0(du) \\
-		 & =
-		C_0\kappa^2
-		\int_{\R^d}
-		|\partial g(x)|^2\,\mu_t(\omega,dx).
+		\Ent_{\mu_t(\omega)}(g^2) & = \Ent_{\mu_0}(h^2)                                                         \\
+		                          & \le C_0\int_{K_0}\left|J(u)^{\mathsf T}\partial g(T(u))\right|^2\,\mu_0(du) \\
+		                          & \le C_0\kappa^2\int_{K_0}|\partial g(T(u))|^2\,\mu_0(du)                    \\
+		                          & = C_0\kappa^2\int_{\R^d}|\partial g(x)|^2\,\mu_t(\omega,dx).
 	\end{align*}
 \end{proof}
 
 \begin{proposition}[Pathwise concentration transfer]\label{prop:concentration-transfer}
 	Suppose that \(\mu_0\) satisfies
 	\begin{equation}\label{eq:general-concentration-mu0}
-		\mu_0\bigl(f-\mu_0(f)\ge r\bigr)
-		\le \Psi(r),
-		\qquad r\ge0,
+		\mu_0\bigl(f-\mu_0(f)\ge r\bigr) \le \Psi(r), \qquad r\ge0,
 	\end{equation}
 	for every \(1\)-Lipschitz function
 	\(f:\R^d\to\R\), where
@@ -369,12 +348,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	Then, for every fixed \(t\ge0\), almost every \(\omega\), every
 	\(1\)-Lipschitz function \(g:\R^d\to\R\), and every \(r>0\),
 	\begin{equation}\label{eq:general-concentration-mut}
-		\mu_t(\omega)
-		\bigl(g-\mu_t(\omega)(g)\ge r\bigr)
-		\le
-		\Psi\left(
-		\frac{r}{\kappa_t(\omega)}
-		\right),
+		\mu_t(\omega)\bigl(g-\mu_t(\omega)(g)\ge r\bigr) \le \Psi\left(\frac{r}{\kappa_t(\omega)}\right),
 	\end{equation}
 	whenever \(\kappa_t(\omega)>0\).
 
@@ -386,9 +360,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	Fix \(t\ge0\) and \(\omega\) for which
 	\eqref{eq:flow-lipschitz-kappa} holds, and write
 	\begin{equation*}
-		T:=T_t(\omega,\cdot),
-		\qquad
-		\kappa:=\kappa_t(\omega).
+		T:=T_t(\omega,\cdot), \qquad \kappa:=\kappa_t(\omega).
 	\end{equation*}
 
 	If \(\kappa=0\), then
@@ -409,21 +381,12 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 
 	Since \(\mu_0(K_0)=1\),
 	\begin{equation*}
-		\mu_0(\widetilde h)=\mu_0(h)
-		=
-		\frac{1}{\kappa}\mu_t(\omega)(g).
+		\mu_0(\widetilde h)=\mu_0(h)=\frac{1}{\kappa}\mu_t(\omega)(g).
 	\end{equation*}
 	Therefore,
 	\begin{align*}
-		 & \mu_t(\omega)
-		\bigl(g-\mu_t(\omega)(g)\ge r\bigr) \\
-		 & \qquad=
-		\mu_0\left(
-		\widetilde h-\mu_0(\widetilde h)
-		\ge\frac{r}{\kappa}
-		\right)                             \\
-		 & \qquad\le
-		\Psi\left(\frac{r}{\kappa}\right).
+		\mu_t(\omega)\bigl(g-\mu_t(\omega)(g)\ge r\bigr) & = \mu_0\left(\widetilde h-\mu_0(\widetilde h)\ge\frac{r}{\kappa}\right) \\
+		                                                 & \le \Psi\left(\frac{r}{\kappa}\right).
 	\end{align*}
 \end{proof}
 
@@ -434,9 +397,7 @@ because \(v+s(u-v)\in K_0\) for every \(s\in[0,1]\).
 	inequality for \(\mu_t(\omega)\), with random concentration
 	constant controlled by
 	\begin{equation*}
-		\kappa_t(\omega)^2
-		=
-		\mathcal K_t(K_0)^2.
+		\kappa_t(\omega)^2=\mathcal K_t(K_0)^2.
 	\end{equation*}
 \end{remark}
 
@@ -451,9 +412,7 @@ We next record the analogous stability property for Talagrand transport inequali
 	Let \(T:\R^d\to\R^d\) be a Borel map whose restriction to \(K\)
 	is Lipschitz, and set
 	\begin{equation*}
-		L_K(T):=
-		\sup_{\substack{u,v\in K\\u\neq v}}
-		\frac{|T(u)-T(v)|}{|u-v|}.
+		L_K(T):=\sup_{\substack{u,v\in K\\u\neq v}}\frac{|T(u)-T(v)|}{|u-v|}.
 	\end{equation*}
 	Then the pushforward measure
 	\(\eta:=\mu\circ T^{-1}\) satisfies
@@ -470,17 +429,11 @@ We next record the analogous stability property for Talagrand transport inequali
 	Suppose that \(\lambda\ll\eta\), write
 	\(\varphi:=d\lambda/d\eta\), and define
 	\begin{equation*}
-		\widetilde\lambda(du)
-		:=
-		\varphi(T(u))\,\mu(du).
+		\widetilde\lambda(du):=\varphi(T(u))\,\mu(du).
 	\end{equation*}
 	Then
 	\begin{equation*}
-		\widetilde\lambda\circ T^{-1}=\lambda,
-		\qquad
-		\Ent(\widetilde\lambda\mid\mu)
-		=
-		\Ent(\lambda\mid\eta).
+		\widetilde\lambda\circ T^{-1}=\lambda, \qquad \Ent(\widetilde\lambda\mid\mu)=\Ent(\lambda\mid\eta).
 	\end{equation*}
 
 	Moreover,
@@ -488,28 +441,17 @@ We next record the analogous stability property for Talagrand transport inequali
 	\(\pi\) of \(\widetilde\lambda\) and \(\mu\) is concentrated on
 	\(K\times K\), and therefore
 	\begin{align*}
-		\int|T(u)-T(v)|^p\,\pi(du,dv)
-		 & \le
-		L_K(T)^p
-		\int|u-v|^p\,\pi(du,dv).
+		\int|T(u)-T(v)|^p\,\pi(du,dv) & \le L_K(T)^p\int|u-v|^p\,\pi(du,dv).
 	\end{align*}
 	Taking the infimum over \(\pi\) gives
 	\begin{equation*}
-		W_p(\lambda,\eta)
-		\le
-		L_K(T)W_p(\widetilde\lambda,\mu).
+		W_p(\lambda,\eta) \le L_K(T)W_p(\widetilde\lambda,\mu).
 	\end{equation*}
 	Consequently,
 	\begin{align*}
-		W_p(\lambda,\eta)^2
-		 & \le
-		L_K(T)^2W_p(\widetilde\lambda,\mu)^2 \\
-		 & \le
-		2C_TL_K(T)^2
-		\Ent(\widetilde\lambda\mid\mu)       \\
-		 & =
-		2C_TL_K(T)^2
-		\Ent(\lambda\mid\eta).
+		W_p(\lambda,\eta)^2 & \le L_K(T)^2W_p(\widetilde\lambda,\mu)^2       \\
+		                    & \le 2C_TL_K(T)^2\Ent(\widetilde\lambda\mid\mu) \\
+		                    & = 2C_TL_K(T)^2\Ent(\lambda\mid\eta).
 	\end{align*}
 \end{proof}
 
@@ -531,8 +473,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 
 	Assume that, for every \(z\in\R^d\),
 	\begin{equation*}
-		\langle z,A_tz\rangle \le L_x|z|^2, \qquad
-		\sum_{\ell=1}^{r}|C_{\ell,t}z|^2  \le L_\sigma^2|z|^2.
+		\langle z,A_tz\rangle \le L_x|z|^2, \qquad \sum_{\ell=1}^{r}|C_{\ell,t}z|^2 \le L_\sigma^2|z|^2.
 	\end{equation*}
 
 	Then, for every \(q\ge1\),
@@ -542,7 +483,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 
 	Consequently,
 	\begin{equation*}
-		\E\|J_t(u)\|_{\op}^{2q} \le d^q \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
+		\E\|J_t(u)\|^{2q} \le d^q \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
 	\end{equation*}
 \end{lemma}
 
@@ -567,19 +508,19 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 		\E|Y_t|^{2q} \le |y|^{2q} \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
 	\end{equation*}
 
-	For the matrix estimate, apply the vector estimate to \(J_t(u)e_j\), \(j=1,\dots,d\), and use
+	For the matrix estimate, apply the vector estimate to
+	\(J_t(u)e_j\), \(j=1,\dots,d\), and use
 	\begin{equation*}
-		\|J_t(u)\|_{\op}^{2q} \le \|J_t(u)\|_{\HS}^{2q} = \left(\sum_{j=1}^{d}|J_t(u)e_j|^2\right)^q
-		\le d^{q-1}\sum_{j=1}^{d}|J_t(u)e_j|^{2q}.
+		\|J_t(u)\|^{2q} = \left(\sum_{j=1}^{d}|J_t(u)e_j|^2\right)^q \le d^{q-1}\sum_{j=1}^{d}|J_t(u)e_j|^{2q}.
 	\end{equation*}
 	This gives
 	\begin{equation*}
-		\E\|J_t(u)\|_{\op}^{2q} \le d^q \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
+		\E\|J_t(u)\|^{2q} \le d^q \exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t\right\}.
 	\end{equation*}
 \end{proof}
 
-% The preceding lemma applies directly to \(X_t(u)-X_t(v)\), because the difference of two trajectories driven by the same Brownian motion satisfies
-% a homogeneous linear equation with random coefficients. The difference \(J_t(u)-J_t(v)\), however, satisfies an inhomogeneous linear equation: the
+% The preceding lemma applies directly to \(X_t(u)-X_t(v)\), because the difference of two trajectories driven by the same Brownian motion
+% satisfies a homogeneous linear equation with random coefficients. The difference \(J_t(u)-J_t(v)\) satisfies an inhomogeneous linear equation:
 % additional terms arise from evaluating the derivative coefficients along the two different trajectories. We therefore record the corresponding
 % moment estimate.
 
@@ -587,43 +528,40 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	Let \(m\ge2\) be an even integer, and suppose that the
 	matrix-valued process \(D_t\) satisfies
 	\begin{equation*}
-		dD_t = A_tD_t\,dt +\sum_{\ell=1}^{r}C_{\ell,t}D_t\,dB_t^\ell
-		+F_t\,dt +\sum_{\ell=1}^{r}G_{\ell,t}\,dB_t^\ell.
+		dD_t = A_tD_t\,dt + \sum_{\ell=1}^{r}C_{\ell,t}D_t\,dB_t^\ell + F_t\,dt + \sum_{\ell=1}^{r}G_{\ell,t}\,dB_t^\ell.
 	\end{equation*}
 	Assume that, for every \(M\in\R^{d\times d}\),
 	\begin{equation*}
-		\langle M,A_tM\rangle_{\HS} \le L_x\|M\|_{\HS}^2, \qquad
-		\sum_{\ell=1}^{r}\|C_{\ell,t}M\|_{\HS}^2 \le L_\sigma^2\|M\|_{\HS}^2.
+		\langle M,A_tM\rangle \le L_x\|M\|^2, \qquad \sum_{\ell=1}^{r}\|C_{\ell,t}M\|^2 \le L_\sigma^2\|M\|^2.
 	\end{equation*}
 	Then there exist constants \(C_m,c_m<\infty\), depending only on
 	\(m,L_x,L_\sigma\), such that
 	\begin{align*}
-		\E\|D_t\|_{\HS}^m & \le e^{c_mt}\E\|D_0\|_{\HS}^m                            \\
-		                  & \quad +C_m\int_0^t e^{c_m(t-s)} \left[ \E\|F_s\|_{\HS}^m
-		+ \E\left( \sum_{\ell=1}^{r}\|G_{\ell,s}\|_{\HS}^2 \right)^{m/2} \right]ds.
+		\E\|D_t\|^m & \le e^{c_mt}\E\|D_0\|^m                                                                                                  \\
+		            & \quad +C_m\int_0^t e^{c_m(t-s)} \left[ \E\|F_s\|^m + \E\left( \sum_{\ell=1}^{r}\|G_{\ell,s}\|^2 \right)^{m/2} \right]ds.
 	\end{align*}
 \end{lemma}
 
 % \begin{proof}
-% 	Apply It\^o's formula to \(\|D_t\|_{\HS}^m\), after localization.
+% 	Apply It\^o's formula to \(\|D_t\|^m\), after localization.
 % 	Using
 % 	\begin{equation*}
 % 		\sum_{\ell=1}^{r}
-% 		\|C_{\ell,t}D_t+G_{\ell,t}\|_{\HS}^2
+% 		\|C_{\ell,t}D_t+G_{\ell,t}\|^2
 % 		\le
-% 		2L_\sigma^2\|D_t\|_{\HS}^2
+% 		2L_\sigma^2\|D_t\|^2
 % 		+
-% 		2\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+% 		2\sum_{\ell=1}^{r}\|G_{\ell,t}\|^2
 % 	\end{equation*}
 % 	and Young's inequality gives
 % 	\begin{align*}
-% 		\frac{d}{dt}\E\|D_t\|_{\HS}^m
+% 		\frac{d}{dt}\E\|D_t\|^m
 % 		 & \le
-% 		c_m\E\|D_t\|_{\HS}^m
-% 		+C_m\E\|F_t\|_{\HS}^m \\
+% 		c_m\E\|D_t\|^m
+% 		+C_m\E\|F_t\|^m \\
 % 		 & \quad
 % 		+C_m\E\left(
-% 		\sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2
+% 		\sum_{\ell=1}^{r}\|G_{\ell,t}\|^2
 % 		\right)^{m/2}.
 % 	\end{align*}
 % 	The result follows from Gronwall's lemma.
@@ -678,16 +616,21 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{equation*}
 
 	% making sure the condition of lemma hold true
-	Moreover, by \eqref{eq:basic-derivative-bounds},
+	Moreover, by \eqref{eq:basic-derivative-bounds}, for every
+	\(z\in\R^d\),
 	\begin{equation*}
-		\|\widetilde A_t(u,v)\|_{\op}\le L_x.
+		|\widetilde A_t(u,v)z| \le L_x|z|.
+	\end{equation*}
+	Consequently,
+	\begin{equation*}
+		\langle z,\widetilde A_t(u,v)z\rangle \le L_x|z|^2.
 	\end{equation*}
 	Jensen's inequality also gives, for every \(z\in\R^d\),
-	\begin{equation*}
+	\begin{align*}
 		\sum_{\ell=1}^{r} |\widetilde C_{\ell,t}(u,v)z|^2
-		\le \int_0^1 \sum_{\ell=1}^{r} \left| \partial_x\sigma_\ell\bigl( X_t(v)+\theta\Delta X_t \bigr)z \right|^2\,d\theta
-		\le L_\sigma^2|z|^2.
-	\end{equation*}
+		 & \le \int_0^1 \sum_{\ell=1}^{r} \left| \partial_x\sigma_\ell\bigl( X_t(v)+\theta\Delta X_t \bigr)z \right|^2\,d\theta \\
+		 & \le L_\sigma^2|z|^2.
+	\end{align*}
 
 	% Applying lemma for the liner sde moments
 	Applying \Cref{lem:linear-sde-moment} with \(q=m/2\) and with \(q=m\), respectively, yields
@@ -726,14 +669,11 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 
 	\Cref{lem:linear-sde-moment} gives, for every \(q\ge1\) and every \(u\in\R^d\),
 	\begin{equation*}
-		\E\,\|J_t(u)\|_{\op}^{2q}
-		\le d^q \exp\Big(q(2L+dL_\sigma^2)t+2q^2 dL_\sigma^2 t\Big).
+		\E\|J_t(u)\|^{2q} \le d^q\exp\left\{ q\bigl(2L_x+(2q-1)L_\sigma^2\bigr)t \right\}.
 	\end{equation*}
 	In particular, taking \(q=m/2\) and \(q=m\), we obtain
 	\begin{equation}\label{eq:jacobian-moment}
-		\E\,\|J_t(u)\|_{\op}^m \le C_m e^{c_m t}, \qquad
-		\E\,\|J_t(u)\|_{\op}^{2m}
-		\le C_m e^{c_m t},
+		\E\|J_t(u)\|^m \le C_m e^{c_m t}, \qquad \E\|J_t(u)\|^{2m} \le C_m e^{c_m t},
 	\end{equation}
 	uniformly in \(u\in\R^d\).
 
@@ -745,8 +685,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% define the difference D_t
 	Set
 	\begin{equation*}
-		A_t(w):=\partial_x a(X_t(w),\mu_t), \qquad
-		C_{\ell,t}(w):=\partial_x\sigma_\ell(X_t(w)), \qquad \ell=1,\dots,r.
+		A_t(w):=\partial_x a(X_t(w),\mu_t), \qquad C_{\ell,t}(w):=\partial_x\sigma_\ell(X_t(w)), \qquad \ell=1,\dots,r.
 	\end{equation*}
 	% set the sde for D_t equation
 	Subtracting the Jacobian equations at \(u\) and \(v\), we obtain
@@ -769,55 +708,48 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% using the assumptions
 	For every \(M\in\R^{d\times d}\),
 	\begin{equation*}
-		\langle M,A_t(u)M\rangle_{\HS} \le L_x\|M\|_{\HS}^2,
+		\langle M,A_t(u)M\rangle \le L_x\|M\|^2,
 	\end{equation*}
 	and
 	\begin{equation*}
-		\sum_{\ell=1}^{r} \|C_{\ell,t}(u)M\|_{\HS}^2 \le L_\sigma^2\|M\|_{\HS}^2.
+		\sum_{\ell=1}^{r} \|C_{\ell,t}(u)M\|^2 \le L_\sigma^2\|M\|^2.
 	\end{equation*}
 	Indeed, both inequalities follow by applying \eqref{eq:basic-derivative-bounds} to the columns of \(M\).
 
 	Similarly, applying \eqref{eq:spatial-lipschitz-derivatives} columnwise gives
 	\begin{equation}\label{eq:forcing-coefficient-bounds}
-		\|F_t\|_{\HS} \le H|\Delta X_t|\,\|J_t(v)\|_{\HS}
+		\|F_t\| \le H|\Delta X_t|\,\|J_t(v)\|
 	\end{equation}
 	and
 	\begin{equation*}
-		\left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2 \right)^{1/2} \le H|\Delta X_t|\,\|J_t(v)\|_{\HS}.
+		\left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|^2 \right)^{1/2} \le H|\Delta X_t|\,\|J_t(v)\|.
 	\end{equation*}
 	Consequently, H\"older's inequality, \eqref{eq:flow-increment-moment-2m}, and \eqref{eq:jacobian-moment} imply
 	\begin{align*}
-		 & \E\|F_t\|_{\HS}^m + \E\left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|_{\HS}^2 \right)^{m/2}                 \\
-		 & \quad\le C_m \left( \E|\Delta X_t|^{2m} \right)^{1/2} \left( \E\|J_t(v)\|_{\HS}^{2m} \right)^{1/2} \\
-		 & \quad\le C_me^{c_mt}|u-v|^m.
+		\E\|F_t\|^m + \E\left( \sum_{\ell=1}^{r}\|G_{\ell,t}\|^2 \right)^{m/2}
+		 & \le C_m \left( \E|\Delta X_t|^{2m} \right)^{1/2} \left( \E\|J_t(v)\|^{2m} \right)^{1/2} \\
+		 & \le C_me^{c_mt}|u-v|^m.
 	\end{align*}
-	Here we also used
-	\(\|M\|_{\HS}\le\sqrt d\,\|M\|_{\op}\).
 
 	Applying \Cref{lem:inhomogeneous-linear-moment} to \eqref{eq:jacobian-difference-sde}, and using \(D_0=0\), gives
 	\begin{align*}
-		\E\|D_t\|_{\HS}^m
-		 & \le
-		C_m|u-v|^m
-		\int_0^t
-		e^{c_m(t-s)}e^{c_ms}\,ds \\
-		 & \le
-		C_me^{c_mt}|u-v|^m,
+		\E\|D_t\|^m & \le C_m|u-v|^m\int_0^t e^{c_m(t-s)}e^{c_ms}\,ds \\
+		            & \le C_me^{c_mt}|u-v|^m,
 	\end{align*}
 	after enlarging \(c_m\). Therefore,
 	\begin{equation}\label{eq:jacobian-increment}
-		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\R^d.
+		\E\|J_t(u)-J_t(v)\|^m \le C_me^{c_mt}|u-v|^m, \qquad u,v\in\R^d.
 	\end{equation}
 	% In particular, the same estimate holds with the operator norm in place of the Hilbert--Schmidt norm.
 
 	% define the cube???
 	Let \(Q\subset\R^d\) be a compact cube containing \(K\), and choose \(u_0\in K\). By \eqref{eq:jacobian-increment}, \( u,v\in Q \)
 	\begin{equation*}
-		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^m.
+		\E\|J_t(u)-J_t(v)\|^m \le C_me^{c_mt}|u-v|^m.
 	\end{equation*}
 	Since \(m>d\), this may be written as
 	\begin{equation*}
-		\E\|J_t(u)-J_t(v)\|_{\HS}^m \le C_me^{c_mt}|u-v|^{d+(m-d)}.
+		\E\|J_t(u)-J_t(v)\|^m \le C_me^{c_mt}|u-v|^{d+(m-d)}.
 	\end{equation*}
 
 	% application of Kolmogorov--Totoki theorem
@@ -827,7 +759,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	\end{equation*}
 	gives
 	\begin{equation}\label{eq:kolmogorov-totoki-bound}
-		\E\left[\sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}^m \right] \le C_{m,Q}e^{c_mt}.
+		\E\left[\sup_{u\in Q} \|J_t(u)-J_t(u_0)\|^m \right] \le C_{m,Q}e^{c_mt}.
 	\end{equation}
 	Here we identify \(\R^{d\times d}\) with \(\R^{d^2}\).
 
@@ -836,14 +768,14 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 	% Kolmogorov--Totoki theorem agrees with this version on \(Q\) almost surely.
 
 	% final triangle inequality
-	For every \(u\in K\),
+	For every \(u\in K\) and every \(z\in\R^d\) with \(|z|=1\),
 	\begin{align*}
-		\|J_t(u)\|_{\op} & \le \|J_t(u_0)\|_{\op} + \|J_t(u)-J_t(u_0)\|_{\HS}.
+		|J_t(u)z| & \le |J_t(u_0)z| + |(J_t(u)-J_t(u_0))z|  \\
+		          & \le \|J_t(u_0)\| + \|J_t(u)-J_t(u_0)\|.
 	\end{align*}
-	% the finishing proof
 	Consequently,
 	\begin{equation*}
-		\mathcal K_t(K) \le \|J_t(u_0)\|_{\op} + \sup_{u\in Q} \|J_t(u)-J_t(u_0)\|_{\HS}.
+		\mathcal K_t(K) \le \|J_t(u_0)\| + \sup_{u\in Q}\|J_t(u)-J_t(u_0)\|.
 	\end{equation*}
 	Using \eqref{eq:jacobian-moment}, \eqref{eq:kolmogorov-totoki-bound}, and \((a+b)^m\le 2^{m-1}(a^m+b^m)\), we obtain
 	\begin{equation*}
@@ -866,7 +798,7 @@ The proof of \Cref{thm:kt-moment} relies on two elementary estimates for linear 
 The preceding pathwise estimates use the quantity \(\mathcal K_t(K)\) which controls the worst possible stretching of the flow on the
 compact set \(K\). Consider instead the averaged Jacobian for the transported measure \(\mu_t=\mu_0\circ T_t^{-1}\),
 \begin{equation*}
-	\mathcal E_t := \int_{\R^d}\|J_t(u)\|_{\HS}^2\,\mu_0(du).
+	\mathcal E_t := \int_{\R^d}\|J_t(u)\|^2\,\mu_0(du).
 \end{equation*}
 It measures average deformation of the flow over the initial mass, rather than
 the maximal deformation on the whole support.
@@ -875,23 +807,15 @@ the maximal deformation on the whole support.
 	Assume that the flow is differentiable in the initial label and that there
 	exist constants \(L_{\mathrm{sym}},\Gamma<\infty\) such that
 	\begin{equation}\label{eq:one-sided-drift-jacobian}
-		\langle z,\partial_x a(x,\mu)z\rangle
-		\le
-		L_{\mathrm{sym}}|z|^2,
-		\qquad x,z\in\R^d,\ \mu\in\cP_2(\R^d),
+		\langle z,\partial_x a(x,\mu)z\rangle \le L_{\mathrm{sym}}|z|^2, \qquad x,z\in\R^d,\ \mu\in\cP_2(\R^d),
 	\end{equation}
 	and
 	\begin{equation}\label{eq:quadratic-diffusion-jacobian}
-		\sum_{\ell=1}^{r}|\partial_x\sigma_\ell(x)z|^2
-		\le
-		\Gamma^2|z|^2,
-		\qquad x,z\in\R^d.
+		\sum_{\ell=1}^{r}|\partial_x\sigma_\ell(x)z|^2 \le \Gamma^2|z|^2, \qquad x,z\in\R^d.
 	\end{equation}
 	Then
 	\begin{equation}\label{eq:averaged-jacobian-bound}
-		\E\mathcal E_t
-		\le
-		d\exp\{(2L_{\mathrm{sym}}+\Gamma^2)t\}.
+		\E\mathcal E_t \le d\exp\{(2L_{\mathrm{sym}}+\Gamma^2)t\}.
 	\end{equation}
 \end{proposition}
 
@@ -904,37 +828,37 @@ the maximal deformation on the whole support.
 	\begin{equation*}
 		A_t(u)=\partial_x a(X_t(u),\mu_t), \qquad C_{\ell,t}(u)=\partial_x\sigma_\ell(X_t(u)).
 	\end{equation*}
-	Applying It\^o's formula to \(\|J_t(u)\|_{\HS}^2\) gives
+	Applying It\^o's formula to \(\|J_t(u)\|^2\) gives
 	\begin{align*}
-		d\|J_t(u)\|_{\HS}^2 & =
-		\bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle_{\HS} +
-		\sum_{\ell=1}^{r}\|C_{\ell,t}(u)J_t(u)\|_{\HS}^2 \bigg]dt                                                    \\
-		                    & \quad + 2\sum_{\ell=1}^{r} \langle J_t(u),C_{\ell,t}(u)J_t(u)\rangle_{\HS}\,dB_t^\ell.
+		d\|J_t(u)\|^2 & = \bigg[2\langle J_t(u),A_t(u)J_t(u)\rangle + \sum_{\ell=1}^{r}\|C_{\ell,t}(u)J_t(u)\|^2 \bigg]dt \\
+		              & \quad + 2\sum_{\ell=1}^{r} \langle J_t(u),C_{\ell,t}(u)J_t(u)\rangle\,dB_t^\ell.
 	\end{align*}
 	Since
 	\begin{equation*}
-		\langle J,A_tJ\rangle_{\HS} = \sum_{i=1}^d\langle Je_i,A_tJe_i\rangle,
+		\langle J,A_tJ\rangle = \sum_{i=1}^d\langle Je_i,A_tJe_i\rangle,
 	\end{equation*}
-	condition \cref{eq:one-sided-drift-jacobian} gives
+	condition \eqref{eq:one-sided-drift-jacobian} gives
 	\begin{equation*}
-		2\langle J,A_tJ\rangle_{\HS} \le 2L_{\mathrm{sym}}\|J\|_{\HS}^2.
+		2\langle J,A_tJ\rangle \le 2L_{\mathrm{sym}}\|J\|^2.
 	\end{equation*}
-	Similarly, \cref{eq:quadratic-diffusion-jacobian} gives
+	Similarly, \eqref{eq:quadratic-diffusion-jacobian} gives
 	\begin{equation*}
-		\sum_{\ell=1}^{r}\|C_{\ell,t}J\|_{\HS}^2 = \sum_{i=1}^d\sum_{\ell=1}^{r}|C_{\ell,t}Je_i|^2 \le \Gamma^2\|J\|_{\HS}^2.
+		\sum_{\ell=1}^{r}\|C_{\ell,t}J\|^2 = \sum_{i=1}^d\sum_{\ell=1}^{r}|C_{\ell,t}Je_i|^2 \le \Gamma^2\|J\|^2.
 	\end{equation*}
 	Integrating with respect to \(\mu_0(du)\) and taking expectations removes the
 	martingale term, hence
 	\begin{equation*}
 		\frac{d}{dt}\E\mathcal E_t \le (2L_{\mathrm{sym}}+\Gamma^2)\E\mathcal E_t.
 	\end{equation*}
-	Since \(J_0(u)=I\), we have \(\mathcal E_0=\|I\|_{\HS}^2=d\). Gronwall's
-	lemma proves \cref{eq:averaged-jacobian-bound}.
+	Since \(J_0(u)=I\), we have \(\mathcal E_0=\|I\|^2=d\). Gronwall's
+	lemma proves \eqref{eq:averaged-jacobian-bound}.
 \end{proof}
 
-To estimate \(\E\sup_{u\in K}\|J_t(u)\|^p\), one must control increments \(J_t(u)-J_t(v)\), which requires assumptions on the spatial regularity
+To estimate \(\E[\mathcal K_t(K)^p]\), one must control increments \(J_t(u)-J_t(v)\), which requires assumptions on the spatial regularity
 of \(\partial_x a\) and \(\partial_x\sigma\). The averaged quantity \(\mathcal E_t\) does not compare two labels. It only estimates each \(J_t(u)\)
-and integrates in \(u\), so the one-sided bounds \cref{eq:one-sided-drift-jacobian,eq:quadratic-diffusion-jacobian} are sufficient. \clearpage
+and integrates in \(u\), so the one-sided bounds \eqref{eq:one-sided-drift-jacobian} and \eqref{eq:quadratic-diffusion-jacobian} are sufficient.
+
+\clearpage
 
 % ============================================================
 % Internal fluctuations
@@ -966,7 +890,7 @@ with \(\sigma_\ell:\R^d\times\R^q\to\R^d\), \(\ell=1,\dots,r\). Define
 \end{equation*}
 
 % Dissipativity Assumptions on global Lipschitz and growth hypotheses.
-\begin{assumption}[Well-posedness of \Cref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
+\begin{assumption}[Well-posedness of \eqref{eq:kernel-sdewi}]\label{ass:kernel-wellposedness}
 	The maps \(b,F,\sigma_\ell,\Phi\) are globally Lipschitz and have at most linear growth.
 	More explicitly, there exists \(L<\infty\) such that
 	\begin{align*}
@@ -1030,7 +954,7 @@ The dissipativity condition covers several basic models.
 	\end{equation*}
 	If
 	\begin{equation*}
-		\|\sigma(x)-\sigma(y)\|_{\HS} \le L_\sigma |x-y|,
+		\|\sigma(x)-\sigma(y)\| \le L_\sigma |x-y|,
 	\end{equation*}
 	then
 	\begin{equation*}
@@ -1056,23 +980,6 @@ The dissipativity condition covers several basic models.
 	\begin{equation*}
 		\E\mathcal D_t \le e^{-(2\rho+2\rho_W-L_\sigma^2)t}\mathcal D_0.
 	\end{equation*}
-\end{example}
-
-\begin{example}[Nonlinear statistics]
-	Let
-	\begin{equation*}
-		\Theta_t=\int_{\R^d} \psi(X_t(v))\,\mu_0(dv),
-	\end{equation*}
-	and consider
-	\begin{equation*}
-		dX_t(u) = -\lambda_0\big(X_t(u)-\Theta_t\big)\,dt + \sigma(X_t(u),\Theta_t)\,dB_t.
-	\end{equation*}
-	For two labels \(u,v\), the order parameter cancels in the drift
-	difference:
-	\begin{equation*}
-		-\lambda_0\big(X_t(u)-\Theta_t\big) + \lambda_0\big(X_t(v)-\Theta_t\big) = -\lambda_0\big(X_t(u)-X_t(v)\big).
-	\end{equation*}
-
 \end{example}
 
 % ============================================================
@@ -1106,7 +1013,7 @@ The dissipativity condition covers several basic models.
 	\end{equation*}
 	then we integrate this estimate with respect to \(\mu_0(du)\mu_0(dv)\).
 
-	Writing \cref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
+	Writing \eqref{eq:kernel-sdewi} for \(X_t(u)\) and for \(X_t(v)\) and then subtracting the two equations gives
 	\begin{equation*}
 		dZ_t^{u,v} = G_t^{u,v}\,dt + \sum_{\ell=1}^r H_{\ell,t}^{u,v}\,dB_t^\ell,
 	\end{equation*}
@@ -1137,7 +1044,8 @@ The dissipativity condition covers several basic models.
 	\end{align*}
 	Apply \Cref{ass:pairwise-dissipativity} with
 	\(x=X_t(u)\), \(y=X_t(v)\), \(\theta=\Theta_t\), and \(\nu=\mu_t\). Then
-	\begin{equation*} 2\langle Z_t^{u,v},G_t^{u,v}\rangle +  \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
+	\begin{equation*}
+		2\langle Z_t^{u,v},G_t^{u,v}\rangle + \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2 \le -\lambda |Z_t^{u,v}|^2.
 	\end{equation*}
 	Therefore
 	\begin{equation}\label{eq:pairwise-contraction-differential}
@@ -1154,7 +1062,7 @@ The dissipativity condition covers several basic models.
 		           & \quad \left. + \sum_{\ell=1}^r |H_{\ell,t}^{u,v}|^2 \right]dt                               \\
 		           & \quad+ 2e^{\lambda t} \sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{align*}
-	By the drift bound \cref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
+	By the drift bound \eqref{eq:pairwise-contraction-differential}, the drift term above is nonpositive. Hence
 	\begin{equation*}
 		dY_t^{u,v} \le 2e^{\lambda t} \sum_{\ell=1}^r \langle Z_t^{u,v},H_{\ell,t}^{u,v}\rangle\,dB_t^\ell.
 	\end{equation*}
@@ -1166,10 +1074,10 @@ The dissipativity condition covers several basic models.
 	\end{equation*}
 	Since the solution is global and continuous, \(\tau_R\uparrow\infty\) almost surely as \(R\to\infty\). Stopping this inequality at
 	\(\tau_R\), we get
-	\begin{equation*}
-		Y_{t\wedge\tau_R}^{u,v} \le Y_0^{u,v}
-		+ 2\sum_{\ell=1}^r \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
-	\end{equation*}
+	\begin{align*}
+		Y_{t\wedge\tau_R}^{u,v} & \le Y_0^{u,v}                                                                                                       \\
+		                        & \quad + 2\sum_{\ell=1}^r \int_0^{t\wedge\tau_R} e^{\lambda s} \langle Z_s^{u,v},H_{\ell,s}^{u,v}\rangle\,dB_s^\ell.
+	\end{align*}
 	The stopped stochastic integral is a true martingale. Therefore, taking
 	expectations gives
 	\begin{equation*}
