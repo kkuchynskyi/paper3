@@ -67,8 +67,8 @@ We consider stochastic differential equations with interaction that were propose
 %  Main SDEWIN equation
 \begin{equation}\label{eq:main-sdewi}
 	\begin{cases}
-		dX_t(u) & = a\big(X_t(u),\mu_t\big)\,dt + \displaystyle\sum_{\ell=1}^{r} \sigma_\ell\bigl(X_t(u))\,dB_t^\ell, \\[1mm]
-		X_0(u)  & = u,                                                                                                \\[1mm]
+		dX_t(u) & = a\big(X_t(u),\mu_t\big)\,dt + \displaystyle\sum_{\ell=1}^{\infty} \sigma_\ell\bigl(X_t(u))\,dB_t^\ell, \\[1mm]
+		X_0(u)  & = u,                                                                                                     \\[1mm]
 		\mu_t   & = \mu_0\circ X_t^{-1}.
 	\end{cases}
 \end{equation}
@@ -79,7 +79,7 @@ the space of probability measures on \(\R^d\) with finite second moment.
 The drift is \(a:\R^d\times\cP_2(\R^d)\to\R^d\), and the diffusion
 coefficients \(\sigma_\ell:\R^d\to\R^d\), \(\ell=1,\ldots,r\), are state-dependent and non-constant.
 Let\( (\Omega,(\mathcal F_t)_{t\ge0},\mathbb P) \) be a filtered probability space satisfying the usual
-conditions and carrying a \(r\)-dimensional Brownian motion \(B=(B^1,\dots,B^r) \).
+conditions and  Brownian motion \(B=(B^1, \dots) \).
 
 % Assumption on the coefficients
 \begin{assumption}[Well-posedness]\label{ass:wellposedness}
